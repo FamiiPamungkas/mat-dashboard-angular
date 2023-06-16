@@ -1,0 +1,14 @@
+<li class="relative">
+  <a class="flex rounded-md relative {{active ? 'text-sky-700':'text-neutral-600'}}" (click)="toggleSubmenu()">
+    <div class="w-[40px] h-[40px] flex justify-center items-center">
+      <div class="absolute h-full w-[2px] bg-sky-100"></div>
+    </div>
+    <div class=" flex items-center justify-center {{level > 1 ?'pl-4':''}}">
+      {{label}}
+    </div>
+    <mat-icon *ngIf="hasSubmenu" [@rotateArrow]="submenuState" fontIcon="navigate_next" class="absolute mr-1 right-0 top-[calc(50%-12px)]"/>
+  </a>
+  <ul [@dropdownMenu]="submenuState">
+    <ng-content></ng-content>
+  </ul>
+</li>

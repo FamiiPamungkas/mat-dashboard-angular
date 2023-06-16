@@ -15,52 +15,15 @@
       <li class="flex p-1">
         <b>Management</b>
       </li>
-      <li>
-        <a class="flex bg-sky-100 rounded-md relative text-sky-700" (click)="log()">
-          <div class="w-[40px] h-[40px] flex justify-center items-center">
-            <mat-icon fontIcon="manage_accounts" class="w-3 h-3"/>
-          </div>
-          <div class="flex items-center justify-center">
-            User Management
-          </div>
-          <mat-icon fontIcon="navigate_next" class="absolute mr-1 right-0 top-[calc(50%-12px)]"/>
-        </a>
-        <ul class="">
-          <li class="relative">
-            <a class="flex rounded-md relative text-neutral-600" >
-              <div class="w-[40px] h-[40px] flex justify-center items-center">
-                <div class="absolute h-full w-[2px] bg-sky-100"></div>
-              </div>
-              <div class=" flex items-center justify-center pl-2">
-                Tambah User
-              </div>
-            </a>
-          </li>
-          <li class="relative">
-            <a class="flex rounded-md relative text-sky-700" >
-              <div class="w-[40px] h-[40px] flex justify-center items-center">
-                <div class="absolute h-full w-[2px] bg-sky-100"></div>
-              </div>
-              <div class=" flex items-center justify-center pl-2">
-                List User
-              </div>
-              <mat-icon fontIcon="navigate_next" class="absolute mr-1 right-0 top-[calc(50%-12px)]"/>
-            </a>
-            <ul>
-              <li>
-                <a class="flex rounded-md relative text-sky-700" >
-                  <div class="w-[40px] h-[40px] flex justify-center items-center">
-                    <div class="absolute h-full w-[2px] bg-sky-100"></div>
-                  </div>
-                  <div class=" flex items-center justify-center pl-6">
-                    Active User
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+      <menu-item icon="manage_accounts" label="Menu Item 1" [active]="true">
+        <sub-menu label="Sub Menu Item 1" [active]="false"></sub-menu>
+        <sub-menu label="Sub Menu Item 2" [active]="true">
+          <sub-menu label="Sub Menu Level 2" [active]="true" [level]="2"/>
+          <sub-menu label="Sub Menu Level 2" [active]="true" [level]="2"/>
+        </sub-menu>
+      </menu-item>
+      <menu-item icon="restaurant_menu" label="Menu Item 2" [active]="false">
+      </menu-item>
     </ul>
   </mat-drawer>
 

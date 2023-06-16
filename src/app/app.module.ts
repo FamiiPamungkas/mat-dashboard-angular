@@ -10,11 +10,15 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
+import { MenuItemComponent } from './layout/component/menu-item/menu-item.component';
+import { SubMenuComponent } from './layout/component/sub-menu/sub-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    MenuItemComponent,
+    SubMenuComponent
   ],
     imports: [
         BrowserModule,
