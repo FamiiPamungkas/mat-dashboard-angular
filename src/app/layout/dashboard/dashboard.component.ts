@@ -7,5 +7,7 @@ import {Component} from '@angular/core';
 })
 export class DashboardComponent {
 
-
+  log() {
+    console.log("testt")
+  }
 }

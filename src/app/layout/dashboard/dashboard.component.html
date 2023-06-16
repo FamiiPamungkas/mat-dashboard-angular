@@ -1,21 +1,67 @@
-<mat-drawer-container class="sidenav-container" [hasBackdrop]="true">
+<header class="flex p-2">
+  <div class="flex justify-center items-center">
+    <button mat-mini-fab (click)="sidenav.toggle()" title="sidenav toggle">
+      <mat-icon fontIcon="menu" class="w-3 h-3"></mat-icon>
+    </button>
+  </div>
+  <div class="flex p-2 text-2xl font-bold">
+    <mat-icon fontIcon="scatter_plot" class="w-3 h-3 text-sky-500"></mat-icon>
+    <span>FamiPam</span>
+  </div>
+</header>
+<mat-drawer-container class="sidenav-container h-[calc(100vh-64px)]">
   <mat-drawer #sidenav class="sidenav" mode="push" opened="true">
-    <div class="flex px-4 py-6 text-2xl font-bold">
-      <mat-icon fontIcon="scatter_plot" class="w-3 h-3 text-sky-500"></mat-icon>
-      <span>FamiPam</span>
-    </div>
-    <div class="px-4">
-    <mat-list>
-      <div>Folders</div>
-      <mat-list-item>
-        <mat-icon matListItemIcon>folder</mat-icon>
-        <div matListItemTitle>Title</div>
-        <div matListItemLine>Description</div>
-      </mat-list-item>
-    </mat-list>
-    </div>
-    Test
-    <button type="button" (click)="sidenav.close()"> Close</button>
+    <ul class="p-4 flex flex-col gap-2">
+      <li class="flex p-1">
+        <b>Management</b>
+      </li>
+      <li>
+        <a class="flex bg-sky-100 rounded-md relative text-sky-700" (click)="log()">
+          <div class="w-[40px] h-[40px] flex justify-center items-center">
+            <mat-icon fontIcon="manage_accounts" class="w-3 h-3"/>
+          </div>
+          <div class="flex items-center justify-center">
+            User Management
+          </div>
+          <mat-icon fontIcon="navigate_next" class="absolute mr-1 right-0 top-[calc(50%-12px)]"/>
+        </a>
+        <ul class="">
+          <li class="relative">
+            <a class="flex rounded-md relative text-neutral-600" >
+              <div class="w-[40px] h-[40px] flex justify-center items-center">
+                <div class="absolute h-full w-[2px] bg-sky-100"></div>
+              </div>
+              <div class=" flex items-center justify-center pl-2">
+                Tambah User
+              </div>
+            </a>
+          </li>
+          <li class="relative">
+            <a class="flex rounded-md relative text-sky-700" >
+              <div class="w-[40px] h-[40px] flex justify-center items-center">
+                <div class="absolute h-full w-[2px] bg-sky-100"></div>
+              </div>
+              <div class=" flex items-center justify-center pl-2">
+                List User
+              </div>
+              <mat-icon fontIcon="navigate_next" class="absolute mr-1 right-0 top-[calc(50%-12px)]"/>
+            </a>
+            <ul>
+              <li>
+                <a class="flex rounded-md relative text-sky-700" >
+                  <div class="w-[40px] h-[40px] flex justify-center items-center">
+                    <div class="absolute h-full w-[2px] bg-sky-100"></div>
+                  </div>
+                  <div class=" flex items-center justify-center pl-6">
+                    Active User
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </mat-drawer>
 
   <main class="content">
