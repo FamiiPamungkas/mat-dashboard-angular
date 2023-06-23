@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "authority": "dashboard",
+    "name": "Dashboard",
+    "description": "Dashboard Menu",
+    "link": "/dashboard",
+    "group": "",
+    "isMenu": true,
+    "children": [],
+    "seq": 1
+  },
+  {
+    "id": 2,
+    "authority": "user-management",
+    "name": "User Management",
+    "description": "User Management Menu",
+    "link": "/user-management",
+    "group": "User Management",
+    "isMenu": true,
+    "children": [
+      {
+        "id": 3,
+        "authority": "list-user",
+        "name": "Users",
+        "description": "List User Menu",
+        "link": "/users",
+        "group": "User Management",
+        "isMenu": true,
+        "children": [
+          {
+            "id": 6,
+            "authority": "test",
+            "name": "User Test",
+            "description": "TEST",
+            "link": "/user-test-sub",
+            "group": "User Management",
+            "isMenu": true,
+            "children": [],
+            "seq": 1004
+          }
+        ],
+        "seq": 1001
+      },
+      {
+        "id": 4,
+        "authority": "user-role",
+        "name": "Role",
+        "description": "User Role Menu",
+        "link": "/roles",
+        "group": "User Management",
+        "isMenu": true,
+        "children": [],
+        "seq": 1002
+      },
+      {
+        "id": 5,
+        "authority": "user-menu",
+        "name": "Menu",
+        "description": "Menu",
+        "link": "/menus",
+        "group": "User Management",
+        "isMenu": true,
+        "children": [],
+        "seq": 1003
+      }
+    ],
+    "seq": 1000
+  }
+]
