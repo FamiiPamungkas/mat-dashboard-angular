@@ -10,20 +10,23 @@
   </div>
 </header>
 <mat-drawer-container class="sidenav-container h-[calc(100vh-64px)]">
-  <mat-drawer #sidenav class="sidenav" mode="push" opened="true">
+  <mat-drawer #sidenav class="sidenav" mode="over" opened="true">
     <ul class="p-4 flex flex-col gap-2">
-      <li class="flex p-1">
-        <b>Management</b>
-      </li>
-      <menu-item icon="manage_accounts" label="Menu Item 1" [active]="true">
-        <sub-menu label="Sub Menu Item 1" [active]="false"></sub-menu>
-        <sub-menu label="Sub Menu Item 2" [active]="true">
-          <sub-menu label="Sub Menu Level 2" [active]="true" [level]="2"/>
-          <sub-menu label="Sub Menu Level 2" [active]="true" [level]="2"/>
-        </sub-menu>
-      </menu-item>
-      <menu-item icon="restaurant_menu" label="Menu Item 2" [active]="false">
-      </menu-item>
+      <ng-container *ngFor="let menu of menus">
+
+        <li *ngIf="menu.id==0; else menuItem" class="flex p-1">
+          <b>{{menu.group}}</b>
+        </li>
+
+        <ng-template #menuItem>
+          <menu-item label="{{menu.name}}" icon="{{menu.icon}}">
+            <sub-menu *ngFor="let subMenu of menu.children" label="{{subMenu.name}}">
+              <sub-menu *ngFor="let sub of subMenu.children" label="{{sub.name}}" [level]="2"/>
+            </sub-menu>
+          </menu-item>
+        </ng-template>
+
+      </ng-container>
     </ul>
   </mat-drawer>
 

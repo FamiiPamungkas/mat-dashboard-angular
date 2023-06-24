@@ -17,6 +17,6 @@ main.content {
   background: white;
 }
 
-.mat-drawer-backdrop.mat-drawer-shown{
-  background: rgba(0,0,0,0.5) !important;
-}
+/*.mat-drawer-backdrop.mat-drawer-shown{*/
+/*  !*background: rgba(0,0,0,0.5) !important;*!*/
+/*}*/

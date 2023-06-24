@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "authority": "dashboard",
+    "name": "Dashboard",
+    "description": "Dashboard Menu",
+    "link": "/dashboard",
+    "group": "Home",
+    "showOnNav": true,
+    "icon": "speed",
+    "children": [],
+    "seq": 1
+  },
+  {
+    "id": 2,
+    "authority": "user-management",
+    "name": "User Management",
+    "description": "User Management Menu",
+    "link": "/user-management",
+    "group": "Management",
+    "showOnNav": true,
+    "icon": "manage_accounts",
+    "children": [
+      {
+        "id": 5,
+        "authority": "user-menu",
+        "name": "Menu",
+        "description": "Menu",
+        "link": "/menus",
+        "group": "Management",
+        "showOnNav": true,
+        "icon": "",
+        "children": [],
+        "seq": 1003
+      },
+      {
+        "id": 3,
+        "authority": "list-user",
+        "name": "Users",
+        "description": "List Menu",
+        "link": "/users",
+        "group": "Management",
+        "showOnNav": true,
+        "icon": "",
+        "children": [
+          {
+            "id": 6,
+            "authority": "testing",
+            "name": "User Test Page",
+            "description": "Testing Menu",
+            "link": "/user-test-page",
+            "group": "Management",
+            "showOnNav": true,
+            "icon": "",
+            "children": [],
+            "seq": 1004
+          }
+        ],
+        "seq": 1001
+      },
+      {
+        "id": 4,
+        "authority": "user-role",
+        "name": "Role",
+        "description": "User Role Menu",
+        "link": "/roles",
+        "group": "Management",
+        "showOnNav": true,
+        "icon": "",
+        "children": [],
+        "seq": 1002
+      }
+    ],
+    "seq": 1000
+  }
+]
