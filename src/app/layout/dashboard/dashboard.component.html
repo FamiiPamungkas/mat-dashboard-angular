@@ -19,9 +19,9 @@
         </li>
 
         <ng-template #menuItem>
-          <menu-item label="{{menu.name}}" icon="{{menu.icon}}">
-            <sub-menu *ngFor="let subMenu of menu.children" label="{{subMenu.name}}">
-              <sub-menu *ngFor="let sub of subMenu.children" label="{{sub.name}}" [level]="2"/>
+          <menu-item label="{{menu.name}}" icon="{{menu.icon}}" [active]="(menu.active)" [link]="menu.link">
+            <sub-menu *ngFor="let subMenu of menu.children" label="{{subMenu.name}}" [active]="subMenu.active" [link]="subMenu.link">
+              <sub-menu *ngFor="let sub of subMenu.children" label="{{sub.name}}" [active]="sub.active" [link]="sub.link" [level]="2"/>
             </sub-menu>
           </menu-item>
         </ng-template>
@@ -31,6 +31,8 @@
   </mat-drawer>
 
   <main class="content">
+    <ng-content></ng-content>
+    <br>
     Content
     <button type="button" (click)="sidenav.toggle()"> Toggle Sidenav</button>
   </main>

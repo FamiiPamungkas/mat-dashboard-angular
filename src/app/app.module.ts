@@ -14,13 +14,17 @@ import {MenuItemComponent} from './layout/component/menu-item/menu-item.componen
 import {SubMenuComponent} from './layout/component/sub-menu/sub-menu.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
+import {HomeComponent} from './page/home/home.component';
+import { UserComponent } from './page/user/user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     MenuItemComponent,
-    SubMenuComponent
+    SubMenuComponent,
+    HomeComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

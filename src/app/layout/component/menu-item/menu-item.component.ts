@@ -12,6 +12,7 @@ export class MenuItemComponent implements AfterContentInit {
   @Input() icon: string = "";
   @Input() label: string = "";
   @Input() active: boolean = false;
+  @Input() link :string = "";
   @ContentChildren(SubMenuComponent) submenus?: QueryList<SubMenuComponent>;
 
   hasSubmenu: boolean = false;
@@ -24,6 +25,11 @@ export class MenuItemComponent implements AfterContentInit {
   }
 
   toggleSubmenu() {
+    if (!this.hasSubmenu){
+      location.href = this.link;
+      return;
+    }
+
     this.submenuState = this.submenuState == 'closed' ? 'open' : 'closed';
   }
 }

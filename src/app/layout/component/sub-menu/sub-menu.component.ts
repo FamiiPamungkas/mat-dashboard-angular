@@ -10,6 +10,7 @@ import {rotateArrowAnimation, submenuToggleAnimation} from "../../../utility/con
 export class SubMenuComponent implements AfterContentInit {
   @Input() label: string = "";
   @Input() active: boolean = false;
+  @Input() link:string = "";
   @ContentChildren(SubMenuComponent) submenus?: QueryList<SubMenuComponent>;
 
   @Input() level: number = 1;
@@ -23,6 +24,11 @@ export class SubMenuComponent implements AfterContentInit {
   }
 
   toggleSubmenu(){
+    if (!this.hasSubmenu){
+      location.href = this.link;
+      return;
+    }
+
     this.submenuState = this.submenuState == 'closed' ? 'open' : 'closed';
   }
 }
