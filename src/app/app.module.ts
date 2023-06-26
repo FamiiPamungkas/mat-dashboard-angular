@@ -13,6 +13,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MenuItemComponent} from './layout/component/menu-item/menu-item.component';
 import {SubMenuComponent} from './layout/component/sub-menu/sub-menu.component';
 import {HttpClientModule} from "@angular/common/http";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatIconModule,
     MatListModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
