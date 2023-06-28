@@ -9,7 +9,7 @@
     {{hasSubmenu ? '' :''}}
     <mat-icon *ngIf="hasSubmenu" [@rotateArrow]="submenuState" class="absolute right-0 mx-1 top-[calc(50%-12px)] transform transition duration-300" fontIcon="navigate_next" />
   </a>
-  <ul [@dropdownMenu]="submenuState">
+  <ul [@dropdownMenu]="submenuState" class="overflow-hidden">
     <ng-content></ng-content>
   </ul>
 </li>
