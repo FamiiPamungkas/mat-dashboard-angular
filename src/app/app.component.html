@@ -1,3 +1,8 @@
-<app-dashboard>
-  <router-outlet></router-outlet>
-</app-dashboard>
+<ng-container [ngSwitch]="activeLayout">
+  <app-dashboard *ngSwitchCase="DASHBOARD_LAYOUT">
+    <router-outlet></router-outlet>
+  </app-dashboard>
+  <main *ngSwitchCase="AUTH_LAYOUT" class="h-screen w-screen">
+    <router-outlet></router-outlet>
+  </main>
+</ng-container>

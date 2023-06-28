@@ -18,6 +18,10 @@ import {HomeComponent} from './page/home/home.component';
 import {UserComponent} from './page/user/user.component';
 import {MenuComponent} from './page/menu/menu.component';
 import {RoleComponent} from './page/role/role.component';
+import {LoginComponent} from './page/auth/login/login.component';
+import {LogoComponent} from './layout/component/logo/logo.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -29,6 +33,8 @@ import {RoleComponent} from './page/role/role.component';
     UserComponent,
     MenuComponent,
     RoleComponent,
+    LoginComponent,
+    LogoComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,9 @@ import {RoleComponent} from './page/role/role.component';
     MatListModule,
     MatButtonModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

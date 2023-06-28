@@ -4,8 +4,13 @@ import {HomeComponent} from "./page/home/home.component";
 import {UserComponent} from "./page/user/user.component";
 import {MenuComponent} from "./page/menu/menu.component";
 import {RoleComponent} from "./page/role/role.component";
+import {LoginComponent} from "./page/auth/login/login.component";
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'dashboard',
     component: HomeComponent

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {JsonService} from "../../service/json.service";
 import {Menu} from "../../model/model";
 import MenuImpl from "../../model/menuImpl";
 import {NavigationService} from "../../service/navigation.service";
