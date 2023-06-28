@@ -11,7 +11,7 @@
 </header>
 <mat-drawer-container class="sidenav-container h-[calc(100vh-64px)]">
   <mat-drawer #sidenav class="sidenav" mode="over" opened="true">
-    <ul class="p-4 flex flex-col gap-2">
+    <ul class="p-4 flex flex-col gap-1">
       <ng-container *ngFor="let menu of menus">
 
         <li *ngIf="menu.id==0; else menuItem" class="flex p-1">

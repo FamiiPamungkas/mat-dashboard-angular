@@ -1,21 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {DashboardComponent} from "./layout/dashboard/dashboard.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
 import {UserComponent} from "./page/user/user.component";
+import {MenuComponent} from "./page/menu/menu.component";
+import {RoleComponent} from "./page/role/role.component";
 
 const routes: Routes = [
   {
-    path:'dashboard',
+    path: 'dashboard',
     component: HomeComponent
   },
   {
-    path:'users',
+    path: 'users',
     component: UserComponent
   },
   {
-    path:'**',
-    redirectTo:'dashboard'
+    path: 'menus',
+    component: MenuComponent
+  },
+  {
+    path: 'roles',
+    component: RoleComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard'
   }
 ];
 
@@ -23,4 +32,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

@@ -1,18 +1,16 @@
 import {Component} from '@angular/core';
 import {NavigationService} from "../../service/navigation.service";
+import {BasePage} from "../base-page";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  readonly authority: string = "user-management";
+export class HomeComponent extends BasePage {
+  static AUTHORITY: string = "dashboard";
 
-  constructor(
-    private navService: NavigationService
-  ) {
-    navService.activeNav = this.authority;
+  constructor(navService: NavigationService) {
+    super(HomeComponent.AUTHORITY, navService);
   }
-
 }

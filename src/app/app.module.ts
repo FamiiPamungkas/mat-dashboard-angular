@@ -15,7 +15,9 @@ import {SubMenuComponent} from './layout/component/sub-menu/sub-menu.component';
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {HomeComponent} from './page/home/home.component';
-import { UserComponent } from './page/user/user.component';
+import {UserComponent} from './page/user/user.component';
+import {MenuComponent} from './page/menu/menu.component';
+import {RoleComponent} from './page/role/role.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { UserComponent } from './page/user/user.component';
     SubMenuComponent,
     HomeComponent,
     UserComponent,
+    MenuComponent,
+    RoleComponent,
   ],
   imports: [
     BrowserModule,

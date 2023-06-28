@@ -11,9 +11,9 @@ export class SubMenuComponent implements AfterContentInit {
   @Input() label: string = "";
   @Input() active: boolean = false;
   @Input() link:string = "";
+  @Input() level: number = 1;
   @ContentChildren(SubMenuComponent) submenus?: QueryList<SubMenuComponent>;
 
-  @Input() level: number = 1;
   hasSubmenu: boolean = false;
   submenuState: string = 'closed';
 
