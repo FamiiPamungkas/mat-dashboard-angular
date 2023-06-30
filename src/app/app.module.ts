@@ -22,6 +22,7 @@ import {LoginComponent} from './page/auth/login/login.component';
 import {LogoComponent} from './layout/component/logo/logo.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import {MatInputModule} from "@angular/material/input";
     HttpClientModule,
     CommonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

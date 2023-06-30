@@ -1,5 +1,4 @@
 <div class="flex w-full h-full bg-neutral-100 justify-center items-center px-4">
-  <form action="">
     <div class="bg-white p-6 w-full rounded-md drop-shadow-md max-w-[400px]">
       <header class="flex justify-between">
         <div>
@@ -8,26 +7,35 @@
         </div>
         <app-logo/>
       </header>
-      <div class="mt-10">
+      <div class="mt-10 flex flex-col gap-3">
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label>Username</mat-label>
-          <input matInput placeholder="Username">
+          <mat-label >Username</mat-label>
+          <input matInput placeholder="Username" [formControl]="usernameField">
+          <mat-error *ngIf="usernameField.hasError('required')">
+            Username is required
+          </mat-error>
+          <mat-error *ngIf="usernameField.hasError('userNotFound')">
+            {{usernameField.getError('userNotFound')}}
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'">
+          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'" [formControl]="passwordField">
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="'Hide'">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <mat-error *ngIf="passwordField.hasError('required')">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="passwordField.hasError('serverError')">
+            {{passwordField.getError('serverError')+ 'asds'}}
+          </mat-error>
         </mat-form-field>
-        <br>
         <hr>
-        <br>
-        <button mat-flat-button class="!text-white w-full" color="primary">Login</button>
+        <button mat-flat-button class="!text-white w-full" color="primary" (click)="login()">Login</button>
         <div class="flex justify-end pt-3">
-          <a href="/register" class="hover:text-sky-600">Don't have an account ?</a>
+          <a href="javascript:void(0)" class="hover:text-sky-600">Don't have an account ?</a>
         </div>
       </div>
     </div>
-  </form>
 </div>
