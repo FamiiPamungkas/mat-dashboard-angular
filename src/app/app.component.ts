@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeLayout = this.authService.isLoggedIn ? this.DASHBOARD_LAYOUT : this.AUTH_LAYOUT;
+    if (this.activeLayout == this.AUTH_LAYOUT && location.pathname != '/login') location.href = '/login';
   }
 
 }

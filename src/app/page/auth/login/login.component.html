@@ -1,24 +1,33 @@
-<div class="flex w-full h-full bg-neutral-100 justify-center items-center">
-
-  <div class="bg-white p-4 w-full m-4 rounded-md drop-shadow-md">
-    <header class="flex justify-between">
-      <div>
-        <h2 class="!text-xl !font-bold text-sky-600 !m-0">Hi, Welcome Back</h2>
-        <h4 class="!m-0 !font-bold">Login to your account</h4>
-      </div>
-      <app-logo/>
-    </header>
-    <div class="mt-10 px-3">
-      <form action="">
+<div class="flex w-full h-full bg-neutral-100 justify-center items-center px-4">
+  <form action="">
+    <div class="bg-white p-6 w-full rounded-md drop-shadow-md max-w-[400px]">
+      <header class="flex justify-between">
+        <div>
+          <h2 class="!text-xl !font-bold text-sky-600 !m-0">Hi, Welcome Back</h2>
+          <h4 class="!m-0 !font-bold">Login to your account</h4>
+        </div>
+        <app-logo/>
+      </header>
+      <div class="mt-10">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Username</mat-label>
           <input matInput placeholder="Username">
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password">
+          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'">
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="'Hide'">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
         </mat-form-field>
-      </form>
+        <br>
+        <hr>
+        <br>
+        <button mat-flat-button class="!text-white w-full" color="primary">Login</button>
+        <div class="flex justify-end pt-3">
+          <a href="/register" class="hover:text-sky-600">Don't have an account ?</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
