@@ -1,5 +1,6 @@
-<div class="flex w-full h-full bg-neutral-100 justify-center items-center px-4">
-    <div class="bg-white p-6 w-full rounded-md drop-shadow-md max-w-[400px]">
+  <div class="flex w-full h-full bg-neutral-100 justify-center items-center px-4">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="w-full max-w-[400px]">
+    <div class="bg-white py-6 px-4 w-full rounded-md drop-shadow-md">
       <header class="flex justify-between">
         <div>
           <h2 class="!text-xl !font-bold text-sky-600 !m-0">Hi, Welcome Back</h2>
@@ -10,32 +11,33 @@
       <div class="mt-10 flex flex-col gap-3">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label >Username</mat-label>
-          <input matInput placeholder="Username" [formControl]="usernameField">
-          <mat-error *ngIf="usernameField.hasError('required')">
+          <input matInput placeholder="Username" formControlName="username">
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
             Username is required
           </mat-error>
-          <mat-error *ngIf="usernameField.hasError('userNotFound')">
-            {{usernameField.getError('userNotFound')}}
+          <mat-error *ngIf="loginForm.get('username')?.hasError('invalidCredentials')">
+            {{loginForm.get('username')?.getError('invalidCredentials')}}
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'" [formControl]="passwordField">
+          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'" formControlName="password">
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="'Hide'">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="passwordField.hasError('required')">
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
             Password is required
           </mat-error>
-          <mat-error *ngIf="passwordField.hasError('serverError')">
-            {{passwordField.getError('serverError')+ 'asds'}}
+          <mat-error *ngIf="loginForm.get('password')?.hasError('invalidCredentials')">
+            {{loginForm.get('password')?.getError('invalidCredentials')}}
           </mat-error>
         </mat-form-field>
         <hr>
-        <button mat-flat-button class="!text-white w-full" color="primary" (click)="login()">Login</button>
+        <button mat-flat-button class="!text-white w-full" color="primary">Login</button>
         <div class="flex justify-end pt-3">
           <a href="javascript:void(0)" class="hover:text-sky-600">Don't have an account ?</a>
         </div>
       </div>
     </div>
+    </form>
 </div>

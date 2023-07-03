@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {RequestService} from "../../../service/request.service";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../../../service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -10,39 +10,31 @@ import {FormControl, Validators} from "@angular/forms";
 export class LoginComponent {
   hidePassword: boolean = true;
 
-  usernameField = new FormControl('', [Validators.required]);
-  passwordField = new FormControl('', [Validators.required]);
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  });
 
   constructor(
-    private reqService: RequestService
+    private authService: AuthService
   ) {
   }
 
   login() {
-    const loginData = {
-      username: this.usernameField.value,
-      password: this.passwordField.value,
-    }
+    if (this.loginForm.valid) {
+      const username = this.loginForm.get('username')?.value ?? "";
+      const password = this.loginForm.get('password')?.value ?? "";
 
-    this.reqService.post('/api/v1/auth/authenticate', loginData).subscribe(res => {
-      if (res.status != 200) {
-        const errors = res.errors;
-        if (errors.username != null) {
-          console.log("set Error - ",errors.username)
-          this.usernameField.setErrors({userNotFound:'errors.username'})
+      this.authService.login(username, password).subscribe(
+        res => {
+          if (res.status != null && res.status != 200) {
+            this.loginForm.get('username')?.setErrors({'invalidCredentials':res.message})
+            return;
+          }
         }
-        if (errors.password != null) {
-          console.log("set Error - ",errors.password)
-          this.passwordField.setErrors({'serverError': errors.password})}
-
-        console.log(this.usernameField.hasError("userNotFound"));
-        return;
-      }
-      console.log(res);
-    }, error => {
-      console.log("ERROR =", error);
-    });
-
+      )
+      console.log(username, password);
+    }
   }
 
 }
