@@ -5,27 +5,34 @@ import {UserComponent} from "./page/user/user.component";
 import {MenuComponent} from "./page/menu/menu.component";
 import {RoleComponent} from "./page/role/role.component";
 import {LoginComponent} from "./page/auth/login/login.component";
+import {authGuard} from "./guard/auth.guard";
+import {mainGuard} from "./guard/main.guard";
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'dashboard',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate:[mainGuard]
   },
   {
     path: 'users',
-    component: UserComponent
+    component: UserComponent,
+    canActivate:[mainGuard]
   },
   {
     path: 'menus',
-    component: MenuComponent
+    component: MenuComponent,
+    canActivate:[mainGuard]
   },
   {
     path: 'roles',
-    component: RoleComponent
+    component: RoleComponent,
+    canActivate:[mainGuard]
   },
   {
     path: '**',

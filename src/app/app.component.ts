@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./service/auth.service";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -13,13 +14,17 @@ export class AppComponent implements OnInit {
   activeLayout: string = this.AUTH_LAYOUT;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router:Router
   ) {
   }
 
   ngOnInit(): void {
-    this.activeLayout = this.authService.isLoggedIn ? this.DASHBOARD_LAYOUT : this.AUTH_LAYOUT;
-    if (this.activeLayout == this.AUTH_LAYOUT && location.pathname != '/login') location.href = '/login';
+    this.router.events.subscribe(event=>{
+      if (event instanceof NavigationEnd){
+        this.activeLayout = this.authService.isLoggedIn ? this.DASHBOARD_LAYOUT : this.AUTH_LAYOUT;
+      }
+    })
   }
 
 }

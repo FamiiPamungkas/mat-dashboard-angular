@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
   });
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
   }
 
@@ -28,9 +30,10 @@ export class LoginComponent {
       this.authService.login(username, password).subscribe(
         res => {
           if (res.status != null && res.status != 200) {
-            this.loginForm.get('username')?.setErrors({'invalidCredentials':res.message})
+            this.loginForm.get('username')?.setErrors({'invalidCredentials': res.message})
             return;
           }
+          this.router.navigateByUrl("/").then(r => false);
         }
       )
       console.log(username, password);
