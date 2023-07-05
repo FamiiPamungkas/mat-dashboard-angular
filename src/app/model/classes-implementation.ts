@@ -1,6 +1,6 @@
-import {Menu} from "./model";
+import {Menu} from "./interfaces";
 
-export default class MenuImpl implements Menu {
+export class MenuClass implements Menu {
   active: boolean = true;
   authority: string = "";
   children: Menu[] = [];
@@ -15,5 +15,6 @@ export default class MenuImpl implements Menu {
   seq: number = 0;
   showOnNav: boolean = true;
   updatedAt: Date = new Date();
+  authorities:string[] = [];
 
 }

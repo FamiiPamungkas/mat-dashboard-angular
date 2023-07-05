@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Menu} from "../../model/model";
-import MenuImpl from "../../model/menuImpl";
+import {Menu} from "../../model/interfaces";
+import {MenuClass} from "../../model/classes-implementation";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,46 +13,37 @@ import {RequestService} from "../../service/request.service";
 })
 export class DashboardComponent implements OnInit {
   menus: Menu[] = [];
+  activeNav:string = "";
 
   constructor(
     private request: RequestService,
-    private navService: NavigationService
+    private navService: NavigationService,
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-    this.request.get("/api/v1/users/1").subscribe(res=>{
-      const treeMenus = res.treeMenus;
-      this.generateMenus(treeMenus);
+    this.navService.getActiveNav().subscribe(activeNav=>{
+      this.activeNav = activeNav
     });
+
+    const user = this.authService.authUser;
+    if (user != null) {
+      this.generateMenus(user.treeMenus);
+    }
   }
 
   generateMenus(menus: Menu[]) {
-    menus.sort((a,b)=>a.seq-b.seq);
+    menus.sort((a, b) => a.seq - b.seq);
     let lastGroup: string = "";
-    let isM1Active: boolean = false;
-    let isM2Active: boolean = false;
-    let isM3Active: boolean = false;
-
     for (let menu of menus) {
-      menu.children.sort((a,b)=>a.seq-b.seq);
+      menu.children.sort((a, b) => a.seq - b.seq);
       for (let menu2 of menu.children) {
-        menu2.children.sort((a,b)=>a.seq-b.seq);
-        for (let menu3 of menu2.children) {
-          menu3.active = (menu3.authority == this.navService.activeNav);
-        }
-
-        isM3Active = menu2.children.some(s => s.authority == this.navService.activeNav);
-        menu2.active = (menu2.authority == this.navService.activeNav || isM3Active);
+        menu2.children.sort((a, b) => a.seq - b.seq);
       }
 
-      isM1Active = (menu.authority == this.navService.activeNav);
-      isM2Active = menu.children.some(s => s.authority == this.navService.activeNav);
-      isM3Active = menu.children.some(s => s.children.some(s2 => s2.authority == this.navService.activeNav));
-      menu.active = (isM1Active || isM2Active || isM3Active);
-
       if (lastGroup != menu.group) {
-        let lastGroup: Menu = new MenuImpl();
+        let lastGroup: Menu = new MenuClass();
         lastGroup.group = menu.group
         this.menus.push(lastGroup);
       }

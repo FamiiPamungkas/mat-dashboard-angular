@@ -27,6 +27,8 @@ export class SubMenuComponent implements AfterContentInit {
     if (this.submenus && this.submenus?.length > 0) {
       this.hasSubmenu = true;
     }
+
+    this.submenuState = this.active ? 'open' : 'closed';
   }
 
   toggleSubmenu() {

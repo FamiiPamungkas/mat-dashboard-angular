@@ -6,7 +6,7 @@ export class BasePage {
     authority: string,
     navService: NavigationService
   ) {
-    navService.activeNav = authority
+    navService.setActiveNav(authority);
   }
 
 

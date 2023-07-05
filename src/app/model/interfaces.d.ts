@@ -20,6 +20,7 @@ export interface Menu extends BaseEntity {
   icon: string;
   parent: Menu | null;
   children: Menu[];
+  authorities:string[];
 }
 
 export interface MenuBuilder {
