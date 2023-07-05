@@ -7,6 +7,8 @@ import {RoleComponent} from "./page/role/role.component";
 import {LoginComponent} from "./page/auth/login/login.component";
 import {authGuard} from "./guard/auth.guard";
 import {mainGuard} from "./guard/main.guard";
+import {ProductComponent} from "./page/product/product.component";
+import {ProductConsigComponent} from "./page/product-consig/product-consig.component";
 
 const routes: Routes = [
   {
@@ -32,6 +34,16 @@ const routes: Routes = [
   {
     path: 'roles',
     component: RoleComponent,
+    canActivate:[mainGuard]
+  },
+  {
+    path: 'products-normal',
+    component: ProductComponent,
+    canActivate:[mainGuard]
+  },
+  {
+    path: 'products-consignment',
+    component: ProductConsigComponent,
     canActivate:[mainGuard]
   },
   {

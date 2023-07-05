@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChildren, Input, QueryList} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, Input, OnChanges, QueryList, SimpleChanges} from '@angular/core';
 import {SubMenuComponent} from "../sub-menu/sub-menu.component";
 import {rotateArrowAnimation, submenuToggleAnimation} from "../../../utility/constant";
 import {Router} from "@angular/router";
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./menu-item.component.css'],
   animations: [submenuToggleAnimation(), rotateArrowAnimation()]
 })
-export class MenuItemComponent implements AfterContentInit {
+export class MenuItemComponent implements OnChanges, AfterContentInit {
   @Input() icon: string = "";
   @Input() label: string = "";
   @Input() active: boolean = false;
@@ -30,6 +30,12 @@ export class MenuItemComponent implements AfterContentInit {
     }
 
     this.submenuState = this.active ? 'open' : 'closed';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['active']){
+      this.submenuState = this.active ? 'open' : 'closed';
+    }
   }
 
   toggleSubmenu() {

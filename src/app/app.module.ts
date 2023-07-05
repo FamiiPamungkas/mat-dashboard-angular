@@ -23,6 +23,8 @@ import {LogoComponent} from './layout/component/logo/logo.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ProductComponent } from './page/product/product.component';
+import { ProductConsigComponent } from './page/product-consig/product-consig.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     RoleComponent,
     LoginComponent,
     LogoComponent,
+    ProductComponent,
+    ProductConsigComponent,
   ],
   imports: [
     BrowserModule,
