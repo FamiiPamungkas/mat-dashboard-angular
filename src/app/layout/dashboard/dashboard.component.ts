@@ -3,7 +3,6 @@ import {Menu} from "../../model/interfaces";
 import {MenuClass} from "../../model/classes-implementation";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
-import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 
 @Component({
