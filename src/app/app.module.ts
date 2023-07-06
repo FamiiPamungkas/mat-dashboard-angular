@@ -12,7 +12,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {MenuItemComponent} from './layout/component/menu-item/menu-item.component';
 import {SubMenuComponent} from './layout/component/sub-menu/sub-menu.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {HomeComponent} from './page/home/home.component';
 import {UserComponent} from './page/user/user.component';
@@ -23,9 +23,10 @@ import {LogoComponent} from './layout/component/logo/logo.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ProductComponent } from './page/product/product.component';
-import { ProductConsigComponent } from './page/product-consig/product-consig.component';
-import { AlertComponent } from './layout/component/alert/alert.component';
+import {ProductComponent} from './page/product/product.component';
+import {ProductConsigComponent} from './page/product-consig/product-consig.component';
+import {AlertComponent} from './layout/component/alert/alert.component';
+import {RequestInterceptor} from "./utility/request.interceptor";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,13 @@ import { AlertComponent } from './layout/component/alert/alert.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

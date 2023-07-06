@@ -5,6 +5,7 @@ import {CryptoService} from "./crypto.service";
 import {AUTH_USER_KEY, REFRESH_TOKEN_KEY, TOKEN_KEY} from "../utility/constant";
 import {User} from "../model/interfaces";
 import {StorageService} from "./storage.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthService {
   constructor(
     private reqService: RequestService,
     private cryptoService: CryptoService,
-    private storageService:StorageService
+    private storageService: StorageService,
+    private router:Router
   ) {
     this.isLoggedIn = (this.cryptoService.token != "");
   }
@@ -28,6 +30,14 @@ export class AuthService {
       console.error(e);
       return null;
     }
+  }
+
+  getToken(): string {
+    return this.cryptoService.token;
+  }
+
+  getRefreshToken(): string {
+    return this.cryptoService.refreshToken;
   }
 
   storeData(token: string, refreshToken: string, user: User) {
@@ -64,8 +74,18 @@ export class AuthService {
     );
   }
 
+  refreshToken() {
+    console.log("REFRESHTOKEN ="+this.getRefreshToken());
+    return this.reqService.basePost('/v1/auth/refresh-token', {"token": this.getRefreshToken()});
+  }
+
+  updateToken(token:string){
+    this.storageService.storeData(TOKEN_KEY, this.cryptoService.encrypt(token));
+  }
+
   logout() {
     this.isLoggedIn = false;
     this.clearData();
+    this.router.navigateByUrl("/login").then(() => false);
   }
 }
