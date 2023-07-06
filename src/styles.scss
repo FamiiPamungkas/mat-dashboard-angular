@@ -32,3 +32,24 @@ $my-theme: mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($my-theme);
+
+.alert > .content a {
+  @apply font-bold
+}
+
+.alert.info > .content a {
+  @apply hover:text-sky-600;
+}
+
+.alert.danger > .content a {
+  @apply hover:text-red-600;
+}
+
+.alert.success > .content a {
+  @apply hover:text-green-600;
+}
+
+.alert.warning > .content a {
+  @apply hover:text-yellow-600;
+}
+

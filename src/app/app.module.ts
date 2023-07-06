@@ -25,6 +25,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProductComponent } from './page/product/product.component';
 import { ProductConsigComponent } from './page/product-consig/product-consig.component';
+import { AlertComponent } from './layout/component/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProductConsigComponent } from './page/product-consig/product-consig.com
     LogoComponent,
     ProductComponent,
     ProductConsigComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

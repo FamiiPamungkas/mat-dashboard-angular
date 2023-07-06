@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   hidePassword: boolean = true;
   loading: boolean = false;
+  loginError: string = "";
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -33,7 +34,7 @@ export class LoginComponent {
         res => {
           this.loading = false;
           if (res.status != null && res.status != 200) {
-            this.loginForm.get('username')?.setErrors({'invalidCredentials': res.message})
+            this.loginError = res.message;
             return;
           }
           this.router.navigateByUrl("/").then(r => false);
@@ -44,4 +45,7 @@ export class LoginComponent {
     }
   }
 
+  clearError() {
+    this.loginError = "";
+  }
 }

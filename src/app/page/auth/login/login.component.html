@@ -11,7 +11,7 @@
       <div class="mt-10 flex flex-col gap-3">
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Username</mat-label>
-          <input matInput placeholder="Username" formControlName="username">
+          <input matInput placeholder="Username" formControlName="username" (focus)="clearError()">
           <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
             Username is required
           </mat-error>
@@ -21,7 +21,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-full">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'" formControlName="password">
+          <input matInput placeholder="Password" [type]="hidePassword ? 'password':'text'" formControlName="password" (focus)="clearError()">
           <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide Password'" [attr.aria-pressed]="'Hide'">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
@@ -32,6 +32,9 @@
             {{loginForm.get('password')?.getError('invalidCredentials')}}
           </mat-error>
         </mat-form-field>
+        <alert class="-mt-4" type="danger" icon="error" *ngIf="loginError.length>0">
+          {{loginError}}
+        </alert>
         <hr>
         <button mat-flat-button class="!text-white w-full" color="primary">
           <mat-icon *ngIf="loading" class="animate-spin" fontIcon="hourglass_top"></mat-icon>
