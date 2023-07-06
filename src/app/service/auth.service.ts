@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {CryptoService} from "./crypto.service";
 import {AUTH_USER_KEY, REFRESH_TOKEN_KEY, TOKEN_KEY} from "../utility/constant";
 import {User} from "../model/interfaces";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,31 +15,14 @@ export class AuthService {
   constructor(
     private reqService: RequestService,
     private cryptoService: CryptoService,
+    private storageService:StorageService
   ) {
-    this.isLoggedIn = (this.token != "");
-  }
-
-  get token(): string {
-    try {
-      return this.cryptoService.decrypt(localStorage.getItem(TOKEN_KEY) ?? "");
-    } catch (e) {
-      console.error(e);
-      return "";
-    }
-  }
-
-  get refreshToken(): string {
-    try {
-      return this.cryptoService.decrypt(localStorage.getItem(REFRESH_TOKEN_KEY) ?? "");
-    } catch (e) {
-      console.error(e);
-      return "";
-    }
+    this.isLoggedIn = (this.cryptoService.token != "");
   }
 
   get authUser(): User | null {
     try {
-      const user = localStorage.getItem(AUTH_USER_KEY) ?? "";
+      const user = this.storageService.getData(AUTH_USER_KEY);
       return JSON.parse(this.cryptoService.decrypt(user));
     } catch (e) {
       console.error(e);
@@ -47,15 +31,15 @@ export class AuthService {
   }
 
   storeData(token: string, refreshToken: string, user: User) {
-    localStorage.setItem(TOKEN_KEY, this.cryptoService.encrypt(token));
-    localStorage.setItem(REFRESH_TOKEN_KEY, this.cryptoService.encrypt(refreshToken));
-    localStorage.setItem(AUTH_USER_KEY, this.cryptoService.encrypt(JSON.stringify(user)));
+    this.storageService.storeData(TOKEN_KEY, this.cryptoService.encrypt(token));
+    this.storageService.storeData(REFRESH_TOKEN_KEY, this.cryptoService.encrypt(refreshToken));
+    this.storageService.storeData(AUTH_USER_KEY, this.cryptoService.encrypt(JSON.stringify(user)));
   }
 
-  clearData(){
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
-    localStorage.removeItem(AUTH_USER_KEY);
+  clearData() {
+    this.storageService.removeData(TOKEN_KEY);
+    this.storageService.removeData(REFRESH_TOKEN_KEY);
+    this.storageService.removeData(AUTH_USER_KEY);
   }
 
   login(username: string, password: string): Observable<any> {
@@ -64,7 +48,7 @@ export class AuthService {
       password: password,
     }
 
-    return this.reqService.post('/api/v1/auth/authenticate', loginData).pipe(
+    return this.reqService.post('/v1/auth/authenticate', loginData).pipe(
       map(response => {
           if (response.status == null && response.token != null && response.refreshToken != null) {
             this.storeData(

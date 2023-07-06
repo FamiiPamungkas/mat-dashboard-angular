@@ -34,4 +34,5 @@ export const TOKEN_KEY: string = "TOKEN";
 export const REFRESH_TOKEN_KEY: string = "REFRESH_TOKEN";
 export const AUTH_USER_KEY: string = "AUTH_USER";
 
-export const API_URL: string = "http://localhost:8088";
+export const BASE_URL: string = "http://localhost:8088"
+export const BASE_API: string = BASE_URL + "/api";

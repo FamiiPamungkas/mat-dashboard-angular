@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import * as CryptoJS from 'crypto-ts';
 import {REFRESH_TOKEN_KEY, TOKEN_KEY} from "../utility/constant";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,9 @@ import {REFRESH_TOKEN_KEY, TOKEN_KEY} from "../utility/constant";
 export class CryptoService {
   private encryptionKey: string = 'KEY_ENCRIPTY';
 
-  constructor() {
+  constructor(
+    private storageService: StorageService
+  ) {
   }
 
   encrypt(token: string) {
@@ -24,6 +27,24 @@ export class CryptoService {
     try {
       const byte = CryptoJS.AES.decrypt(token, this.encryptionKey);
       return byte.toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+      console.error(e);
+      return "";
+    }
+  }
+
+  get token(): string {
+    try {
+      return this.decrypt(this.storageService.getData(TOKEN_KEY));
+    } catch (e) {
+      console.error(e);
+      return "";
+    }
+  }
+
+  get refreshToken(): string {
+    try {
+      return this.decrypt(this.storageService.getData(REFRESH_TOKEN_KEY));
     } catch (e) {
       console.error(e);
       return "";

@@ -1,25 +1,25 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, delayWhen, finalize, Observable, of, take, timer} from "rxjs";
-import {API_URL} from "../utility/constant";
+import {BASE_API} from "../utility/constant";
+import {CryptoService} from "./crypto.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  private token: string = 'eyJhbGciOiJIUzI1NiJ9.eyJ2ZXIiOiIxLjAuMCIsInR5cGUiOiJBQ0NFU1NfVE9LRU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTY4NzkyMjMxNSwiZXhwIjoxNjkwNTE0MzE1fQ.Mz--Zvm5mebMT95zeRIHf3PIFUdUHrlG7EpR3ce6VNE'; // Replace with your actual token
-  private apiUrl: string = API_URL;
   private running: boolean = false;
 
   private options?: RequestOptions;
 
-  private headers: HttpHeaders = new HttpHeaders({
+  private baseHeader = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${this.token}`
-  });
+    'Authorization': ''
+  };
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cryptoService: CryptoService
   ) {
     this.options = new class implements RequestOptions {
       handleErrors: boolean = true;
@@ -27,7 +27,7 @@ export class RequestService {
   }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
-    console.log("error ", error);
+    console.log("## REQUEST ERROR => ", error);
     return of(error.error);
   }
 
@@ -40,10 +40,14 @@ export class RequestService {
     }
 
     this.running = true;
-    const headers = this.headers;
+    this.baseHeader['Authorization'] = this.cryptoService.token.length > 0 ? `Bearer ${this.cryptoService.token}` : "";
+    const headers = new HttpHeaders(this.baseHeader);
 
-    return this.http.get<any>(`${this.apiUrl}${url}`, {headers}).pipe(
-      catchError(this.handleError)
+    return this.http.get<any>(this.digestURL(url), {headers}).pipe(
+      catchError(this.handleError),
+      finalize(() => {
+        this.running = false;
+      })
     );
   }
 
@@ -56,13 +60,19 @@ export class RequestService {
     }
 
     this.running = true;
-    const headers = this.headers;
-    return this.http.post<any>(`${this.apiUrl}${url}`, obj, {headers}).pipe(
+    this.baseHeader['Authorization'] = this.cryptoService.token.length > 0 ? `Bearer ${this.cryptoService.token}` : "";
+    const headers = new HttpHeaders(this.baseHeader);
+
+    return this.http.post<any>(this.digestURL(url), obj, {headers}).pipe(
       catchError(this.handleError),
-      finalize(()=>{
+      finalize(() => {
         this.running = false;
       })
     );
+  }
+
+  private digestURL(url: string): string {
+    return url.startsWith("/") ? BASE_API + url : url;
   }
 
 }
