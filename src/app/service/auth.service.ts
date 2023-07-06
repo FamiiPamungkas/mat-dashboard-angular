@@ -52,6 +52,12 @@ export class AuthService {
     localStorage.setItem(AUTH_USER_KEY, this.cryptoService.encrypt(JSON.stringify(user)));
   }
 
+  clearData(){
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+  }
+
   login(username: string, password: string): Observable<any> {
     const loginData = {
       username: username,
@@ -72,5 +78,10 @@ export class AuthService {
         }
       )
     );
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    this.clearData();
   }
 }

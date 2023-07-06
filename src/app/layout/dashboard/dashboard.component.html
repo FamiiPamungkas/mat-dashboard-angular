@@ -1,5 +1,5 @@
 <mat-drawer-container class="sidenav-container h-screen">
-  <mat-drawer #sidenav class="sidenav" mode="over" opened="true">
+  <mat-drawer #sidenav class="sidenav" mode="over">
     <ul class="p-4 flex flex-col gap-1">
       <li>
         <div class="flex justify-between">
@@ -27,7 +27,7 @@
       </ng-container>
     </ul>
   </mat-drawer>
-  <header class="flex p-2 justify-between items-center bg-white fixed top-0 w-screen z-10">
+  <header class="flex p-2 justify-between items-center bg-white fixed top-0 w-screen z-10 drop-shadow-sm">
     <div class="flex justify-center items-center gap-2">
       <div class="flex justify-center items-center">
         <button mat-mini-fab (click)="sidenav.toggle()" title="sidenav toggle">
@@ -37,38 +37,17 @@
       <app-logo/>
     </div>
     <div class="w-[40px] h-[40px] relative">
-      <div class="bg-sky-600 w-full h-full rounded-full flex justify-center items-center text-white">
+      <div (click)="openUserMenu()" class="bg-sky-600 w-full h-full rounded-full flex justify-center items-center text-white cursor-pointer">
         <mat-icon fontIcon="account_circle"></mat-icon>
       </div>
-<!--      <div class="absolute bg-amber-300 right-0 min-w-[150px] rounded-md shadow-sm py-2">-->
-<!--        <ul>-->
-<!--          <menu-item class="px-4" label="Logout" icon="logout"></menu-item>-->
-<!--          <li>-->
-<!--            <a href="javascript:void(0)" class="flex px-4 gap-1 items-center">-->
-<!--              <div class="w-[28px] h-[28px] flex justify-center items-center">-->
-<!--                <mat-icon fontIcon="logout"></mat-icon>-->
-<!--              </div>-->
-<!--              <div>Logout</div>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <a href="javascript:void(0)" class="flex px-4 gap-1 items-center">-->
-<!--              <div class="w-[28px] h-[28px] flex justify-center items-center">-->
-<!--                <mat-icon fontIcon="logout"></mat-icon>-->
-<!--              </div>-->
-<!--              <div>Logout</div>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <a href="javascript:void(0)" class="flex px-4 gap-1 items-center">-->
-<!--              <div class="w-[28px] h-[28px] flex justify-center items-center">-->
-<!--                <mat-icon fontIcon="logout"></mat-icon>-->
-<!--              </div>-->
-<!--              <div>Logout</div>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
+      <div [@dropdownMenu]="userMenuState" class="overflow-hidden absolute bg-white right-0 top-[55px] min-w-[150px] rounded-md shadow-md">
+        <mat-list>
+          <mat-list-item class="!h-fit !px-0 !py-1 !cursor-pointer hover:bg-neutral-200" (click)="logout()">
+            <mat-icon class="!mr-3 !ml-3" fontIcon="logout" matListItemIcon></mat-icon>
+            <span matListItemTitle>Logout</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
     </div>
   </header>
   <main class="content">

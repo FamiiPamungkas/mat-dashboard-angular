@@ -1,6 +1,6 @@
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
-export function submenuToggleAnimation() {
+export function dropdownAnimation() {
   return trigger(
     'dropdownMenu', [
       state('closed', style({

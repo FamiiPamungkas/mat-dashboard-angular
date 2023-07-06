@@ -1,12 +1,12 @@
 import {AfterContentInit, Component, ContentChildren, Input, OnChanges, QueryList, SimpleChanges} from '@angular/core';
-import {rotateArrowAnimation, submenuToggleAnimation} from "../../../utility/constant";
+import {rotateArrowAnimation, dropdownAnimation} from "../../../utility/constant";
 import {Router} from "@angular/router";
 
 @Component({
   selector: 'sub-menu',
   templateUrl: './sub-menu.component.html',
   styleUrls: ['./sub-menu.component.css'],
-  animations: [submenuToggleAnimation(), rotateArrowAnimation()]
+  animations: [dropdownAnimation(), rotateArrowAnimation()]
 })
 export class SubMenuComponent implements OnChanges, AfterContentInit {
   @Input() label: string = "";

@@ -4,25 +4,30 @@ import {MenuClass} from "../../model/classes-implementation";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {AuthService} from "../../service/auth.service";
+import {dropdownAnimation} from "../../utility/constant";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  animations: [dropdownAnimation()]
 })
 export class DashboardComponent implements OnInit {
   menus: Menu[] = [];
-  activeNav:string = "";
+  activeNav: string = "";
+  userMenuState: string = "closed";
 
   constructor(
     private request: RequestService,
     private navService: NavigationService,
     private authService: AuthService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.navService.getActiveNav().subscribe(activeNav=>{
+    this.navService.getActiveNav().subscribe(activeNav => {
       this.activeNav = activeNav
     });
 
@@ -50,5 +55,14 @@ export class DashboardComponent implements OnInit {
       this.menus.push(menu);
       lastGroup = menu.group;
     }
+  }
+
+  openUserMenu() {
+    this.userMenuState = this.userMenuState == "open" ? "closed" : "open";
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl("/login").then(r => false);
   }
 }
