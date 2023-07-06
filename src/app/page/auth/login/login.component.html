@@ -1,5 +1,5 @@
-  <div class="flex w-full h-full bg-neutral-100 justify-center items-center px-4">
-    <form [formGroup]="loginForm" (ngSubmit)="login()" class="w-full max-w-[400px]">
+<div class="flex w-full h-full bg-neutral-100 justify-center items-center px-4">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="w-full max-w-[400px]">
     <div class="bg-white py-6 px-4 w-full rounded-md drop-shadow-md">
       <header class="flex justify-between">
         <div>
@@ -10,7 +10,7 @@
       </header>
       <div class="mt-10 flex flex-col gap-3">
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label >Username</mat-label>
+          <mat-label>Username</mat-label>
           <input matInput placeholder="Username" formControlName="username">
           <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
             Username is required
@@ -33,11 +33,14 @@
           </mat-error>
         </mat-form-field>
         <hr>
-        <button mat-flat-button class="!text-white w-full" color="primary">Login</button>
+        <button mat-flat-button class="!text-white w-full" color="primary">
+          <mat-icon *ngIf="loading" class="animate-spin" fontIcon="hourglass_top"></mat-icon>
+          <span *ngIf="!loading">Login</span>
+        </button>
         <div class="flex justify-end pt-3">
           <a href="javascript:void(0)" class="hover:text-sky-600">Don't have an account ?</a>
         </div>
       </div>
     </div>
-    </form>
+  </form>
 </div>

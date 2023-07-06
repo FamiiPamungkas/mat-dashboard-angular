@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, delayWhen, finalize, Observable, of, take, timer} from "rxjs";
+import {API_URL} from "../utility/constant";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
   private token: string = 'eyJhbGciOiJIUzI1NiJ9.eyJ2ZXIiOiIxLjAuMCIsInR5cGUiOiJBQ0NFU1NfVE9LRU4iLCJzdWIiOiJhZG1pbiIsImlhdCI6MTY4NzkyMjMxNSwiZXhwIjoxNjkwNTE0MzE1fQ.Mz--Zvm5mebMT95zeRIHf3PIFUdUHrlG7EpR3ce6VNE'; // Replace with your actual token
-  private apiUrl: string = "http://localhost:8088";
+  private apiUrl: string = API_URL;
   private running: boolean = false;
 
   private options?: RequestOptions;

@@ -6,10 +6,11 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   hidePassword: boolean = true;
+  loading: boolean = false;
 
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -23,12 +24,14 @@ export class LoginComponent {
   }
 
   login() {
+    this.loading = true;
     if (this.loginForm.valid) {
       const username = this.loginForm.get('username')?.value ?? "";
       const password = this.loginForm.get('password')?.value ?? "";
 
       this.authService.login(username, password).subscribe(
         res => {
+          this.loading = false;
           if (res.status != null && res.status != 200) {
             this.loginForm.get('username')?.setErrors({'invalidCredentials': res.message})
             return;
@@ -36,7 +39,8 @@ export class LoginComponent {
           this.router.navigateByUrl("/").then(r => false);
         }
       )
-      console.log(username, password);
+    } else {
+      this.loading = false;
     }
   }
 
