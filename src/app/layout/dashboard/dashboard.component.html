@@ -50,7 +50,11 @@
       </div>
     </div>
   </header>
-  <main class="content pt-[56px]">
+  <main class="content pt-[56px] flex flex-col justify-start">
     <ng-content></ng-content>
+    <div class="flex-grow"></div>
+    <footer class="w-full text-right bg-white shadow-md p-4">
+      COPYRIGHT @ FAMIPAM
+    </footer>
   </main>
 </mat-drawer-container>
