@@ -68,4 +68,8 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
+  closeUserMenu() {
+    this.userMenuState = "closed";
+  }
 }

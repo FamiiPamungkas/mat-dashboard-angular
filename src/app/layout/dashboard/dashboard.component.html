@@ -37,9 +37,9 @@
       <app-logo/>
     </div>
     <div class="w-[40px] h-[40px] relative">
-      <div (click)="openUserMenu()" class="bg-sky-600 w-full h-full rounded-full flex justify-center items-center text-white cursor-pointer">
+      <button type="button" (click)="openUserMenu()" (blur)="closeUserMenu()" class="bg-sky-600 w-full h-full rounded-full flex justify-center items-center text-white cursor-pointer" aria-label="Toggle User Menu">
         <mat-icon fontIcon="account_circle"></mat-icon>
-      </div>
+      </button>
       <div [@dropdownMenu]="userMenuState" class="overflow-hidden absolute bg-white right-0 top-[55px] min-w-[150px] rounded-md shadow-md">
         <mat-list>
           <mat-list-item class="!h-fit !px-0 !py-1 !cursor-pointer hover:bg-neutral-200" (click)="logout()">
