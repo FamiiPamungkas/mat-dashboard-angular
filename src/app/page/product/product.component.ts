@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavigationService} from "../../service/navigation.service";
 import {BasePage} from "../base-page";
 
@@ -7,10 +7,15 @@ import {BasePage} from "../base-page";
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent extends BasePage{
+export class ProductComponent extends BasePage {
   static AUTHORITY: string = "product-normal";
+  static PAGE_TITLE: string = "Products";
 
   constructor(navService: NavigationService) {
-    super(ProductComponent.AUTHORITY, navService);
+    super(
+      navService,
+      ProductComponent.AUTHORITY,
+      ProductComponent.PAGE_TITLE
+    );
   }
 }

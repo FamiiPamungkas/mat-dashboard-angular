@@ -8,9 +8,16 @@ import {BasePage} from "../base-page";
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent extends BasePage {
+  static PAGE_TITLE: string = "Roles";
   static AUTHORITY: string = "user-role";
 
-  constructor(navService: NavigationService) {
-    super(RoleComponent.AUTHORITY, navService);
+  constructor(
+    navService: NavigationService
+  ) {
+    super(
+      navService,
+      RoleComponent.AUTHORITY,
+      RoleComponent.PAGE_TITLE
+    );
   }
 }

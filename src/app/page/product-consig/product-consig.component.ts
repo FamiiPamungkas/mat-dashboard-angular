@@ -8,9 +8,14 @@ import {BasePage} from "../base-page";
   styleUrls: ['./product-consig.component.css']
 })
 export class ProductConsigComponent extends BasePage {
+  static PAGE_TITLE: string = "Consignment Products";
   static AUTHORITY: string = "product-consignment";
 
   constructor(navService: NavigationService) {
-    super(ProductConsigComponent.AUTHORITY, navService);
+    super(
+      navService,
+      ProductConsigComponent.AUTHORITY,
+      ProductConsigComponent.PAGE_TITLE
+    );
   }
 }

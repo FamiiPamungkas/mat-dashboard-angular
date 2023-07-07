@@ -29,6 +29,7 @@ import {AlertComponent} from './layout/component/alert/alert.component';
 import {RequestInterceptor} from "./utility/request.interceptor";
 import { NavLinkComponent } from './layout/component/nav-link/nav-link.component';
 import { BreadcrumbsComponent } from './layout/component/breadcrumbs/breadcrumbs.component';
+import { PageTitleComponent } from './layout/component/page-title/page-title.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { BreadcrumbsComponent } from './layout/component/breadcrumbs/breadcrumbs
     AlertComponent,
     NavLinkComponent,
     BreadcrumbsComponent,
+    PageTitleComponent,
   ],
   imports: [
     BrowserModule,

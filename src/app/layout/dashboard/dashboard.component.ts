@@ -5,7 +5,7 @@ import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {AuthService} from "../../service/auth.service";
 import {dropdownAnimation} from "../../utility/constant";
-import {Router} from "@angular/router";
+import {Breadcrumb} from "../component/breadcrumbs/breadcrumbs.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,13 +17,17 @@ export class DashboardComponent implements OnInit {
   menus: Menu[] = [];
   activeNav: string = "";
   userMenuState: string = "closed";
+  breadcrumbs: Breadcrumb[] = [];
 
   constructor(
     private request: RequestService,
     private navService: NavigationService,
     private authService: AuthService,
-    private router: Router
   ) {
+    this.breadcrumbs = [
+      new Breadcrumb("Home","/dashboard"),
+      new Breadcrumb("User","/users"),
+    ]
   }
 
   ngOnInit(): void {

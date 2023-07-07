@@ -9,8 +9,13 @@ import {BasePage} from "../base-page";
 })
 export class MenuComponent extends BasePage {
   static AUTHORITY: string = "user-menu";
+  static PAGE_TITLE: string = "Menus";
 
   constructor(navService: NavigationService) {
-    super(MenuComponent.AUTHORITY, navService);
+    super(
+      navService,
+      MenuComponent.AUTHORITY,
+      MenuComponent.PAGE_TITLE
+    );
   }
 }

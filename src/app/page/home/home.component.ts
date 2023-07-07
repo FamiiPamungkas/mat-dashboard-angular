@@ -10,16 +10,21 @@ import {RequestService} from "../../service/request.service";
 })
 export class HomeComponent extends BasePage {
   static AUTHORITY: string = "dashboard";
+  static PAGE_TITLE: string = "Dashboard";
 
   constructor(
     private navService: NavigationService,
     private requestService: RequestService
   ) {
-    super(HomeComponent.AUTHORITY, navService);
+    super(
+      navService,
+      HomeComponent.AUTHORITY,
+      HomeComponent.PAGE_TITLE
+    );
   }
 
   test() {
-    this.requestService.get("/v1/users/1").subscribe(res=>{
+    this.requestService.get("/v1/users/1").subscribe(res => {
       console.log("response", res);
     })
   }

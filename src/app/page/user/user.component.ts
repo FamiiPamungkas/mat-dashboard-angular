@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavigationService} from "../../service/navigation.service";
 import {BasePage} from "../base-page";
+import {Breadcrumb} from "../../layout/component/breadcrumbs/breadcrumbs.component";
 
 @Component({
   selector: 'app-user',
@@ -8,9 +9,17 @@ import {BasePage} from "../base-page";
   styleUrls: ['./user.component.css']
 })
 export class UserComponent extends BasePage {
+  static PAGE_TITLE: string = "Users";
   static AUTHORITY: string = "user-list";
 
-  constructor(navService: NavigationService) {
-    super(UserComponent.AUTHORITY, navService);
+  breadcrumbs: Breadcrumb[] = [
+    new Breadcrumb("Home", "/dashboard"),
+    new Breadcrumb("Users"),
+  ];
+
+  constructor(
+    private navService: NavigationService
+  ) {
+    super(navService, UserComponent.AUTHORITY, UserComponent.PAGE_TITLE);
   }
 }
