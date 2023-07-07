@@ -1,0 +1,6 @@
+<a (click)="navigateTo()" [ngClass]="[type,weight]">
+  {{label}}
+  <ng-container *ngIf="label.length==0">
+    <ng-content></ng-content>
+  </ng-container>
+</a>

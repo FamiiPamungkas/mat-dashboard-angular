@@ -1,0 +1,9 @@
+<div class="flex justify-start items-center text-neutral-600">
+  <ng-container *ngFor="let breadcrumb of breadcrumbs;let i = index">
+    <span *ngIf="breadcrumb.link.length==0; else navLink;">{{breadcrumb.label}}</span>
+    <ng-template #navLink>
+      <nav-link type="dark" weight="semibold" [link]="breadcrumb.link">{{breadcrumb.label}}</nav-link>
+    </ng-template>
+    <mat-icon *ngIf="i < (breadcrumbs.length -1)" fontIcon="chevron_right"></mat-icon>
+  </ng-container>
+</div>
