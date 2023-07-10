@@ -9,6 +9,7 @@ import {authGuard} from "./guard/auth.guard";
 import {mainGuard} from "./guard/main.guard";
 import {ProductComponent} from "./page/product/product.component";
 import {ProductConsigComponent} from "./page/product-consig/product-consig.component";
+import {UserFormComponent} from "./page/user-form/user-form.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'users',
     component: UserComponent,
+    canActivate:[mainGuard]
+  },
+  {
+    path: 'user-form',
+    component: UserFormComponent,
     canActivate:[mainGuard]
   },
   {

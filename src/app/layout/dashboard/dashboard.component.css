@@ -1,11 +1,9 @@
 .sidenav-container {
   width: 100%;
-  /*border: 1px solid rgba(0, 0, 0, 0.5);*/
-  /*background: palevioletred;*/
 }
 
 main.content {
-  height: 100%;
+  @apply h-full bg-neutral-200
 }
 
 .sidenav {
@@ -13,7 +11,3 @@ main.content {
   width: 250px;
   background: white;
 }
-
-/*.mat-drawer-backdrop.mat-drawer-shown{*/
-/*  !*background: rgba(0,0,0,0.5) !important;*!*/
-/*}*/

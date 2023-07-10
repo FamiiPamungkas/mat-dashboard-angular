@@ -1,0 +1,30 @@
+<div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <h2 class="font-semibold">Add User</h2>
+  <mat-divider></mat-divider>
+  <form>
+    <div class="flex flex-col mt-4">
+      <mat-form-field appearance="fill" class="max-w-[250px]">
+        <mat-label>Firstname</mat-label>
+        <input matInput placeholder="Firstname">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="max-w-[250px]">
+        <mat-label>Lastname</mat-label>
+        <input matInput placeholder="Lastname">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="max-w-[250px]">
+        <mat-label>Birthdate</mat-label>
+        <input matInput placeholder="Birthdate" [matDatepicker]="picker">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="max-w-[250px]">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username">
+      </mat-form-field>
+
+      <mat-divider inset="false"></mat-divider>
+      <h3>Roles</h3>
+    </div>
+  </form>
+
+</div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Menu} from "../../model/interfaces";
+import {Menu, MenuDTO} from "../../model/interfaces";
 import {MenuClass} from "../../model/classes-implementation";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
@@ -14,7 +14,7 @@ import {Breadcrumb} from "../component/breadcrumbs/breadcrumbs.component";
   animations: [dropdownAnimation()]
 })
 export class DashboardComponent implements OnInit {
-  menus: Menu[] = [];
+  menus: MenuDTO[] = [];
   activeNav: string = "";
   userMenuState: string = "closed";
   breadcrumbs: Breadcrumb[] = [];
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
       }
 
       if (lastGroup != menu.group) {
-        let lastGroup: Menu = new MenuClass();
+        let lastGroup: MenuDTO = new MenuClass();
         lastGroup.group = menu.group
         this.menus.push(lastGroup);
       }

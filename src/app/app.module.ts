@@ -27,9 +27,14 @@ import {ProductComponent} from './page/product/product.component';
 import {ProductConsigComponent} from './page/product-consig/product-consig.component';
 import {AlertComponent} from './layout/component/alert/alert.component';
 import {RequestInterceptor} from "./utility/request.interceptor";
-import { NavLinkComponent } from './layout/component/nav-link/nav-link.component';
-import { BreadcrumbsComponent } from './layout/component/breadcrumbs/breadcrumbs.component';
-import { PageTitleComponent } from './layout/component/page-title/page-title.component';
+import {NavLinkComponent} from './layout/component/nav-link/nav-link.component';
+import {BreadcrumbsComponent} from './layout/component/breadcrumbs/breadcrumbs.component';
+import {PageTitleComponent} from './layout/component/page-title/page-title.component';
+import {MatTableModule} from "@angular/material/table";
+import {UserFormComponent} from './page/user-form/user-form.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -49,6 +54,7 @@ import { PageTitleComponent } from './layout/component/page-title/page-title.com
     NavLinkComponent,
     BreadcrumbsComponent,
     PageTitleComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,12 @@ import { PageTitleComponent } from './layout/component/page-title/page-title.com
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule
   ],
   providers: [
     {
