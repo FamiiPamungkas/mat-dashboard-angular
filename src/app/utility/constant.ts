@@ -1,4 +1,5 @@
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
 
 export function dropdownAnimation() {
   return trigger(
@@ -29,6 +30,16 @@ export function rotateArrowAnimation() {
     ]
   )
 }
+
+export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get("password");
+  const confirmPassword = control.get("confirmPassword");
+  if (password?.value != confirmPassword?.value) {
+    return {passwordMismatch: true};
+  }
+  return null;
+}
+
 
 export const TOKEN_KEY: string = "TOKEN";
 export const REFRESH_TOKEN_KEY: string = "REFRESH_TOKEN";

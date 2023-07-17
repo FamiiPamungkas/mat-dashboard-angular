@@ -4,6 +4,7 @@ import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {SimpleOption} from "../../model/interfaces";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {passwordMatchValidator} from "../../utility/constant";
 
 @Component({
   selector: 'app-user-form',
@@ -22,8 +23,10 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
     lastname: new FormControl('', [Validators.required]),
     birthdate: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required]),
     roles: new FormControl('', [Validators.required])
-  })
+  }, {validators: passwordMatchValidator})
 
 
   constructor(
@@ -47,9 +50,11 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
     )
   }
 
-  addUser() {
-    this.submitted = true;
+  submit() {
+    console.log("IS VALID " + this.userForm.valid)
+    if (this.userForm.valid) {
 
+    }
   }
 
 }

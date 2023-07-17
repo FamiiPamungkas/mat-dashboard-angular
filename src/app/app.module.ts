@@ -37,6 +37,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormFieldComponent} from './layout/component/form/form-field/form-field.component';
+import {AppInputDirective} from './directive/app-input.directive';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {FormFieldComponent} from './layout/component/form/form-field/form-field.
     PageTitleComponent,
     UserFormComponent,
     FormFieldComponent,
+    AppInputDirective,
   ],
   imports: [
     BrowserModule,
