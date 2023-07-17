@@ -17,7 +17,7 @@ export class AuthService {
     private reqService: RequestService,
     private cryptoService: CryptoService,
     private storageService: StorageService,
-    private router:Router
+    private router: Router
   ) {
     this.isLoggedIn = (this.cryptoService.token != "");
   }
@@ -75,11 +75,10 @@ export class AuthService {
   }
 
   refreshToken() {
-    console.log("REFRESHTOKEN ="+this.getRefreshToken());
     return this.reqService.basePost('/v1/auth/refresh-token', {"token": this.getRefreshToken()});
   }
 
-  updateToken(token:string){
+  updateToken(token: string) {
     this.storageService.storeData(TOKEN_KEY, this.cryptoService.encrypt(token));
   }
 

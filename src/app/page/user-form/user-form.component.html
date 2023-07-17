@@ -1,29 +1,36 @@
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
   <h2 class="font-semibold">Add User</h2>
   <mat-divider></mat-divider>
-  <form>
-    <div class="flex flex-col mt-4">
-      <mat-form-field appearance="fill" class="max-w-[250px]">
-        <mat-label>Firstname</mat-label>
-        <input matInput placeholder="Firstname">
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="max-w-[250px]">
-        <mat-label>Lastname</mat-label>
-        <input matInput placeholder="Lastname">
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="max-w-[250px]">
-        <mat-label>Birthdate</mat-label>
-        <input matInput placeholder="Birthdate" [matDatepicker]="picker">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="fill" class="max-w-[250px]">
-        <mat-label>Username</mat-label>
-        <input matInput placeholder="Username">
-      </mat-form-field>
+  <form [formGroup]="userForm" (ngSubmit)="addUser()">
+    <div class="flex flex-col mt-4 gap-2">
+      <app-form-field label="Firstname" class="max-w-[300px]">
+        <input #input type="text" placeholder="Firstname" formControlName="firstname"/>
+        <mat-error *ngIf="userForm.get('firstname')?.hasError('required')">Firstname is required</mat-error>
+      </app-form-field>
+      <app-form-field label="Lastname" class="max-w-[300px]">
+        <input #input type="text" placeholder="Lastname" formControlName="lastname"/>
+        <mat-error *ngIf="userForm.get('lastname')?.hasError('required')">Lastname is required</mat-error>
+      </app-form-field>
+      <app-form-field label="Birthdate" class="max-w-[300px]">
+        <input #input type="date" formControlName="birthdate"/>
+        <mat-error *ngIf="userForm.get('birthdate')?.hasError('required')">Birthdate is required</mat-error>
+      </app-form-field>
+      <app-form-field label="Username" class="max-w-[300px]">
+        <input #input type="text" placeholder="Username"  formControlName="username"/>
+        <mat-error *ngIf="userForm.get('username')?.hasError('required')">Username is required</mat-error>
+      </app-form-field>
+      <mat-divider inset="false" class="!my-2"></mat-divider>
+      <h3 class="!m-0">Roles</h3>
+      <div>
+        <section class="bg-neutral-100 rounded-md">
+          <mat-checkbox formControlName="roles" *ngFor="let role of roleOptions" [value]="role.key">{{role.value}}</mat-checkbox>
+        </section>
+        <mat-error *ngIf="userForm.get('roles')?.hasError('required') && submitted">Roles is required</mat-error>
+      </div>
 
-      <mat-divider inset="false"></mat-divider>
-      <h3>Roles</h3>
+      <section>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </section>
     </div>
   </form>
 

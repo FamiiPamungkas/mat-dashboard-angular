@@ -35,6 +35,8 @@ import {UserFormComponent} from './page/user-form/user-form.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {FormFieldComponent} from './layout/component/form/form-field/form-field.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     BreadcrumbsComponent,
     PageTitleComponent,
     UserFormComponent,
+    FormFieldComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatChipsModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ],
   providers: [
     {

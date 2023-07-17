@@ -1,0 +1,11 @@
+<label class="group">
+  <span class="font-medium {{onFocus? 'text-sky-700':''}}">{{label}}</span>
+  <ng-content select="[test]"></ng-content>
+  <div
+    class="{{error ? '!border-red-600': '' }} flex border-[1px] rounded-md focus-within:border-blue-400 focus-within:focused overflow-hidden">
+    <ng-content></ng-content>
+  </div>
+  <div *ngIf="error" class="flex flex-col">
+    <ng-content select="mat-error"></ng-content>
+  </div>
+</label>
