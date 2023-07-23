@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Menu, MenuDTO} from "../../model/interfaces";
-import {MenuClass} from "../../model/classes-implementation";
+import {MenuDTO} from "../../model/interfaces";
+import {Menu} from "../../model/classes-implementation";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {AuthService} from "../../service/auth.service";
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
       }
 
       if (lastGroup != menu.group) {
-        let lastGroup: MenuDTO = new MenuClass();
+        let lastGroup: MenuDTO = new Menu();
         lastGroup.group = menu.group
         this.menus.push(lastGroup);
       }

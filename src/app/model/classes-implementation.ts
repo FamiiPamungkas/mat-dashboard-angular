@@ -1,16 +1,40 @@
-import {Menu, MenuDTO} from "./interfaces";
+import {Menu as MenuInt, MenuDTO, RoleDTO, UserDTO} from "./interfaces";
 
-export class MenuClass implements MenuDTO {
+export class Menu implements MenuDTO {
+  id: number = 0;
   authority: string = "";
-  children: Menu[] = [];
+  name: string = "";
   description: string = "";
   group: string = "";
   icon: string = "";
-  id: number = 0;
   link: string = "";
-  name: string = "";
-  seq: number = 0;
   showOnNav: boolean = true;
-  authorities:string[] = [];
+  seq: number = 0;
+  authorities: string[] = [];
+  children: MenuInt[] = [];
+}
+
+export class Role implements RoleDTO {
+
+  constructor(id?: number) {
+    if (id) this.id = id;
+  }
+
+  id: number = 0;
+  name: string = "";
+  description: string = "";
+  menus: MenuDTO[] = [];
+}
+
+export class User implements UserDTO {
+
+  id: number = 0;
+  firstname: string = "";
+  lastname: string = "";
+  birthdate: string = "";
+  email: string = "";
+  username: string = "";
+  password: string = "";
+  roles: RoleDTO[] = [];
 
 }
