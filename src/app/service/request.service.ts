@@ -19,16 +19,16 @@ export class RequestService {
     return of(error.error);
   }
 
-  public get(url: string): Observable<any> {
+  public get(url: string, obj?: any): Observable<any> {
     if (this.running) {
       return timer(500).pipe(
         take(1),
-        delayWhen(() => this.get(url))
+        delayWhen(() => this.get(url, obj))
       );
     }
 
     this.running = true;
-    return this.http.get<any>(this.digestURL(url)).pipe(
+    return this.baseGet(url, obj).pipe(
       catchError(this.handleError),
       finalize(() => {
         this.running = false;
@@ -55,6 +55,10 @@ export class RequestService {
 
   basePost(url: string, obj?: any) {
     return this.http.post<any>(this.digestURL(url), obj);
+  }
+
+  baseGet(url: string, obj?: any) {
+    return this.http.get<any>(this.digestURL(url), obj);
   }
 
   private digestURL(url: string): string {
