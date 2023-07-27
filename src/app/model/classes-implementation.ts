@@ -1,4 +1,5 @@
 import {Menu as MenuInt, MenuDTO, RoleDTO, UserDTO} from "./interfaces";
+import {notificationType} from "../layout/component/notification/notification.component";
 
 export class Menu implements MenuDTO {
   id: number = 0;
@@ -38,4 +39,24 @@ export class User implements UserDTO {
   password: string = "";
   roles: RoleDTO[] = [];
 
+}
+
+export class AppNotification {
+
+  constructor(
+    type: notificationType,
+    title?: string,
+    message?: string,
+    icon?:string,
+  ) {
+    this.type = type;
+    this.title = title ?? "";
+    this.message = message ?? "";
+    this.icon = icon ?? "";
+  }
+
+  icon: string = "";
+  type: notificationType = "primary";
+  title: string = "";
+  message: string = "";
 }

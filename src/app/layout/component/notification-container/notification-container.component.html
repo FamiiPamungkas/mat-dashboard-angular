@@ -1,0 +1,8 @@
+<div class="flex flex-col gap-2">
+  <notification
+    *ngFor="let notif of notifications"
+    [type]="notif.type"
+    [title]="notif.title"
+    [message]="notif.message"
+  />
+</div>

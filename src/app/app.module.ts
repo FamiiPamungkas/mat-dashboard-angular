@@ -38,6 +38,8 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormFieldComponent} from './layout/component/form/form-field/form-field.component';
 import {AppInputDirective} from './directive/app-input.directive';
+import { NotificationContainerComponent } from './layout/component/notification-container/notification-container.component';
+import { NotificationComponent } from './layout/component/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import {AppInputDirective} from './directive/app-input.directive';
     UserFormComponent,
     FormFieldComponent,
     AppInputDirective,
+    NotificationContainerComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,

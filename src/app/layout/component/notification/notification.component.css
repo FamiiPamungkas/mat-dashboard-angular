@@ -1,0 +1,64 @@
+.notification.primary {
+  @apply bg-sky-500
+}
+
+.notification.primary .duration-bar {
+  @apply bg-sky-800
+}
+
+.notification.secondary {
+  @apply bg-pink-500
+}
+
+.notification.secondary .duration-bar {
+  @apply bg-pink-800
+}
+
+.notification.info {
+  @apply bg-blue-500
+}
+
+.notification.info .duration-bar {
+  @apply bg-blue-800
+}
+
+.notification.success {
+  @apply bg-lime-600
+}
+
+.notification.success .duration-bar {
+  @apply bg-lime-800
+}
+
+.notification.warning {
+  @apply bg-yellow-600
+}
+
+.notification.warning .duration-bar {
+  @apply bg-yellow-800
+}
+
+.notification.danger {
+  @apply bg-red-600
+}
+
+.notification.danger .duration-bar {
+  @apply bg-red-900
+}
+
+.notification.dark {
+  @apply bg-slate-700
+}
+
+.notification.dark .duration-bar {
+  @apply bg-slate-900
+}
+
+.notification.light {
+  @apply bg-neutral-100 !text-neutral-800
+}
+
+.notification.light .duration-bar {
+  @apply bg-neutral-800
+}
+
