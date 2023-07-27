@@ -3,10 +3,10 @@ import {BasePage} from "../base-page";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {SimpleOption} from "../../model/interfaces";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {passwordMatchValidator, USERS_ENDPOINT} from "../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Role, User} from "../../model/classes-implementation";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-form',

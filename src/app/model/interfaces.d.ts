@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-07-10 11:12:53.
+// Generated using typescript-generator version 3.2.1263 on 2023-07-25 10:31:29.
 
 export interface MenuDTO {
   id: number;
@@ -18,6 +18,7 @@ export interface MenuDTO {
 
 export interface RoleDTO {
   id: number;
+  authority: string;
   name: string;
   description: string;
   menus: MenuDTO[];
@@ -40,6 +41,17 @@ export interface UserDTO {
   lastname: string;
   birthdate: string;
   username: string;
+  email: string;
+  roles: RoleDTO[];
+}
+
+export interface UserFormRequest {
+  id: number;
+  firstname: string;
+  lastname: string;
+  birthdate: string;
+  username: string;
+  password: string;
   email: string;
   roles: RoleDTO[];
 }
@@ -128,10 +140,10 @@ export interface GrantedAuthority extends Serializable {
 
 export interface UserDetails extends Serializable {
   enabled: boolean;
-  accountNonExpired: boolean;
-  credentialsNonExpired: boolean;
   password: string;
   username: string;
   authorities: GrantedAuthority[];
   accountNonLocked: boolean;
+  accountNonExpired: boolean;
+  credentialsNonExpired: boolean;
 }

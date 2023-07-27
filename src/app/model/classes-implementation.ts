@@ -22,6 +22,7 @@ export class Role implements RoleDTO {
 
   id: number = 0;
   name: string = "";
+  authority: string = "";
   description: string = "";
   menus: MenuDTO[] = [];
 }
