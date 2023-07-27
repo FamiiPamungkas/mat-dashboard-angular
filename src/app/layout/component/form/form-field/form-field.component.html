@@ -6,7 +6,7 @@
     <ng-content></ng-content>
     <ng-container *ngIf="showPasswordToggle">
       <button class="py-1 px-2 flex" type="button" (click)="togglePassword()">
-        <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-icon>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </ng-container>
   </div>
