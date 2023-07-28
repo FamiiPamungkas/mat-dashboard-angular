@@ -1,14 +1,14 @@
-<div [ngClass]="type" class="notification flex pt-1 pb-2 pr-2 rounded-sm relative min-w-[200px] max-w-[300px] text-white overflow-hidden shadow-md">
+<div [ngClass]="type" class="notification flex pt-1 {{isSingleText ? 'pb-[5px]' : 'pb-2'}} pr-2 rounded-sm relative min-w-[200px] max-w-[300px] text-white overflow-hidden shadow-md">
   <div class="flex justify-center items-center px-2">
     <mat-icon>{{icon}}</mat-icon>
   </div>
   <div class="flex flex-col">
-    <div class=""><h4 class="!m-0 !font-medium">{{title}}</h4></div>
+    <div class=""><h4 class="!m-0 !font-medium">{{title}} {{timeout}}</h4></div>
     <div class="leading-4">
       <span>{{message}}</span>
     </div>
   </div>
   <div class="absolute h-1 w-full bottom-0 left-0">
-    <div class="duration-bar w-1/2 h-full"></div>
+    <div class="duration-bar h-full" [style.width.%]="timeout/10"></div>
   </div>
 </div>
