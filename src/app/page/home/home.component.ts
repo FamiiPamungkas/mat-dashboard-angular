@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {NavigationService} from "../../service/navigation.service";
 import {BasePage} from "../base-page";
 import {RequestService} from "../../service/request.service";
+import {NotificationService} from "../../service/notification.service";
+import {AppNotification} from "../../model/classes-implementation";
+import {notificationType} from "../../layout/component/notification/notification.component";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +17,8 @@ export class HomeComponent extends BasePage {
 
   constructor(
     private navService: NavigationService,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private notifService: NotificationService
   ) {
     super(
       navService,
@@ -28,4 +32,16 @@ export class HomeComponent extends BasePage {
       console.log("response", res);
     })
   }
+
+  addNotification() {
+    let tipes: notificationType[] = ['primary', 'secondary', 'info', 'success', 'warning', 'danger', 'dark', 'light']
+    let notif = new AppNotification(
+      tipes[Math.floor(Math.random() * tipes.length)],
+      "Notification Title",
+      "This messages is only for testing only",
+    );
+    this.notifService.addNotification(notif)
+  }
+
+
 }

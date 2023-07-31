@@ -1,4 +1,4 @@
-import {Component, ViewContainerRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {AppNotification} from "../../../model/classes-implementation";
 import {NotificationService} from "../../../service/notification.service";
 
@@ -10,10 +10,9 @@ import {NotificationService} from "../../../service/notification.service";
 export class NotificationContainerComponent {
 
   constructor(
-    private notifService: NotificationService,
-    viewRef: ViewContainerRef
+    public notificationService: NotificationService,
   ) {
-    this.notifService.containerRef = viewRef;
+
   }
 
   notifications: AppNotification[] = [

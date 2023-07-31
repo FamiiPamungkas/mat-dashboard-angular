@@ -1,4 +1,6 @@
 import {Component, HostListener, Input} from '@angular/core';
+import {AppNotification} from "../../../model/classes-implementation";
+import {NotificationService} from "../../../service/notification.service";
 
 @Component({
   selector: 'notification',
@@ -6,14 +8,13 @@ import {Component, HostListener, Input} from '@angular/core';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent {
-  @Input() type: notificationType = "primary";
-  @Input() message: string = "";
-  @Input() title: string = "";
+  @Input() notification?: AppNotification;
 
   private timer: any;
-  timeout: number = 1000;
+  c: number = 8;
+  timeout: number = this.c * 100;
 
-  constructor() {
+  constructor(private notificationService: NotificationService) {
     this.startTimer();
   }
 
@@ -24,7 +25,8 @@ export class NotificationComponent {
         return;
       }
       this.stopTimer();
-    },1);
+      this.remove();
+    }, 1);
   }
 
   private stopTimer() {
@@ -32,12 +34,13 @@ export class NotificationComponent {
   }
 
   get isSingleText(): boolean {
-    return (this.message === "" || this.title === "");
+    return (this.notification?.message === "" || this.notification?.title === "");
   }
 
   get icon(): string {
-    switch (this.type) {
-      case "primary":
+    if (this.notification?.icon) return this.notification.icon;
+    switch (this.notification?.type) {
+      case "info":
         return "info"
       case "success":
         return "check_circle_outline"
@@ -46,7 +49,7 @@ export class NotificationComponent {
       case "danger":
         return "close"
       default:
-        return "info"
+        return "scatter_plot"
     }
   }
 
@@ -58,14 +61,10 @@ export class NotificationComponent {
     this.startTimer();
   }
 
+  remove() {
+    this.notificationService.removeNotification(this.notification);
+  }
+
 }
 
-export declare type notificationType =
-  'primary'
-  | 'secondary'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'dark'
-  | 'light';
+export declare type notificationType = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger' | 'dark' | 'light';

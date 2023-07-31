@@ -44,17 +44,19 @@ export class User implements UserDTO {
 export class AppNotification {
 
   constructor(
-    type: notificationType,
+    type?: notificationType,
     title?: string,
     message?: string,
-    icon?:string,
+    icon?: string,
   ) {
-    this.type = type;
+    this.id = 'ntf_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now();
+    this.type = type ?? "info";
     this.title = title ?? "";
     this.message = message ?? "";
     this.icon = icon ?? "";
   }
 
+  id: string = "";
   icon: string = "";
   type: notificationType = "primary";
   title: string = "";
