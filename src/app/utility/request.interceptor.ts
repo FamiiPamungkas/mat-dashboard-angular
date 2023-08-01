@@ -29,7 +29,6 @@ export class RequestInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error) => {
-        console.log("ERROR=",error)
         if (error.status === 401 && !request.url.includes('/refresh-token')) {
           return this.authService.refreshToken().pipe(
             switchMap(response => {

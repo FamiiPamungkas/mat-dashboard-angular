@@ -3,10 +3,12 @@ import {BasePage} from "../base-page";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {SimpleOption} from "../../model/interfaces";
-import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, ROLES_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
+import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Role, User} from "../../model/classes-implementation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {AlertDialogComponent, AlertDialogData} from "../../layout/component/alert-dialog/alert-dialog.component";
 
 @Component({
   selector: 'app-user-form',
@@ -24,7 +26,7 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
 
   userForm = new FormGroup({
     firstname: new FormControl('', [Validators.required]),
-    lastname: new FormControl('', [Validators.required]),
+    lastname: new FormControl(''),
     birthdate: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     username: new FormControl('', [Validators.required]),
@@ -36,7 +38,8 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
 
   constructor(
     navService: NavigationService,
-    private reqService: RequestService
+    private reqService: RequestService,
+    private dialog: MatDialog
   ) {
     super(
       navService,
@@ -97,5 +100,24 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
     }
 
     this.userForm.get('roles')?.setValue(this.selectedRoles);
+  }
+
+  openModal() {
+    const data: AlertDialogData = {
+      type: "normal",
+      useConfirmBtn: true,
+      title: "Normal Modal",
+      message: "Lorem ipsum dolor sit amet, consectetur."
+    };
+
+    const dialogRef = this.dialog.open(
+      AlertDialogComponent, {
+        width: '300px', data
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("CLOSED ", result);
+    })
   }
 }

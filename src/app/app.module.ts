@@ -40,6 +40,8 @@ import {FormFieldComponent} from './layout/component/form/form-field/form-field.
 import {AppInputDirective} from './directive/app-input.directive';
 import { NotificationContainerComponent } from './layout/component/notification-container/notification-container.component';
 import { NotificationComponent } from './layout/component/notification/notification.component';
+import { AlertDialogComponent } from './layout/component/alert-dialog/alert-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -64,29 +66,31 @@ import { NotificationComponent } from './layout/component/notification/notificat
     AppInputDirective,
     NotificationContainerComponent,
     NotificationComponent,
+    AlertDialogComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
-    HttpClientModule,
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatCheckboxModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatButtonToggleModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonModule,
+        HttpClientModule,
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
+        MatDialogModule
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

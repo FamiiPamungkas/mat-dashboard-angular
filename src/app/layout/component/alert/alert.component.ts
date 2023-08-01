@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent {
-  @Input() type: AlertType = 'info';
+  @Input() type: alertType = 'info';
   @Input() icon: string = "";
   @Input() closable: boolean = false;
   @Output() closed: EventEmitter<void> = new EventEmitter<void>();
@@ -16,4 +16,4 @@ export class AlertComponent {
   }
 }
 
-export declare type AlertType = 'info' | 'success' | 'warning' | 'danger';
+export declare type alertType = 'info' | 'success' | 'warning' | 'danger';
