@@ -5,6 +5,7 @@ import {RequestService} from "../../service/request.service";
 import {NotificationService} from "../../service/notification.service";
 import {AppNotification} from "../../model/classes-implementation";
 import {notificationType} from "../../layout/component/notification/notification.component";
+import {USERS_ENDPOINT} from "../../utility/constant";
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,7 @@ export class HomeComponent extends BasePage {
   }
 
   test() {
-    this.requestService.get("/v1/users/1").subscribe(res => {
+    this.requestService.get(USERS_ENDPOINT + "/1").subscribe(res => {
       console.log("response", res);
     })
   }

@@ -5,6 +5,7 @@ import {Breadcrumb} from "../../layout/component/breadcrumbs/breadcrumbs.compone
 import {RequestService} from "../../service/request.service";
 import {UserDTO} from "../../model/interfaces";
 import {Router} from "@angular/router";
+import {USERS_ENDPOINT} from "../../utility/constant";
 
 @Component({
   selector: 'app-user',
@@ -31,7 +32,7 @@ export class UserComponent extends BasePage implements AfterViewInit {
 
   ngAfterViewInit() {
     console.log("VIEW INITIATED")
-    this.reqService.get("/v1/users").subscribe(res => {
+    this.reqService.get(USERS_ENDPOINT).subscribe(res => {
       let users: UserDTO[] = res;
       this.users = users;
       for (let user of users) {

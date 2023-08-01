@@ -50,3 +50,7 @@ export const BASE_URL: string = "http://localhost:8088";
 export const BASE_API: string = BASE_URL + "/api";
 
 export const USERS_ENDPOINT: string = "/v1/users";
+export const ROLES_ENDPOINT: string = "/v1/roles";
+export const ROLE_OPTIONS_ENDPOINT: string = ROLES_ENDPOINT + "/options";
+export const AUTHENTICATE_ENDPOINT: string = "/v1/auth/authenticate";
+export const REFRESH_TOKEN_ENDPOINT: string = "/v1/auth/refresh-token";

@@ -3,7 +3,7 @@ import {BasePage} from "../base-page";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
 import {SimpleOption} from "../../model/interfaces";
-import {passwordMatchValidator, USERS_ENDPOINT} from "../../utility/constant";
+import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, ROLES_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Role, User} from "../../model/classes-implementation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -47,7 +47,7 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    this.reqService.get("/v1/roles/options").subscribe(
+    this.reqService.get(ROLE_OPTIONS_ENDPOINT).subscribe(
       res => {
         this.roleOptions = res
         console.log("Response = ", this.roleOptions);

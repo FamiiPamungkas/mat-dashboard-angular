@@ -2,7 +2,13 @@ import {Injectable} from '@angular/core';
 import {RequestService} from "./request.service";
 import {map, Observable} from "rxjs";
 import {CryptoService} from "./crypto.service";
-import {AUTH_USER_KEY, REFRESH_TOKEN_KEY, TOKEN_KEY} from "../utility/constant";
+import {
+  AUTH_USER_KEY,
+  AUTHENTICATE_ENDPOINT,
+  REFRESH_TOKEN_ENDPOINT,
+  REFRESH_TOKEN_KEY,
+  TOKEN_KEY
+} from "../utility/constant";
 import {User} from "../model/interfaces";
 import {StorageService} from "./storage.service";
 import {Router} from "@angular/router";
@@ -53,7 +59,7 @@ export class AuthService {
       password: password,
     }
 
-    return this.reqService.post('/v1/auth/authenticate', loginData).pipe(
+    return this.reqService.post(AUTHENTICATE_ENDPOINT, loginData).pipe(
       map(response => {
           if (response.status == null && response.token != null && response.refreshToken != null) {
             this.storeData(
@@ -70,7 +76,7 @@ export class AuthService {
 
   refreshToken() {
     this.latestNav = this.router.url;
-    return this.reqService.basePost('/v1/auth/refresh-token', {"token": this.cryptoService.refreshToken});
+    return this.reqService.basePost(REFRESH_TOKEN_ENDPOINT, {"token": this.cryptoService.refreshToken});
   }
 
   updateToken(token: string) {
