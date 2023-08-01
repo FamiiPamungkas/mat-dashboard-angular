@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn: boolean = false;
+  latestNav: string = "";
 
   constructor(
     private reqService: RequestService,
@@ -19,7 +19,10 @@ export class AuthService {
     private storageService: StorageService,
     private router: Router
   ) {
-    this.isLoggedIn = (this.cryptoService.token != "");
+  }
+
+  get isLoggedIn(): boolean {
+    return (this.cryptoService.token != "");
   }
 
   get authUser(): User | null {
@@ -30,14 +33,6 @@ export class AuthService {
       console.error(e);
       return null;
     }
-  }
-
-  getToken(): string {
-    return this.cryptoService.token;
-  }
-
-  getRefreshToken(): string {
-    return this.cryptoService.refreshToken;
   }
 
   storeData(token: string, refreshToken: string, user: User) {
@@ -66,7 +61,6 @@ export class AuthService {
               response.refreshToken,
               response.user
             );
-            this.isLoggedIn = true;
           }
           return response;
         }
@@ -75,7 +69,8 @@ export class AuthService {
   }
 
   refreshToken() {
-    return this.reqService.basePost('/v1/auth/refresh-token', {"token": this.getRefreshToken()});
+    this.latestNav = this.router.url;
+    return this.reqService.basePost('/v1/auth/refresh-token', {"token": this.cryptoService.refreshToken});
   }
 
   updateToken(token: string) {
@@ -83,7 +78,6 @@ export class AuthService {
   }
 
   logout() {
-    this.isLoggedIn = false;
     this.clearData();
     this.router.navigateByUrl("/login").then(() => false);
   }

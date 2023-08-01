@@ -37,7 +37,8 @@ export class LoginComponent {
             this.loginError = res.message;
             return;
           }
-          this.router.navigateByUrl("/").then(r => false);
+          let url = this.authService.latestNav ?? "/";
+          this.router.navigateByUrl(url).then(() => false);
         }
       )
     } else {

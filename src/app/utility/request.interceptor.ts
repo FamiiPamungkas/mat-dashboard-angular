@@ -2,11 +2,13 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {catchError, Observable, switchMap, throwError} from "rxjs";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../service/auth.service";
+import {CryptoService} from "../service/crypto.service";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private cryptoService: CryptoService
   ) {
   }
 
@@ -16,7 +18,7 @@ export class RequestInterceptor implements HttpInterceptor {
   ]
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
+    const token = this.cryptoService.token;
     if (token && !this.skipUrls.some(url => request.url.includes(url))) {
       request = this.addTokenToRequest(request, token);
     }
@@ -33,7 +35,7 @@ export class RequestInterceptor implements HttpInterceptor {
             switchMap(response => {
               this.authService.updateToken(response.token);
 
-              const updatedRequest = this.addTokenToRequest(request, this.authService.getToken());
+              const updatedRequest = this.addTokenToRequest(request, this.cryptoService.token);
               return next.handle(updatedRequest);
             }),
             catchError(err => {
