@@ -104,8 +104,9 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
 
   openModal() {
     const data: AlertDialogData = {
-      type: "normal",
+      type: "success",
       useConfirmBtn: true,
+      useCancelBtn: true,
       title: "Normal Modal",
       message: "Lorem ipsum dolor sit amet, consectetur."
     };

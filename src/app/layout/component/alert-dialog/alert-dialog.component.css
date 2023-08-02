@@ -1,0 +1,31 @@
+.icon-container {
+  @apply flex justify-center items-center h-[80px] mt-4 mb-2;
+}
+
+.icon-container.danger{
+  @apply text-red-600;
+}
+
+.icon-container.warning{
+  @apply text-orange-600;
+}
+
+.icon-container.success{
+  @apply text-lime-600;
+}
+
+.modal-button {
+  @apply cursor-pointer px-4 py-2 font-medium;
+}
+
+.modal-button.danger {
+  @apply bg-red-600 hover:bg-red-500 text-white;
+}
+
+.modal-button.warning {
+  @apply bg-orange-600 hover:bg-orange-500 text-white;
+}
+
+.modal-button.success {
+  @apply bg-lime-600 hover:bg-lime-500 text-white;
+}

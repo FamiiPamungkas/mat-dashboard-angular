@@ -42,6 +42,7 @@ import { NotificationContainerComponent } from './layout/component/notification-
 import { NotificationComponent } from './layout/component/notification/notification.component';
 import { AlertDialogComponent } from './layout/component/alert-dialog/alert-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatFormFieldModule,
         MatNativeDateModule,
         MatCheckboxModule,
-        MatDialogModule
+        MatDialogModule,
+        FontAwesomeModule
     ],
   providers: [
     {

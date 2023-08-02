@@ -6,3 +6,15 @@
     <button *ngIf="useCancelBtn" mat-button [mat-dialog-close]="false" color="accent" type="button">{{cancelLabel}}</button>
   </div>
 </ng-container>
+<ng-container *ngIf="type!='normal'">
+  <div class="icon-container" [ngClass]="type">
+    <fa-icon [icon]="icon" class="text-[65px] h-[65px] w-[65px]"></fa-icon>
+  </div>
+  <div class="text-center font-medium">{{title}}</div>
+  <div class="text-center">{{message}}</div>
+  <div class="mt-4 flex relative" *ngIf="useCancelBtn || useConfirmBtn">
+    <button class="{{isSingleButton ? 'w-full' : 'flex-1'}} modal-button" [ngClass]="type" *ngIf="useConfirmBtn" [mat-dialog-close]="true" type="button">{{confirmLabel}}</button>
+    <div *ngIf="!isSingleButton" class="absolute left-1/2 h-full w-px bg-gray-400/40"></div>
+    <button class="{{isSingleButton ? 'w-full' : 'flex-1'}} modal-button" [ngClass]="type" *ngIf="useCancelBtn" [mat-dialog-close]="false" type="button">{{cancelLabel}}</button>
+  </div>
+</ng-container>

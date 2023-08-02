@@ -1,5 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {
+  faCheckCircle,
+  faExclamationCircle,
+  faExclamationTriangle,
+  faInfo,
+  IconDefinition
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'alert-dialog',
@@ -11,39 +18,50 @@ export class AlertDialogComponent {
   title: string = "";
   message: string = "";
 
-  useConfirmBtn: boolean = false;
-  useCancelBtn: boolean = false;
-  _confirmLabel: string = "Confirm";
-  _cancelLabel: string = "Cancel";
+  useConfirmBtn: boolean;
+  useCancelBtn: boolean;
+  _confirmLabel: string;
+  _cancelLabel: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: AlertDialogData,
   ) {
-    if (data) {
-      if (data.type) this.type = data.type;
-      if (data.title) this.title = data.title;
-      if (data.message) this.message = data.message;
-      if (data.useConfirmBtn) this.useConfirmBtn = data.useConfirmBtn;
-      if (data.useCancelBtn) this.useCancelBtn = data.useCancelBtn;
-      if (data.confirmLabel) this._confirmLabel = data.confirmLabel ?? "Confirm";
-      if (data.cancelLabel) this._cancelLabel = data.cancelLabel ?? "Cancel";
-    }
-
-    console.log("CONFIRM LABEL = "+this.confirmLabel)
+    this.type = data.type ?? "normal";
+    this.title = data.title ?? "";
+    this.message = data.message ?? "";
+    this.useConfirmBtn = data.useConfirmBtn ?? false;
+    this.useCancelBtn = data.useCancelBtn ?? false;
+    this._confirmLabel = data.confirmLabel ?? "Confirm";
+    this._cancelLabel = data.cancelLabel ?? "Cancel";
   }
 
-  get confirmLabel(){
+  get confirmLabel() {
     return this._confirmLabel;
   }
 
-  get cancelLabel(){
+  get cancelLabel() {
     return this._cancelLabel;
   }
 
+  get isSingleButton() {
+    return (this.useConfirmBtn && !this.useCancelBtn) || (!this.useConfirmBtn && this.useCancelBtn);
+  }
+
+  get icon(): IconDefinition {
+    switch (this.type) {
+      case "danger":
+        return faExclamationCircle
+      case "warning":
+        return faExclamationTriangle
+      case "success":
+        return faCheckCircle
+      default :
+        return faInfo
+    }
+  }
 }
 
-
-export declare type alertDialogType = "normal";
+export declare type alertDialogType = "normal" | "danger" | "warning" | "success";
 
 export interface AlertDialogData {
   type: alertDialogType;
