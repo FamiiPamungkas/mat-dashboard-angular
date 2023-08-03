@@ -10,8 +10,8 @@
   <div class="icon-container" [ngClass]="type">
     <fa-icon [icon]="icon" class="text-[65px] h-[65px] w-[65px]"></fa-icon>
   </div>
-  <div class="text-center font-medium">{{title}}</div>
-  <div class="text-center">{{message}}</div>
+  <div class="text-center font-medium px-4">{{title}}</div>
+  <div class="text-center px-4" [innerHTML]="message"></div>
   <div class="mt-4 flex relative" *ngIf="useCancelBtn || useConfirmBtn">
     <button class="{{isSingleButton ? 'w-full' : 'flex-1'}} modal-button" [ngClass]="type" *ngIf="useConfirmBtn" [mat-dialog-close]="true" type="button">{{confirmLabel}}</button>
     <div *ngIf="!isSingleButton" class="absolute left-1/2 h-full w-px bg-gray-400/40"></div>

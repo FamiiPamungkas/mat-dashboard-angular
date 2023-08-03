@@ -2,13 +2,14 @@ import {AfterViewInit, Component} from '@angular/core';
 import {BasePage} from "../base-page";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
-import {SimpleOption} from "../../model/interfaces";
+import {ApiResponse, SimpleOption} from "../../model/interfaces";
 import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Role, User} from "../../model/classes-implementation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {AlertDialogComponent, AlertDialogData} from "../../layout/component/alert-dialog/alert-dialog.component";
+import {AlertDialogService} from "../../service/alert-dialog.service";
+import {MatDialogRef} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-form',
@@ -39,7 +40,8 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
   constructor(
     navService: NavigationService,
     private reqService: RequestService,
-    private dialog: MatDialog
+    private alertService: AlertDialogService,
+    private router: Router
   ) {
     super(
       navService,
@@ -78,8 +80,18 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
       for (let role of roles) {
         user.roles.push(new Role(parseInt(role)))
       }
-      this.reqService.post(USERS_ENDPOINT, user).subscribe(res => {
+
+      this.reqService.post(USERS_ENDPOINT, user).subscribe((res: ApiResponse) => {
         console.log("RESULT = ", res);
+        if (res.status != 200) {
+          this.alertService.showError("User Addition Failed", res.message);
+          return;
+        }
+
+        const successDialog: MatDialogRef<any> = this.alertService.showSuccess("User Added Successfully","User has been added successfully.<br>You will redirected to user list page...");
+        successDialog.afterClosed().subscribe(() => {
+          this.router.navigateByUrl("/users").finally();
+        })
       });
     }
   }
@@ -100,25 +112,5 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
     }
 
     this.userForm.get('roles')?.setValue(this.selectedRoles);
-  }
-
-  openModal() {
-    const data: AlertDialogData = {
-      type: "success",
-      useConfirmBtn: true,
-      useCancelBtn: true,
-      title: "Normal Modal",
-      message: "Lorem ipsum dolor sit amet, consectetur."
-    };
-
-    const dialogRef = this.dialog.open(
-      AlertDialogComponent, {
-        width: '300px', data
-      }
-    );
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("CLOSED ", result);
-    })
   }
 }

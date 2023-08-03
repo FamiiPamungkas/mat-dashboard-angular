@@ -31,8 +31,8 @@ export class AlertDialogComponent {
     this.message = data.message ?? "";
     this.useConfirmBtn = data.useConfirmBtn ?? false;
     this.useCancelBtn = data.useCancelBtn ?? false;
-    this._confirmLabel = data.confirmLabel ?? "Confirm";
-    this._cancelLabel = data.cancelLabel ?? "Cancel";
+    this._confirmLabel = data.confirmLabel || "Confirm";
+    this._cancelLabel = data.cancelLabel || "Cancel";
   }
 
   get confirmLabel() {
