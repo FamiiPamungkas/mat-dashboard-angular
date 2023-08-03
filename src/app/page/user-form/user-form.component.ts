@@ -84,11 +84,12 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
       this.reqService.post(USERS_ENDPOINT, user).subscribe((res: ApiResponse) => {
         console.log("RESULT = ", res);
         if (res.status != 200) {
+          if (res.status == 401) return;
           this.alertService.showError("User Addition Failed", res.message);
           return;
         }
 
-        const successDialog: MatDialogRef<any> = this.alertService.showSuccess("User Added Successfully","User has been added successfully.<br>You will redirected to user list page...");
+        const successDialog: MatDialogRef<any> = this.alertService.showSuccess("User Added Successfully", "User has been added successfully.<br>You will redirected to user list page...");
         successDialog.afterClosed().subscribe(() => {
           this.router.navigateByUrl("/users").finally();
         })

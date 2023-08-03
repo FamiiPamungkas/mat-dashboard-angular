@@ -3,12 +3,14 @@ import {catchError, Observable, switchMap, throwError} from "rxjs";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../service/auth.service";
 import {CryptoService} from "../service/crypto.service";
+import {AlertDialogService} from "../service/alert-dialog.service";
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private cryptoService: CryptoService
+    private cryptoService: CryptoService,
+    private alertService: AlertDialogService
   ) {
   }
 
@@ -37,8 +39,11 @@ export class RequestInterceptor implements HttpInterceptor {
               const updatedRequest = this.addTokenToRequest(request, this.cryptoService.token);
               return next.handle(updatedRequest);
             }),
-            catchError(err => {
-              this.authService.logout();
+            catchError((err) => {
+              const matDialogRef = this.alertService.showError("Session Expired","Your session has expired for security reasons. Please log in again to continue.");
+              matDialogRef.afterClosed().subscribe(()=>{
+                this.authService.logout();
+              })
               return throwError(err);
             })
           )
