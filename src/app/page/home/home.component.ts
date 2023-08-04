@@ -6,6 +6,7 @@ import {NotificationService} from "../../service/notification.service";
 import {AppNotification} from "../../model/classes-implementation";
 import {notificationType} from "../../layout/component/notification/notification.component";
 import {USERS_ENDPOINT} from "../../utility/constant";
+import {catchError, EMPTY, throwError} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -29,8 +30,13 @@ export class HomeComponent extends BasePage {
   }
 
   test() {
-    this.requestService.get(USERS_ENDPOINT + "/1").subscribe(res => {
-      console.log("response", res);
+    this.requestService.get(USERS_ENDPOINT + "/11",null,{showAlert:true}).pipe(
+      catchError((err)=>{
+        console.log("error ",err)
+        return EMPTY;
+      }),
+    ).subscribe(res=>{
+      console.log("RESULT ",res)
     })
   }
 
