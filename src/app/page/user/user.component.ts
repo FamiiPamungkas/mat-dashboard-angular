@@ -31,13 +31,8 @@ export class UserComponent extends BasePage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("VIEW INITIATED")
     this.reqService.get(USERS_ENDPOINT).subscribe(res => {
-      let users: UserDTO[] = res;
-      this.users = users;
-      for (let user of users) {
-        console.log("USER =>" + user.firstname)
-      }
+      this.users = res;
     })
   }
 

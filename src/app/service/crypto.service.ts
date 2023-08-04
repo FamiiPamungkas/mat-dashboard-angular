@@ -7,7 +7,7 @@ import {StorageService} from "./storage.service";
   providedIn: 'root'
 })
 export class CryptoService {
-  private encryptionKey: string = 'KEY_ENCRIPTY';
+  private encryptionKey: string = 'KEY_ENCRYPTOR';
 
   constructor(
     private storageService: StorageService

@@ -10,6 +10,7 @@ import {mainGuard} from "./guard/main.guard";
 import {ProductComponent} from "./page/product/product.component";
 import {ProductConsigComponent} from "./page/product-consig/product-consig.component";
 import {UserFormComponent} from "./page/user-form/user-form.component";
+import {accessGuard} from "./guard/access.guard";
 
 const routes: Routes = [
   {
@@ -20,37 +21,37 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: HomeComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard]
   },
   {
     path: 'users',
     component: UserComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard, accessGuard]
   },
   {
     path: 'user-form',
     component: UserFormComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard, accessGuard]
   },
   {
     path: 'menus',
     component: MenuComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard, accessGuard]
   },
   {
     path: 'roles',
     component: RoleComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard, accessGuard]
   },
   {
     path: 'products-normal',
     component: ProductComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard, accessGuard]
   },
   {
     path: 'products-consignment',
     component: ProductConsigComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard, accessGuard]
   },
   {
     path: '**',
