@@ -1,5 +1,6 @@
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {AbstractControl, ValidationErrors, ValidatorFn} from "@angular/forms";
+import {environment} from "../../environments/environment";
 
 export function dropdownAnimation() {
   return trigger(
@@ -46,8 +47,7 @@ export const REFRESH_TOKEN_KEY: string = "REFRESH_TOKEN";
 export const AUTH_USER_KEY: string = "AUTH_USER";
 
 export const APP_NAME: string = "FamiPam";
-export const BASE_URL: string = "http://localhost:8088";
-export const BASE_API: string = BASE_URL + "/api";
+export const BASE_API: string = environment.baseAPI;
 
 export const USERS_ENDPOINT: string = "/v1/users";
 export const ROLES_ENDPOINT: string = "/v1/roles";
