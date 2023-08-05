@@ -12,7 +12,20 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build --base-href /<project-name>/` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+
+create .htaccess file in root of project :
+```
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /<project_name>/
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /<project_name>/index.html [L]
+</IfModule>
+```
 
 ## Running unit tests
 
