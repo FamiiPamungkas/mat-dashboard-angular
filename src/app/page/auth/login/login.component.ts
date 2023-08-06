@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../service/auth.service";
 import {Router} from "@angular/router";
+import {BaseResponse} from "../../../model/interfaces";
 
 @Component({
   selector: 'app-login',
@@ -25,22 +26,26 @@ export class LoginComponent {
   }
 
   login() {
+    let self = this;
     this.loading = true;
     if (this.loginForm.valid) {
       const username = this.loginForm.get('username')?.value ?? "";
       const password = this.loginForm.get('password')?.value ?? "";
 
-      this.authService.login(username, password).subscribe(
-        res => {
-          this.loading = false;
-          if (res.status != null && res.status != 200) {
-            this.loginError = res.message;
-            return;
-          }
-          let url = this.authService.latestNav ?? "/";
-          this.router.navigateByUrl(url).then(() => false);
+      this.authService.login(username, password).subscribe({
+        next() {
+          let url = self.authService.latestNav || "/";
+          self.router.navigateByUrl(url).then(() => false);
+        },
+        error(error) {
+          let response: BaseResponse = error.error;
+          self.loading = false;
+          self.loginError = response.message
+        },
+        complete() {
+          self.loading = false;
         }
-      )
+      })
     } else {
       this.loading = false;
     }

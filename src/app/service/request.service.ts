@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {catchError, delayWhen, EMPTY, finalize, Observable, take, throwError, timer} from "rxjs";
+import {catchError, delayWhen, finalize, Observable, take, throwError, timer} from "rxjs";
 import {BASE_API} from "../utility/constant";
 import {AlertDialogService} from "./alert-dialog.service";
 import {BaseResponse} from "../model/interfaces";
@@ -25,7 +25,11 @@ export class RequestService {
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.log("## REQUEST ERROR => ", error);
     let res: BaseResponse = error.error;
-    if ((error.status === 403 || error.status === 404) && this.showAlert) {
+    if (error.status === 0) {
+      this.notificationService.addNotification(
+        new AppNotification("danger", "Connection Error", "Can't connect to server. Check your connection or try again later.")
+      );
+    } else if ((error.status === 403 || error.status === 404) && this.showAlert) {
       if (this.alertType == "dialog") {
         this.alertService.showError("Request Error", res.message || "Unknown Error");
       } else {
