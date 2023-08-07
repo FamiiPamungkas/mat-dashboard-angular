@@ -29,8 +29,17 @@
       <td mat-cell *matCellDef="let row">{{row.email}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id','username','firstname','lastname']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id','username','firstname','lastname'];"></tr>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <button class="icon-button danger rounded-md" title="Delete" (click)="deleteUser(row.id)">
+          <fa-icon [icon]="deleteIcon"></fa-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id','username','firstname','lastname','action']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','username','firstname','lastname','action'];"></tr>
 
   </table>
 </div>

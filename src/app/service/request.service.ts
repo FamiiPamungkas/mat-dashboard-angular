@@ -14,6 +14,7 @@ export class RequestService {
   private running: boolean = false;
   public showAlert: boolean = false;
   public alertType: alertType = "notification";
+  public method: method = "post";
 
   constructor(
     private http: HttpClient,
@@ -30,8 +31,9 @@ export class RequestService {
         new AppNotification("danger", "Connection Error", "Can't connect to server. Check your connection or try again later.")
       );
     } else if ((error.status === 403 || error.status === 404) && this.showAlert) {
+      let title: string = (error.status === 403) ? "Access Denied" : "";
       if (this.alertType == "dialog") {
-        this.alertService.showError("Request Error", res.message || "Unknown Error");
+        this.alertService.showError(title, res.message || "Unknown Error");
       } else {
         this.notificationService.addNotification(
           new AppNotification("danger", "", res.message || "Unknown Error")
@@ -74,6 +76,7 @@ export class RequestService {
 
     this.running = true;
     this.applyConfig(cfg);
+    this.method = cfg?.method || "post";
     return this.basePost(this.digestURL(url), obj).pipe(
       catchError((err) => this.handleError(err)),
       finalize(() => {
@@ -83,7 +86,15 @@ export class RequestService {
   }
 
   basePost(url: string, obj?: any) {
-    return this.http.post<any>(this.digestURL(url), obj);
+    console.log("URL= ",url)
+    switch (this.method) {
+      case "delete":
+        return this.http.delete<any>(this.digestURL(url), obj);
+      case "put":
+        return this.http.put<any>(this.digestURL(url), obj);
+      default :
+        return this.http.post<any>(this.digestURL(url), obj);
+    }
   }
 
   baseGet(url: string, obj?: any) {
@@ -100,6 +111,8 @@ export class RequestService {
 export interface requestCfg {
   showAlert?: boolean
   alertType?: alertType
+  method?: method
 }
 
+export declare type method = "post" | "put" | "delete";
 export declare type alertType = "dialog" | "notification";

@@ -6,6 +6,7 @@ import {RequestService} from "../../service/request.service";
 import {UserDTO} from "../../model/interfaces";
 import {Router} from "@angular/router";
 import {USERS_ENDPOINT} from "../../utility/constant";
+import {faTrashCan, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-user',
@@ -21,6 +22,8 @@ export class UserComponent extends BasePage implements AfterViewInit {
     new Breadcrumb("Home", "/dashboard"),
     new Breadcrumb("Users"),
   ];
+
+  deleteIcon: IconDefinition = faTrashCan;
 
   constructor(
     private navService: NavigationService,
@@ -38,5 +41,17 @@ export class UserComponent extends BasePage implements AfterViewInit {
 
   addUser() {
     this.router.navigateByUrl("/user-form").then(() => false);
+  }
+
+  deleteUser(id: number) {
+    this.reqService.post(USERS_ENDPOINT+"/"+id,null,{method:"delete"}).subscribe({
+      next(res){
+        console.log("RESPONSE ",res);
+      },
+      error(err){
+        console.log("ERROR", err)
+      }
+    })
+    console.log("DELETE = ",id)
   }
 }

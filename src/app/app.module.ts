@@ -38,9 +38,11 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormFieldComponent} from './layout/component/form/form-field/form-field.component';
 import {AppInputDirective} from './directive/app-input.directive';
-import { NotificationContainerComponent } from './layout/component/notification-container/notification-container.component';
-import { NotificationComponent } from './layout/component/notification/notification.component';
-import { AlertDialogComponent } from './layout/component/alert-dialog/alert-dialog.component';
+import {
+  NotificationContainerComponent
+} from './layout/component/notification-container/notification-container.component';
+import {NotificationComponent} from './layout/component/notification/notification.component';
+import {AlertDialogComponent} from './layout/component/alert-dialog/alert-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
@@ -69,30 +71,30 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     NotificationComponent,
     AlertDialogComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatButtonToggleModule,
-        MatIconModule,
-        MatListModule,
-        MatButtonModule,
-        HttpClientModule,
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatCheckboxModule,
-        MatDialogModule,
-        FontAwesomeModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    HttpClientModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    FontAwesomeModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
