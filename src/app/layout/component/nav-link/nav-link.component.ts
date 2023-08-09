@@ -11,18 +11,6 @@ export class NavLinkComponent {
   @Input() weight: linkWeight = "normal"
   @Input() link: string = "";
   @Input() label: string = "";
-
-  constructor(
-    private router: Router
-  ) {
-  }
-
-  navigateTo() {
-    if (this.link.trim().length == 0) {
-      return;
-    }
-    this.router.navigateByUrl(this.link.trim()).then(() => false);
-  }
 }
 
 export declare type linkType = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger' | 'dark' | 'light';

@@ -1,4 +1,4 @@
-<a (click)="navigateTo()" [ngClass]="[type,weight]">
+<a [ngClass]="[type,weight]" [routerLink]="link">
   {{label}}
   <ng-container *ngIf="label.length==0">
     <ng-content></ng-content>
