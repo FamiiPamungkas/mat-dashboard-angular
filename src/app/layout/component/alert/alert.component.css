@@ -1,5 +1,5 @@
 .alert {
-  @apply p-2 rounded-lg mb-2 flex items-center gap-2;
+  @apply p-2 rounded-md mb-2 flex items-center gap-2;
 }
 
 .alert.info {

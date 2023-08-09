@@ -7,8 +7,6 @@ export const accessGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const user = authService.authUser;
 
-  console.log("ROUTE ",route)
-  console.log("STATE ",state)
   if (!user) {
     return router.navigateByUrl("/dashboard").then(() => false);
 
@@ -19,7 +17,6 @@ export const accessGuard: CanActivateFn = (route, state) => {
       if (exists) haveAccess = true;
     }
 
-    console.log("HAVE ACCESS = ",haveAccess)
     if (haveAccess) return true;
     return router.navigateByUrl("/dashboard").then(() => false);
   }

@@ -10,6 +10,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AlertDialogService} from "../../service/alert-dialog.service";
 import {MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Breadcrumb} from "../../layout/component/breadcrumbs/breadcrumbs.component";
 
 @Component({
   selector: 'app-user-form',
@@ -20,8 +21,15 @@ export class UserFormComponent extends BasePage implements OnInit {
   static AUTHORITY: string = "user-list";
   static PAGE_TITLE: string = "Add User";
 
+  breadcrumbs: Breadcrumb[] = [
+    new Breadcrumb("Home", "/dashboard"),
+    new Breadcrumb("Users", "/users"),
+  ];
+
   roleOptions: SimpleOption[] = [];
   selectedRoles: string[] = [];
+
+  pageError: string = "";
 
   submitted: boolean = false;
 
@@ -51,15 +59,34 @@ export class UserFormComponent extends BasePage implements OnInit {
     );
   }
 
-
   ngOnInit() {
-    this.reqService.get(ROLE_OPTIONS_ENDPOINT)
-      .subscribe(res => {
-        this.roleOptions = res
-      });
-    this.activeRoute.params.subscribe(params=>{
-      console.log("PARAMS = ",params)
+    this.activeRoute.params.subscribe(params => {
+      console.log("PARAMS = ", params['id'])
+      if (params['id']) {
+        this.title = "Edit User";
+        this.breadcrumbs.push(new Breadcrumb("Edit User"));
+        this.fetchUserData(params['id']);
+        return;
+      }
+
+      this.breadcrumbs.push(new Breadcrumb("Add User"))
     });
+
+    this.reqService.get(ROLE_OPTIONS_ENDPOINT).subscribe(res => {
+      this.roleOptions = res
+    });
+
+  }
+
+  fetchUserData(id: string) {
+    if (isNaN(parseInt(id))) {
+      this.pageError = `id [${id}] tidak valid`
+      return;
+    }
+
+    // this.reqService.get(USERS_ENDPOINT)
+    // console.log("ID ", id, typeof id)
+
   }
 
   get isRoleInvalid(): boolean {

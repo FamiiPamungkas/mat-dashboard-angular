@@ -28,7 +28,7 @@ export class UserComponent extends BasePage implements AfterViewInit {
   deleteIcon: IconDefinition = faTrashCan;
 
   constructor(
-    private navService: NavigationService,
+    navService: NavigationService,
     private reqService: RequestService,
     private router: Router,
     private notificationService: NotificationService

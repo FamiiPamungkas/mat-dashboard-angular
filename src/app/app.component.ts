@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./service/auth.service";
 import {NavigationEnd, Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
+import {APP_NAME} from "./utility/constant";
 
 @Component({
   selector: 'app-root',
@@ -15,13 +17,15 @@ export class AppComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router:Router
+    private router: Router,
+    private title: Title
   ) {
+    title.setTitle(`${APP_NAME}`);
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(event=>{
-      if (event instanceof NavigationEnd){
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
         this.activeLayout = this.authService.isLoggedIn ? this.DASHBOARD_LAYOUT : this.AUTH_LAYOUT;
       }
     })

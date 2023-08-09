@@ -4,7 +4,7 @@ export class BasePage {
   _title?: string;
 
   constructor(
-    navService: NavigationService,
+    protected navService: NavigationService,
     authority: string,
     title: string
   ) {
@@ -19,6 +19,7 @@ export class BasePage {
 
   set title(value: string) {
     this._title = value;
+    this.navService.setPageTitle(this._title)
   }
 
 }

@@ -18,7 +18,7 @@ export class HomeComponent extends BasePage {
   static PAGE_TITLE: string = "Dashboard";
 
   constructor(
-    private navService: NavigationService,
+    navService: NavigationService,
     private requestService: RequestService,
     private notifService: NotificationService
   ) {

@@ -1,8 +1,8 @@
+<page-title [title]="title" [breadcrumbs]="breadcrumbs"/>
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
-  <h2 class="font-semibold">Add User</h2>
-  <mat-divider></mat-divider>
+  <alert *ngIf="pageError.length>0" type="danger" icon="close" class="mb-4">{{pageError}}</alert>
   <form [formGroup]="userForm" (ngSubmit)="submit()">
-    <div class="flex flex-col mt-4 gap-2">
+    <div class="flex flex-col gap-2">
       <app-form-field label="Firstname" class="max-w-[300px]">
         <input appInput type="text" placeholder="Firstname" formControlName="firstname"/>
         <mat-error *ngIf="userForm.get('firstname')?.hasError('required')">Firstname is required</mat-error>
