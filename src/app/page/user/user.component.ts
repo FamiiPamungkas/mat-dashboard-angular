@@ -50,7 +50,7 @@ export class UserComponent extends BasePage implements AfterViewInit {
   }
 
   addUser() {
-    this.router.navigateByUrl("/user-form").then(() => false);
+    this.router.navigateByUrl("/users/add").then(() => false);
   }
 
   deleteUser(id: number) {
