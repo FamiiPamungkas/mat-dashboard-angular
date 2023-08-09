@@ -1,22 +1,22 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BasePage} from "../base-page";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
-import {ApiResponse, SimpleOption} from "../../model/interfaces";
+import {BaseResponse, SimpleOption} from "../../model/interfaces";
 import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Role, User} from "../../model/classes-implementation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AlertDialogService} from "../../service/alert-dialog.service";
 import {MatDialogRef} from "@angular/material/dialog";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css']
 })
-export class UserFormComponent extends BasePage implements AfterViewInit {
+export class UserFormComponent extends BasePage implements OnInit {
   static AUTHORITY: string = "user-list";
   static PAGE_TITLE: string = "Add User";
 
@@ -41,7 +41,8 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
     navService: NavigationService,
     private reqService: RequestService,
     private alertService: AlertDialogService,
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {
     super(
       navService,
@@ -51,13 +52,14 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
   }
 
 
-  ngAfterViewInit() {
-    this.reqService.get(ROLE_OPTIONS_ENDPOINT).subscribe(
-      res => {
+  ngOnInit() {
+    this.reqService.get(ROLE_OPTIONS_ENDPOINT)
+      .subscribe(res => {
         this.roleOptions = res
-        console.log("Response = ", this.roleOptions);
-      }
-    )
+      });
+    this.activeRoute.params.subscribe(params=>{
+      console.log("PARAMS = ",params)
+    });
   }
 
   get isRoleInvalid(): boolean {
@@ -66,7 +68,7 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
 
   submit() {
     this.submitted = true;
-    console.log("IS VALID " + this.userForm.valid)
+
     if (this.userForm.valid) {
       const user: User = new User();
       user.firstname = this.userForm.get('firstname')?.value ?? "";
@@ -81,18 +83,18 @@ export class UserFormComponent extends BasePage implements AfterViewInit {
         user.roles.push(new Role(parseInt(role)))
       }
 
-      this.reqService.post(USERS_ENDPOINT, user).subscribe((res: ApiResponse) => {
-        console.log("RESULT = ", res);
-        if (res.status != 200) {
-          if (res.status == 401) return;
-          this.alertService.showError("User Addition Failed", res.message);
-          return;
+      let self = this;
+      this.reqService.post(USERS_ENDPOINT, user).subscribe({
+        next() {
+          const successDialog: MatDialogRef<any> = self.alertService.showSuccess("User Added Successfully", "User has been added successfully.<br>You will be redirected to user list page...");
+          successDialog.afterClosed().subscribe(() => {
+            self.router.navigateByUrl("/users").finally();
+          });
+        },
+        error(err) {
+          let res: BaseResponse = err.error;
+          self.alertService.showError("User Addition Failed", res.message);
         }
-
-        const successDialog: MatDialogRef<any> = this.alertService.showSuccess("User Added Successfully", "User has been added successfully.<br>You will redirected to user list page...");
-        successDialog.afterClosed().subscribe(() => {
-          this.router.navigateByUrl("/users").finally();
-        })
       });
     }
   }

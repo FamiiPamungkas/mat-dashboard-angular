@@ -7,6 +7,8 @@ import {UserDTO} from "../../model/interfaces";
 import {Router} from "@angular/router";
 import {USERS_ENDPOINT} from "../../utility/constant";
 import {faTrashCan, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {NotificationService} from "../../service/notification.service";
+import {AppNotification} from "../../model/classes-implementation";
 
 @Component({
   selector: 'app-user',
@@ -28,14 +30,22 @@ export class UserComponent extends BasePage implements AfterViewInit {
   constructor(
     private navService: NavigationService,
     private reqService: RequestService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     super(navService, UserComponent.AUTHORITY, UserComponent.PAGE_TITLE);
   }
 
   ngAfterViewInit() {
-    this.reqService.get(USERS_ENDPOINT).subscribe(res => {
-      this.users = res;
+    this.fetchUserData();
+  }
+
+  fetchUserData() {
+    let self = this;
+    this.reqService.get(USERS_ENDPOINT,undefined,{showAlert:true}).subscribe({
+      next(res) {
+        self.users = res;
+      }
     })
   }
 
@@ -44,14 +54,18 @@ export class UserComponent extends BasePage implements AfterViewInit {
   }
 
   deleteUser(id: number) {
-    this.reqService.post(USERS_ENDPOINT+"/"+id,null,{method:"delete"}).subscribe({
-      next(res){
-        console.log("RESPONSE ",res);
-      },
-      error(err){
-        console.log("ERROR", err)
+    let self = this;
+    this.reqService.post(USERS_ENDPOINT + "/" + id, null, {method: "delete", showAlert: true}).subscribe({
+      next() {
+        self.notificationService.addNotification(
+          new AppNotification(
+            "success",
+            "Delete Success",
+            "User has been successfully deleted"
+          )
+        )
+        self.fetchUserData();
       }
     })
-    console.log("DELETE = ",id)
   }
 }

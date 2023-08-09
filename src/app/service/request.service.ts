@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {catchError, delayWhen, finalize, Observable, take, throwError, timer} from "rxjs";
+import {catchError, Observable} from "rxjs";
 import {BASE_API} from "../utility/constant";
 import {AlertDialogService} from "./alert-dialog.service";
 import {BaseResponse} from "../model/interfaces";
@@ -11,7 +11,6 @@ import {AppNotification} from "../model/classes-implementation";
   providedIn: 'root'
 })
 export class RequestService {
-  private running: boolean = false;
   public showAlert: boolean = false;
   public alertType: alertType = "notification";
   public method: method = "post";
@@ -36,11 +35,11 @@ export class RequestService {
         this.alertService.showError(title, res.message || "Unknown Error");
       } else {
         this.notificationService.addNotification(
-          new AppNotification("danger", "", res.message || "Unknown Error")
+          new AppNotification("danger", title, res.message || "Unknown Error")
         );
       }
     }
-    return throwError(error);
+    throw error;
   }
 
   private applyConfig(cfg?: requestCfg) {
@@ -49,44 +48,24 @@ export class RequestService {
   }
 
   public get(url: string, obj?: any, cfg?: requestCfg): Observable<any> {
-    if (this.running) {
-      return timer(500).pipe(
-        take(1),
-        delayWhen(() => this.get(url, obj, cfg))
-      );
-    }
 
-    this.running = true;
     this.applyConfig(cfg);
     return this.baseGet(url, obj).pipe(
-      catchError((err) => this.handleError(err)),
-      finalize(() => {
-        this.running = false;
-      })
+      catchError((err) => this.handleError(err))
     );
   }
 
   public post(url: string, obj: any, cfg?: requestCfg): Observable<any> {
-    if (this.running) {
-      return timer(500).pipe(
-        take(1),
-        delayWhen(() => this.post(url, obj))
-      );
-    }
 
-    this.running = true;
     this.applyConfig(cfg);
     this.method = cfg?.method || "post";
-    return this.basePost(this.digestURL(url), obj).pipe(
-      catchError((err) => this.handleError(err)),
-      finalize(() => {
-        this.running = false;
-      })
+    return this.basePost(url, obj).pipe(
+      catchError((err) => this.handleError(err))
     );
   }
 
   basePost(url: string, obj?: any) {
-    console.log("URL= ",url)
+    obj = obj || undefined;
     switch (this.method) {
       case "delete":
         return this.http.delete<any>(this.digestURL(url), obj);
@@ -98,7 +77,7 @@ export class RequestService {
   }
 
   baseGet(url: string, obj?: any) {
-    if (obj == null) obj = undefined;
+    obj = obj || undefined;
     return this.http.get<any>(this.digestURL(url), obj);
   }
 
