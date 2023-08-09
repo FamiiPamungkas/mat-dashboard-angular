@@ -15,14 +15,19 @@ import {NotFoundComponent} from "./page/not-found/not-found.component";
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [authGuard]
+    path: "",
+    redirectTo:'dashboard',
+    pathMatch:'full'
   },
   {
     path: 'dashboard',
     component: HomeComponent,
     canActivate: [mainGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'users',
@@ -36,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'users/edit/:id',
-    component: UserComponent,
+    component: UserFormComponent,
     canActivate: [mainGuard, accessGuard]
   },
   {

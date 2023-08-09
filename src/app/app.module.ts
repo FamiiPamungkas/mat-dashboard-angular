@@ -13,7 +13,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MenuItemComponent} from './layout/component/menu-item/menu-item.component';
 import {SubMenuComponent} from './layout/component/sub-menu/sub-menu.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {HomeComponent} from './page/home/home.component';
 import {UserComponent} from './page/user/user.component';
 import {MenuComponent} from './page/menu/menu.component';
@@ -73,30 +73,31 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
     AlertDialogComponent,
     NotFoundComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatSidenavModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatListModule,
-    MatButtonModule,
-    HttpClientModule,
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    FontAwesomeModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatSidenavModule,
+        MatButtonToggleModule,
+        MatIconModule,
+        MatListModule,
+        MatButtonModule,
+        HttpClientModule,
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        FontAwesomeModule,
+        NgOptimizedImage
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
