@@ -45,6 +45,7 @@ import {NotificationComponent} from './layout/component/notification/notificatio
 import {AlertDialogComponent} from './layout/component/alert-dialog/alert-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { NotFoundComponent } from './page/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     NotificationContainerComponent,
     NotificationComponent,
     AlertDialogComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

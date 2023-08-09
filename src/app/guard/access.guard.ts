@@ -7,16 +7,19 @@ export const accessGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const user = authService.authUser;
 
+  console.log("ROUTE ",route)
+  console.log("STATE ",state)
   if (!user) {
     return router.navigateByUrl("/dashboard").then(() => false);
 
   } else {
     let haveAccess: boolean = false;
     for (let role of user.roles) {
-      const exists = role.menus.find(menu => menu.link === state.url) != undefined;
+      const exists = role.menus.find(menu => state.url.includes(menu.link)) != undefined;
       if (exists) haveAccess = true;
     }
 
+    console.log("HAVE ACCESS = ",haveAccess)
     if (haveAccess) return true;
     return router.navigateByUrl("/dashboard").then(() => false);
   }

@@ -11,6 +11,7 @@ import {ProductComponent} from "./page/product/product.component";
 import {ProductConsigComponent} from "./page/product-consig/product-consig.component";
 import {UserFormComponent} from "./page/user-form/user-form.component";
 import {accessGuard} from "./guard/access.guard";
+import {NotFoundComponent} from "./page/not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -29,8 +30,13 @@ const routes: Routes = [
     canActivate: [mainGuard, accessGuard]
   },
   {
-    path: 'user-form',
+    path: 'users/add',
     component: UserFormComponent,
+    canActivate: [mainGuard, accessGuard]
+  },
+  {
+    path: 'users/edit/:id',
+    component: UserComponent,
     canActivate: [mainGuard, accessGuard]
   },
   {
@@ -55,7 +61,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'dashboard'
+    component: NotFoundComponent,
+    canActivate:[mainGuard]
   }
 ];
 
