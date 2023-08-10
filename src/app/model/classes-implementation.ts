@@ -1,5 +1,6 @@
-import {Menu as MenuInt, MenuDTO, RoleDTO, SimpleOption, UserDTO} from "./interfaces";
+import {MenuDTO, RoleDTO, SimpleOption, UserDTO} from "./interfaces";
 import {notificationType} from "../layout/component/notification/notification.component";
+import {formatIsoDate} from "../utility/utility";
 
 export class Menu implements MenuDTO {
   id: number = 0;
@@ -12,7 +13,10 @@ export class Menu implements MenuDTO {
   showOnNav: boolean = true;
   seq: number = 0;
   authorities: string[] = [];
-  children: MenuInt[] = [];
+  children: MenuDTO[] = [];
+  active: boolean = false;
+  createdAt: string = "";
+  updatedAt: string = "";
 }
 
 export class Role implements RoleDTO {
@@ -25,6 +29,9 @@ export class Role implements RoleDTO {
   name: string = "";
   authority: string = "";
   description: string = "";
+  active: boolean = false;
+  createdAt: string = "";
+  updatedAt: string = "";
   menus: MenuDTO[] = [];
 }
 
@@ -34,10 +41,15 @@ export class User implements UserDTO {
   firstname: string = "";
   lastname: string = "";
   birthdate: string = "";
+  fmtBirthdate:string = "";
   email: string = "";
   username: string = "";
   password?: string = "";
+  active: boolean = false;
+  createdAt: string = "";
+  updatedAt: string = "";
   roles: RoleDTO[] = [];
+  treeMenus: MenuDTO[] = [];
 
 }
 

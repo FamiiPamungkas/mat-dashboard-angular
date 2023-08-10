@@ -36,6 +36,10 @@
           Confirm Password is mismatch
         </mat-error>
       </app-form-field>
+      <div class="flex gap-1 my-2">
+        <span class="font-medium">Status : </span>
+        <mat-slide-toggle color="primary" formControlName="active" (click)="toggleActive()"><span class="select-none">{{user.active ? 'Active':'Inactive'}}</span></mat-slide-toggle>
+      </div>
       <mat-divider inset="false" class="!my-2"></mat-divider>
       <h3 class="!m-0">Roles</h3>
       <div>

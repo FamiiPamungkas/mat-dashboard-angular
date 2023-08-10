@@ -1,5 +1,5 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {catchError, Observable, switchMap, throwError} from "rxjs";
+import {catchError, EMPTY, Observable, switchMap, throwError} from "rxjs";
 import {Injectable} from "@angular/core";
 import {AuthService} from "../service/auth.service";
 import {CryptoService} from "../service/crypto.service";
@@ -39,12 +39,12 @@ export class RequestInterceptor implements HttpInterceptor {
               const updatedRequest = this.addTokenToRequest(request, this.cryptoService.token);
               return next.handle(updatedRequest);
             }),
-            catchError((err) => {
+            catchError(() => {
               const matDialogRef = this.alertService.showError("Session Expired","Your session has expired for security reasons. Please log in again to continue.");
               matDialogRef.afterClosed().subscribe(()=>{
                 this.authService.logout();
               })
-              return throwError(err);
+              return EMPTY;
             })
           )
         }

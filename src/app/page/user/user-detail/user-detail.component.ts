@@ -3,7 +3,7 @@ import {BasePage} from "../../base-page";
 import {NavigationService} from "../../../service/navigation.service";
 import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import {isValidNumber} from "../../../utility/utility";
+import {formatIsoDate, isValidNumber} from "../../../utility/utility";
 import {AlertDialogService} from "../../../service/alert-dialog.service";
 import {MatDialogRef} from "@angular/material/dialog";
 import {USERS_ENDPOINT} from "../../../utility/constant";
@@ -58,8 +58,9 @@ export class UserDetailComponent extends BasePage implements OnInit {
     let self = this;
     this.reqService.get(USERS_ENDPOINT + "/" + id)
       .subscribe({
-        next(res: UserDTO) {
+        next(res: User) {
           self.user = res;
+          self.user.fmtBirthdate = formatIsoDate(res.birthdate,"dd MMMM yyyy")
           console.log("RESPONSE ", res);
         },
         error(error) {
@@ -71,4 +72,6 @@ export class UserDetailComponent extends BasePage implements OnInit {
         }
       })
   }
+
+  protected readonly formatIsoDate = formatIsoDate;
 }

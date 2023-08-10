@@ -9,9 +9,9 @@ import {
   REFRESH_TOKEN_KEY,
   TOKEN_KEY
 } from "../utility/constant";
-import {User} from "../model/interfaces";
 import {StorageService} from "./storage.service";
 import {Router} from "@angular/router";
+import {User} from "../model/classes-implementation";
 
 @Injectable({
   providedIn: 'root'

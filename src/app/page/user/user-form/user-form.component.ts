@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BasePage} from "../../base-page";
 import {NavigationService} from "../../../service/navigation.service";
 import {method, RequestService} from "../../../service/request.service";
-import {BaseResponse, SimpleOption, UserDTO} from "../../../model/interfaces";
+import {BaseResponse, SimpleOption} from "../../../model/interfaces";
 import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Role, SimplyOption, User} from "../../../model/classes-implementation";
@@ -43,6 +43,7 @@ export class UserFormComponent extends BasePage implements OnInit {
     username: new FormControl(this.user.username, [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required]),
+    active: new FormControl(this.user.active),
     roles: new FormControl(this.selectedRoles, [Validators.required])
   }, {validators: passwordMatchValidator})
 
@@ -100,7 +101,7 @@ export class UserFormComponent extends BasePage implements OnInit {
     let self = this;
     this.reqService.get(USERS_ENDPOINT + "/" + id)
       .subscribe({
-        next(res: UserDTO) {
+        next(res: User) {
           console.log("RESPONSE ", res);
           self.user = res;
           self.userForm.get('firstname')?.setValue(self.user.firstname);
@@ -108,6 +109,7 @@ export class UserFormComponent extends BasePage implements OnInit {
           self.userForm.get('birthdate')?.setValue(self.user.birthdate);
           self.userForm.get('email')?.setValue(self.user.email);
           self.userForm.get('username')?.setValue(self.user.username);
+          self.userForm.get('active')?.setValue(self.user.active);
 
           self.selectedRoles = self.user.roles.map(role => role.id.toString());
           for (let option of self.roleOptions) {
@@ -141,6 +143,7 @@ export class UserFormComponent extends BasePage implements OnInit {
       user.email = this.userForm.get('email')?.value ?? "";
       user.username = this.userForm.get('username')?.value ?? "";
       user.password = this.userForm.get('password')?.value ?? "";
+      user.active = this.userForm.get('active')?.value ?? false;
 
       const roles: string[] = this.userForm.get('roles')?.value ?? [];
       user.roles = [];
@@ -185,5 +188,9 @@ export class UserFormComponent extends BasePage implements OnInit {
     }
 
     this.userForm.get('roles')?.setValue(this.selectedRoles);
+  }
+
+  toggleActive() {
+    this.user.active = !this.user.active;
   }
 }

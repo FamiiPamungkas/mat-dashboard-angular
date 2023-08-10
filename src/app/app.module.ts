@@ -47,6 +47,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NotFoundComponent} from './page/not-found/not-found.component';
 import {UserListComponent} from './page/user/user-list/user-list.component';
 import { UserDetailComponent } from './page/user/user-detail/user-detail.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
     declarations: [
@@ -98,7 +99,8 @@ import { UserDetailComponent } from './page/user/user-detail/user-detail.compone
         MatCheckboxModule,
         MatDialogModule,
         FontAwesomeModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        MatSlideToggleModule
     ],
     providers: [
         {
