@@ -1,0 +1,47 @@
+<page-title [title]="title" [breadcrumbs]="breadcrumbs"/>
+<div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <table class="detail">
+    <tr>
+      <td>First Name</td>
+      <td>:</td>
+      <td>{{user.firstname}}</td>
+    </tr>
+    <tr>
+      <td>Last Name</td>
+      <td>:</td>
+      <td>{{user.lastname}}</td>
+    </tr>
+    <tr>
+      <td>Birthdate</td>
+      <td>:</td>
+      <td>{{user.birthdate}}</td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td>:</td>
+      <td>{{user.email}}</td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td>:</td>
+      <td>{{user.username}}</td>
+    </tr>
+    <tr>
+      <td>Roles</td>
+      <td>:</td>
+      <td>
+        <div class="flex">
+          <div class="px-2 py-[2px] bg-sky-600 text-white rounded-lg font-medium" *ngFor="let role of user.roles">
+            {{role.name}}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <mat-divider></mat-divider>
+  <section class="flex gap-2 mt-2">
+    <button mat-raised-button color="accent" type="button" (click)="back()">
+      <mat-icon>arrow_back</mat-icon>Back
+    </button>
+  </section>
+</div>

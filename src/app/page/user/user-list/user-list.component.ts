@@ -2,7 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {BasePage} from "../../base-page";
 import {UserDTO} from "../../../model/interfaces";
 import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
-import {faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {NavigationService} from "../../../service/navigation.service";
 import {RequestService} from "../../../service/request.service";
 import {Router} from "@angular/router";
@@ -24,6 +24,7 @@ export class UserListComponent extends BasePage implements AfterViewInit{
   ];
 
   editIcon: IconDefinition = faUserEdit;
+  detailIcon: IconDefinition = faMagnifyingGlass;
 
   constructor(
     navService: NavigationService,
@@ -52,5 +53,9 @@ export class UserListComponent extends BasePage implements AfterViewInit{
 
   editUser(id: number) {
     this.router.navigateByUrl('/users/edit/' + id).finally();
+  }
+
+  detailUser(id:number) {
+    this.router.navigateByUrl('/users/detail/' + id).finally();
   }
 }

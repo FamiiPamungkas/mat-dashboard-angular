@@ -19,7 +19,6 @@ export class NotFoundComponent extends BasePage {
       "not-found",
       "Not Found"
     )
-    console.log("CONSTRUCTOR NOT FOUND COMPONENT")
   }
 
   home() {

@@ -32,6 +32,9 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
+        <button class="icon-button info rounded-md" title="Detail" (click)="detailUser(row.id)">
+          <fa-icon [icon]="detailIcon"></fa-icon>
+        </button>
         <button class="icon-button primary rounded-md" title="Edit" (click)="editUser(row.id)">
           <fa-icon [icon]="editIcon"></fa-icon>
         </button>

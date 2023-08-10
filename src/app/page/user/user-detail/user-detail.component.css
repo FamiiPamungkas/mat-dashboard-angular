@@ -1,0 +1,7 @@
+table.detail{
+  @apply mb-2;
+}
+
+table.detail td:nth-child(2){
+  @apply text-center w-[20px]
+}

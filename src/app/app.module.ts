@@ -30,7 +30,7 @@ import {NavLinkComponent} from './layout/component/nav-link/nav-link.component';
 import {BreadcrumbsComponent} from './layout/component/breadcrumbs/breadcrumbs.component';
 import {PageTitleComponent} from './layout/component/page-title/page-title.component';
 import {MatTableModule} from "@angular/material/table";
-import {UserFormComponent} from './page/user-form/user-form.component';
+import {UserFormComponent} from './page/user/user-form/user-form.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
@@ -46,6 +46,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NotFoundComponent} from './page/not-found/not-found.component';
 import {UserListComponent} from './page/user/user-list/user-list.component';
+import { UserDetailComponent } from './page/user/user-detail/user-detail.component';
 
 @NgModule({
     declarations: [
@@ -72,6 +73,7 @@ import {UserListComponent} from './page/user/user-list/user-list.component';
         AlertDialogComponent,
         NotFoundComponent,
         UserListComponent,
+        UserDetailComponent,
     ],
     imports: [
         BrowserModule,
