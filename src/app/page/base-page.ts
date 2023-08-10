@@ -3,13 +3,15 @@ import {NavigationService} from "../service/navigation.service";
 export class BasePage {
   _title?: string;
 
+  /**
+   * @var authority digunakan untuk menentukan navigasi mana yang aktif di sidenav
+   * */
   constructor(
     protected navService: NavigationService,
     authority: string,
     title: string
   ) {
     navService.setActiveNav(authority);
-    navService.setPageTitle(title);
     this.title = title
   }
 
@@ -22,4 +24,7 @@ export class BasePage {
     this.navService.setPageTitle(this._title)
   }
 
+  back() {
+    window.history.back();
+  }
 }

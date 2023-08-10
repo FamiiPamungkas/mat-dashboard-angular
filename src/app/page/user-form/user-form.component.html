@@ -1,6 +1,5 @@
 <page-title [title]="title" [breadcrumbs]="breadcrumbs"/>
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
-  <alert *ngIf="pageError.length>0" type="danger" icon="close" class="mb-4">{{pageError}}</alert>
   <form [formGroup]="userForm" (ngSubmit)="submit()">
     <div class="flex flex-col gap-2">
       <app-form-field label="Firstname" class="max-w-[300px]">
@@ -16,12 +15,12 @@
         <mat-error *ngIf="userForm.get('birthdate')?.hasError('required')">Birthdate is required</mat-error>
       </app-form-field>
       <app-form-field label="Email" class="max-w-[300px]">
-        <input appInput type="email" placeholder="Email"  formControlName="email"/>
+        <input appInput type="email" placeholder="Email" formControlName="email"/>
         <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is required</mat-error>
         <mat-error *ngIf="userForm.get('email')?.hasError('email')">Email is invalid</mat-error>
       </app-form-field>
       <app-form-field label="Username" class="max-w-[300px]">
-        <input appInput type="text" placeholder="Username"  formControlName="username"/>
+        <input appInput type="text" placeholder="Username" formControlName="username"/>
         <mat-error *ngIf="userForm.get('username')?.hasError('required')">Username is required</mat-error>
       </app-form-field>
       <app-form-field label="Password" class="max-w-[300px]">
@@ -32,18 +31,26 @@
       <app-form-field label="Confirm Password" class="max-w-[300px]">
         <input appInput type="password" placeholder="Confirm Password" formControlName="confirmPassword"/>
         <mat-error *ngIf="userForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</mat-error>
-        <mat-error *ngIf="!userForm.get('confirmPassword')?.hasError('required') && userForm.errors?.['passwordMismatch'] && (userForm.touched || userForm.dirty)">Confirm Password is mismatch</mat-error>
+        <mat-error
+          *ngIf="!userForm.get('confirmPassword')?.hasError('required') && userForm.errors?.['passwordMismatch'] && (userForm.touched || userForm.dirty)">
+          Confirm Password is mismatch
+        </mat-error>
       </app-form-field>
       <mat-divider inset="false" class="!my-2"></mat-divider>
       <h3 class="!m-0">Roles</h3>
       <div>
         <section class="bg-neutral-100 rounded-md {{ isRoleInvalid ? 'border-[1px] border-red-600' : '' }}">
-          <mat-checkbox *ngFor="let role of roleOptions" (change)="checkRole($event)" [value]="role.key">{{role.value}}</mat-checkbox>
+          <mat-checkbox *ngFor="let role of roleOptions" (change)="checkRole($event)" [value]="role.key" checked="{{role.selected}}">
+            {{role.value}}
+          </mat-checkbox>
         </section>
         <mat-error class="text-xs" *ngIf="isRoleInvalid">Roles is required</mat-error>
       </div>
 
-      <section>
+      <section class="flex gap-2">
+        <button mat-raised-button color="accent" type="button" (click)="back()">
+          <mat-icon>arrow_back</mat-icon>Back
+        </button>
         <button mat-raised-button color="primary" type="submit">Submit</button>
       </section>
     </div>

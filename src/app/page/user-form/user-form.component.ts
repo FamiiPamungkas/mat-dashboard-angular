@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {BasePage} from "../base-page";
 import {NavigationService} from "../../service/navigation.service";
-import {RequestService} from "../../service/request.service";
-import {BaseResponse, SimpleOption} from "../../model/interfaces";
+import {method, RequestService} from "../../service/request.service";
+import {BaseResponse, SimpleOption, UserDTO} from "../../model/interfaces";
 import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
-import {Role, User} from "../../model/classes-implementation";
+import {Role, SimplyOption, User} from "../../model/classes-implementation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AlertDialogService} from "../../service/alert-dialog.service";
 import {MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Breadcrumb} from "../../layout/component/breadcrumbs/breadcrumbs.component";
+import {isValidNumber} from "../../utility/utility";
 
 @Component({
   selector: 'app-user-form',
@@ -26,19 +27,20 @@ export class UserFormComponent extends BasePage implements OnInit {
     new Breadcrumb("Users", "/users"),
   ];
 
-  roleOptions: SimpleOption[] = [];
+  paramId: string = "0";
+  roleOptions: SimplyOption[] = [];
   selectedRoles: string[] = [];
+  isEdit: boolean = false;
 
-  pageError: string = "";
+  user: User = new User();
 
   submitted: boolean = false;
-
   userForm = new FormGroup({
-    firstname: new FormControl('', [Validators.required]),
-    lastname: new FormControl(''),
-    birthdate: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    username: new FormControl('', [Validators.required]),
+    firstname: new FormControl(this.user.firstname, [Validators.required]),
+    lastname: new FormControl(this.user.lastname),
+    birthdate: new FormControl(this.user.birthdate, [Validators.required]),
+    email: new FormControl(this.user.email, [Validators.required, Validators.email]),
+    username: new FormControl(this.user.username, [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required]),
     roles: new FormControl(this.selectedRoles, [Validators.required])
@@ -61,32 +63,67 @@ export class UserFormComponent extends BasePage implements OnInit {
 
   ngOnInit() {
     this.activeRoute.params.subscribe(params => {
-      console.log("PARAMS = ", params['id'])
       if (params['id']) {
         this.title = "Edit User";
+        this.paramId = params['id'];
+        this.isEdit = true;
         this.breadcrumbs.push(new Breadcrumb("Edit User"));
-        this.fetchUserData(params['id']);
+
+        this.userForm.get('password')?.removeValidators([Validators.required])
+        this.userForm.get('confirmPassword')?.removeValidators([Validators.required])
         return;
       }
-
       this.breadcrumbs.push(new Breadcrumb("Add User"))
     });
 
-    this.reqService.get(ROLE_OPTIONS_ENDPOINT).subscribe(res => {
-      this.roleOptions = res
+    this.reqService.get(ROLE_OPTIONS_ENDPOINT).subscribe((res: SimpleOption[]) => {
+      for (let opt of res) {
+        this.roleOptions.push(new SimplyOption(opt.key, opt.value, false));
+      }
+
+      if (this.isEdit) {
+        this.fetchUserData(this.paramId);
+      }
     });
 
   }
 
   fetchUserData(id: string) {
-    if (isNaN(parseInt(id))) {
-      this.pageError = `id [${id}] tidak valid`
+    if (!isValidNumber(id)) {
+      const dialog: MatDialogRef<any> = this.alertService.showError("Invalid User ID", `The provided user ID [${id}] is not valid.`);
+      dialog.afterClosed().subscribe(() => {
+        this.router.navigateByUrl("/users").finally();
+      });
       return;
     }
 
-    // this.reqService.get(USERS_ENDPOINT)
-    // console.log("ID ", id, typeof id)
+    let self = this;
+    this.reqService.get(USERS_ENDPOINT + "/" + id)
+      .subscribe({
+        next(res: UserDTO) {
+          console.log("RESPONSE ", res);
+          self.user = res;
+          self.userForm.get('firstname')?.setValue(self.user.firstname);
+          self.userForm.get('lastname')?.setValue(self.user.lastname);
+          self.userForm.get('birthdate')?.setValue(self.user.birthdate);
+          self.userForm.get('email')?.setValue(self.user.email);
+          self.userForm.get('username')?.setValue(self.user.username);
 
+          self.selectedRoles = self.user.roles.map(role => role.id.toString());
+          for (let option of self.roleOptions) {
+            option.selected = self.selectedRoles.includes(option.key);
+          }
+
+          self.userForm.get('roles')?.setValue(self.selectedRoles);
+        },
+        error(error) {
+          const res: BaseResponse = error.error;
+          const dialog: MatDialogRef<any> = self.alertService.showError("User not found", res.message);
+          dialog.afterClosed().subscribe(() => {
+            return self.router.navigateByUrl("/users");
+          })
+        }
+      })
   }
 
   get isRoleInvalid(): boolean {
@@ -97,7 +134,7 @@ export class UserFormComponent extends BasePage implements OnInit {
     this.submitted = true;
 
     if (this.userForm.valid) {
-      const user: User = new User();
+      const user: User = this.user;
       user.firstname = this.userForm.get('firstname')?.value ?? "";
       user.lastname = this.userForm.get('lastname')?.value ?? "";
       user.birthdate = this.userForm.get('birthdate')?.value ?? "";
@@ -106,14 +143,20 @@ export class UserFormComponent extends BasePage implements OnInit {
       user.password = this.userForm.get('password')?.value ?? "";
 
       const roles: string[] = this.userForm.get('roles')?.value ?? [];
+      user.roles = [];
       for (let role of roles) {
         user.roles.push(new Role(parseInt(role)))
       }
 
+      let method: method = "post";
+      if (this.isEdit) method = "put";
+
       let self = this;
-      this.reqService.post(USERS_ENDPOINT, user).subscribe({
+      this.reqService.post(USERS_ENDPOINT, user, {method}).subscribe({
         next() {
-          const successDialog: MatDialogRef<any> = self.alertService.showSuccess("User Added Successfully", "User has been added successfully.<br>You will be redirected to user list page...");
+          let title = self.isEdit ? "User updated successfully" : "User added successfully";
+          let message = self.isEdit ? "User has been updated successfully.<br>You will be redirected to user list page." : "User has been added successfully.<br>You will be redirected to user list page.";
+          const successDialog: MatDialogRef<any> = self.alertService.showSuccess(title, message);
           successDialog.afterClosed().subscribe(() => {
             self.router.navigateByUrl("/users").finally();
           });

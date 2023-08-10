@@ -6,9 +6,7 @@ import {RequestService} from "../../service/request.service";
 import {UserDTO} from "../../model/interfaces";
 import {Router} from "@angular/router";
 import {USERS_ENDPOINT} from "../../utility/constant";
-import {faTrashCan, faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {NotificationService} from "../../service/notification.service";
-import {AppNotification} from "../../model/classes-implementation";
+import {faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-user',
@@ -25,14 +23,12 @@ export class UserComponent extends BasePage implements AfterViewInit {
     new Breadcrumb("Users"),
   ];
 
-  deleteIcon: IconDefinition = faTrashCan;
   editIcon: IconDefinition = faUserEdit;
 
   constructor(
     navService: NavigationService,
     private reqService: RequestService,
     private router: Router,
-    private notificationService: NotificationService
   ) {
     super(navService, UserComponent.AUTHORITY, UserComponent.PAGE_TITLE);
   }
@@ -52,22 +48,6 @@ export class UserComponent extends BasePage implements AfterViewInit {
 
   addUser() {
     this.router.navigateByUrl("/users/add").then(() => false);
-  }
-
-  deleteUser(id: number) {
-    let self = this;
-    this.reqService.post(USERS_ENDPOINT + "/" + id, null, {method: "delete", showAlert: true}).subscribe({
-      next() {
-        self.notificationService.addNotification(
-          new AppNotification(
-            "success",
-            "Delete Success",
-            "User has been successfully deleted"
-          )
-        )
-        self.fetchUserData();
-      }
-    })
   }
 
   editUser(id: number) {

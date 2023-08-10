@@ -1,21 +1,28 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
+import {BasePage} from "../base-page";
+import {NavigationService} from "../../service/navigation.service";
 
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.css']
 })
-export class NotFoundComponent {
+export class NotFoundComponent extends BasePage {
 
-  constructor(private router: Router) {
-  }
-
-  back(){
-    window.history.back();
+  constructor(
+    navService: NavigationService,
+    private router: Router
+  ) {
+    super(
+      navService,
+      "not-found",
+      "Not Found"
+    )
+    console.log("CONSTRUCTOR NOT FOUND COMPONENT")
   }
 
   home() {
-    return this.router.navigateByUrl("/").finally();
+    this.router.navigateByUrl("/").finally();
   }
 }

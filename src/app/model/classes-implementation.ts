@@ -1,4 +1,4 @@
-import {Menu as MenuInt, MenuDTO, RoleDTO, UserDTO} from "./interfaces";
+import {Menu as MenuInt, MenuDTO, RoleDTO, SimpleOption, UserDTO} from "./interfaces";
 import {notificationType} from "../layout/component/notification/notification.component";
 
 export class Menu implements MenuDTO {
@@ -36,7 +36,7 @@ export class User implements UserDTO {
   birthdate: string = "";
   email: string = "";
   username: string = "";
-  password: string = "";
+  password?: string = "";
   roles: RoleDTO[] = [];
 
 }
@@ -61,4 +61,17 @@ export class AppNotification {
   type: notificationType = "primary";
   title: string = "";
   message: string = "";
+}
+
+export class SimplyOption implements SimpleOption {
+
+  constructor(key?: string, value?: string, selected?: boolean) {
+    this.key = key || "";
+    this.value = value || "";
+    this.selected = selected || false;
+  }
+
+  key: string;
+  value: string;
+  selected: boolean;
 }
