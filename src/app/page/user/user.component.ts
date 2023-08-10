@@ -6,7 +6,7 @@ import {RequestService} from "../../service/request.service";
 import {UserDTO} from "../../model/interfaces";
 import {Router} from "@angular/router";
 import {USERS_ENDPOINT} from "../../utility/constant";
-import {faTrashCan, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faTrashCan, faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {NotificationService} from "../../service/notification.service";
 import {AppNotification} from "../../model/classes-implementation";
 
@@ -26,6 +26,7 @@ export class UserComponent extends BasePage implements AfterViewInit {
   ];
 
   deleteIcon: IconDefinition = faTrashCan;
+  editIcon: IconDefinition = faUserEdit;
 
   constructor(
     navService: NavigationService,
@@ -42,7 +43,7 @@ export class UserComponent extends BasePage implements AfterViewInit {
 
   fetchUserData() {
     let self = this;
-    this.reqService.get(USERS_ENDPOINT,undefined,{showAlert:true}).subscribe({
+    this.reqService.get(USERS_ENDPOINT, undefined, {showAlert: true}).subscribe({
       next(res) {
         self.users = res;
       }
@@ -68,4 +69,9 @@ export class UserComponent extends BasePage implements AfterViewInit {
       }
     })
   }
+
+  editUser(id: number) {
+    this.router.navigateByUrl('/users/edit/' + id).finally();
+  }
+
 }

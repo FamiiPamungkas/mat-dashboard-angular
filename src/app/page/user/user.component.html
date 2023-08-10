@@ -35,6 +35,9 @@
         <button class="icon-button danger rounded-md" title="Delete" (click)="deleteUser(row.id)">
           <fa-icon [icon]="deleteIcon"></fa-icon>
         </button>
+        <button class="icon-button primary rounded-md" title="Edit" (click)="editUser(row.id)">
+          <fa-icon [icon]="editIcon"></fa-icon>
+        </button>
       </td>
     </ng-container>
 
