@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {Title} from "@angular/platform-browser";
 import {APP_NAME} from "../utility/constant";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class NavigationService {
   private activeNav: Subject<string> = new Subject<string>();
 
   constructor(
-    private title: Title
+    private title: Title,
+    private router: Router
   ) {
   }
 
@@ -26,5 +28,9 @@ export class NavigationService {
 
   getActiveNav(): Observable<string> {
     return this.activeNav.asObservable();
+  }
+
+  goToDashboard(){
+    this.router.navigateByUrl("/dashboard").finally();
   }
 }

@@ -25,6 +25,10 @@ export class BasePage {
   }
 
   back() {
+    if (window.history.length <= 1) {
+      this.navService.goToDashboard();
+      return;
+    }
     window.history.back();
   }
 }
