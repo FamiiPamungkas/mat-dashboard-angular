@@ -51,11 +51,4 @@ export class UserListComponent extends BasePage implements AfterViewInit{
     this.router.navigateByUrl("/users/add").then(() => false);
   }
 
-  editUser(id: number) {
-    this.router.navigateByUrl('/users/edit/' + id).finally();
-  }
-
-  detailUser(id:number) {
-    this.router.navigateByUrl('/users/detail/' + id).finally();
-  }
 }

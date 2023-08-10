@@ -53,39 +53,39 @@ $my-theme: mat.define-light-theme((
   @apply hover:text-yellow-600;
 }
 
-button.icon-button {
+.icon-button {
   @apply p-1 m-[1px] inline-flex justify-center items-center text-white
   w-7 h-7 shadow-neutral-600 shadow-sm hover:shadow-md
 }
 
-button.icon-button.primary {
+.icon-button.primary {
   @apply bg-sky-600 hover:bg-sky-500
 }
 
-button.icon-button.secondary {
+.icon-button.secondary {
   @apply bg-pink-600 hover:bg-pink-500
 }
 
-button.icon-button.success {
+.icon-button.success {
   @apply bg-lime-600 hover:bg-lime-500
 }
 
-button.icon-button.warning {
+.icon-button.warning {
   @apply bg-yellow-600 hover:bg-yellow-500
 }
 
-button.icon-button.danger {
+.icon-button.danger {
   @apply bg-red-600 hover:bg-red-500
 }
 
-button.icon-button.info {
+.icon-button.info {
   @apply bg-blue-600 hover:bg-blue-500
 }
 
-button.icon-button.dark {
+.icon-button.dark {
   @apply bg-neutral-600 hover:bg-neutral-800
 }
 
-button.icon-button.light {
+.icon-button.light {
   @apply bg-white hover:bg-neutral-300 text-black
 }
