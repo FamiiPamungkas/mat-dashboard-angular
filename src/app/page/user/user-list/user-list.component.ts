@@ -1,19 +1,19 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {NavigationService} from "../../service/navigation.service";
-import {BasePage} from "../base-page";
-import {Breadcrumb} from "../../layout/component/breadcrumbs/breadcrumbs.component";
-import {RequestService} from "../../service/request.service";
-import {UserDTO} from "../../model/interfaces";
-import {Router} from "@angular/router";
-import {USERS_ENDPOINT} from "../../utility/constant";
+import {BasePage} from "../../base-page";
+import {UserDTO} from "../../../model/interfaces";
+import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
 import {faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {NavigationService} from "../../../service/navigation.service";
+import {RequestService} from "../../../service/request.service";
+import {Router} from "@angular/router";
+import {USERS_ENDPOINT} from "../../../utility/constant";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class UserComponent extends BasePage implements AfterViewInit {
+export class UserListComponent extends BasePage implements AfterViewInit{
   static PAGE_TITLE: string = "Users";
   static AUTHORITY: string = "user-list";
   users: UserDTO[] = [];
@@ -30,7 +30,7 @@ export class UserComponent extends BasePage implements AfterViewInit {
     private reqService: RequestService,
     private router: Router,
   ) {
-    super(navService, UserComponent.AUTHORITY, UserComponent.PAGE_TITLE);
+    super(navService, UserListComponent.AUTHORITY, UserListComponent.PAGE_TITLE);
   }
 
   ngAfterViewInit() {
@@ -53,5 +53,4 @@ export class UserComponent extends BasePage implements AfterViewInit {
   editUser(id: number) {
     this.router.navigateByUrl('/users/edit/' + id).finally();
   }
-
 }

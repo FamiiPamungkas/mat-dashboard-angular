@@ -15,7 +15,6 @@ import {SubMenuComponent} from './layout/component/sub-menu/sub-menu.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {HomeComponent} from './page/home/home.component';
-import {UserComponent} from './page/user/user.component';
 import {MenuComponent} from './page/menu/menu.component';
 import {RoleComponent} from './page/role/role.component';
 import {LoginComponent} from './page/auth/login/login.component';
@@ -39,40 +38,41 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormFieldComponent} from './layout/component/form/form-field/form-field.component';
 import {AppInputDirective} from './directive/app-input.directive';
 import {
-  NotificationContainerComponent
+    NotificationContainerComponent
 } from './layout/component/notification-container/notification-container.component';
 import {NotificationComponent} from './layout/component/notification/notification.component';
 import {AlertDialogComponent} from './layout/component/alert-dialog/alert-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import { NotFoundComponent } from './page/not-found/not-found.component';
+import {NotFoundComponent} from './page/not-found/not-found.component';
+import {UserListComponent} from './page/user/user-list/user-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    MenuItemComponent,
-    SubMenuComponent,
-    HomeComponent,
-    UserComponent,
-    MenuComponent,
-    RoleComponent,
-    LoginComponent,
-    LogoComponent,
-    ProductComponent,
-    ProductConsigComponent,
-    AlertComponent,
-    NavLinkComponent,
-    BreadcrumbsComponent,
-    PageTitleComponent,
-    UserFormComponent,
-    FormFieldComponent,
-    AppInputDirective,
-    NotificationContainerComponent,
-    NotificationComponent,
-    AlertDialogComponent,
-    NotFoundComponent,
-  ],
+    declarations: [
+        AppComponent,
+        DashboardComponent,
+        MenuItemComponent,
+        SubMenuComponent,
+        HomeComponent,
+        MenuComponent,
+        RoleComponent,
+        LoginComponent,
+        LogoComponent,
+        ProductComponent,
+        ProductConsigComponent,
+        AlertComponent,
+        NavLinkComponent,
+        BreadcrumbsComponent,
+        PageTitleComponent,
+        UserFormComponent,
+        FormFieldComponent,
+        AppInputDirective,
+        NotificationContainerComponent,
+        NotificationComponent,
+        AlertDialogComponent,
+        NotFoundComponent,
+        UserListComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -98,14 +98,14 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
         FontAwesomeModule,
         NgOptimizedImage
     ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RequestInterceptor,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RequestInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

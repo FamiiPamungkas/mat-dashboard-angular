@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
-import {UserComponent} from "./page/user/user.component";
 import {MenuComponent} from "./page/menu/menu.component";
 import {RoleComponent} from "./page/role/role.component";
 import {LoginComponent} from "./page/auth/login/login.component";
@@ -12,6 +11,7 @@ import {ProductConsigComponent} from "./page/product-consig/product-consig.compo
 import {UserFormComponent} from "./page/user-form/user-form.component";
 import {accessGuard} from "./guard/access.guard";
 import {NotFoundComponent} from "./page/not-found/not-found.component";
+import {UserListComponent} from "./page/user/user-list/user-list.component";
 
 const routes: Routes = [
   {
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserComponent,
+    component: UserListComponent,
     canActivate: [mainGuard, accessGuard]
   },
   {
@@ -47,7 +47,7 @@ const routes: Routes = [
   {
     path: 'menus',
     component: MenuComponent,
-    canActivate: [mainGuard, accessGuard]
+    canActivate: [mainGuard,  accessGuard]
   },
   {
     path: 'roles',
