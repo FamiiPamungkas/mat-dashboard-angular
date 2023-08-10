@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {BasePage} from "../base-page";
-import {NavigationService} from "../../service/navigation.service";
-import {method, RequestService} from "../../service/request.service";
-import {BaseResponse, SimpleOption, UserDTO} from "../../model/interfaces";
-import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../utility/constant";
+import {BasePage} from "../../base-page";
+import {NavigationService} from "../../../service/navigation.service";
+import {method, RequestService} from "../../../service/request.service";
+import {BaseResponse, SimpleOption, UserDTO} from "../../../model/interfaces";
+import {passwordMatchValidator, ROLE_OPTIONS_ENDPOINT, USERS_ENDPOINT} from "../../../utility/constant";
 import {MatCheckboxChange} from "@angular/material/checkbox";
-import {Role, SimplyOption, User} from "../../model/classes-implementation";
+import {Role, SimplyOption, User} from "../../../model/classes-implementation";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AlertDialogService} from "../../service/alert-dialog.service";
+import {AlertDialogService} from "../../../service/alert-dialog.service";
 import {MatDialogRef} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Breadcrumb} from "../../layout/component/breadcrumbs/breadcrumbs.component";
-import {isValidNumber} from "../../utility/utility";
+import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
+import {isValidNumber} from "../../../utility/utility";
 
 @Component({
   selector: 'app-user-form',
