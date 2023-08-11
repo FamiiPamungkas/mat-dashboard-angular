@@ -49,6 +49,7 @@ import {UserDetailComponent} from './page/user/user-detail/user-detail.component
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {RoleListComponent} from './page/role/role-list/role-list.component';
 import { RoleDetailComponent } from './page/role/role-detail/role-detail.component';
+import { RoleFormComponent } from './page/role/role-form/role-form.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { RoleDetailComponent } from './page/role/role-detail/role-detail.compone
     UserDetailComponent,
     RoleListComponent,
     RoleDetailComponent,
+    RoleFormComponent,
   ],
   imports: [
     BrowserModule,
