@@ -1,0 +1,45 @@
+<page-title title="{{title}}" [breadcrumbs]="breadcrumbs"/>
+<div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <table mat-table [dataSource]="menus">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let i = index">{{(i + 1)}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="path">
+      <th mat-header-cell *matHeaderCellDef>Path</th>
+      <td mat-cell *matCellDef="let row">{{row.link}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="parent">
+      <th mat-header-cell *matHeaderCellDef>Parent</th>
+      <td mat-cell *matCellDef="let row">{{row.parent?.name || "-"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Visible</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="chips lg {{row.visible ? 'success':'primary'}}">{{row.visible ? 'Yes' : 'No'}}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <a class="icon-button info rounded-md" title="Detail" routerLink="/roles/detail/{{row.id}}">
+          <fa-icon [icon]="detailIcon"></fa-icon>
+        </a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id','name','parent','path','status','action']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','name','parent','path','status','action'];"></tr>
+
+  </table>
+</div>

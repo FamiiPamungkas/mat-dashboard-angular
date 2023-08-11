@@ -1,7 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-
-// Generated using typescript-generator version 3.2.1263 on 2023-08-11 14:02:39.
+// Generated using typescript-generator version 3.2.1263 on 2023-08-11 16:48:45.
 
 export interface MenuDTO {
   id: number;
@@ -29,6 +28,22 @@ export interface RoleDTO {
   createdAt: string;
   updatedAt: string;
   menus: MenuDTO[];
+}
+
+export interface SimpleMenu {
+  id: number;
+  authority: string;
+  name: string;
+  description: string;
+  link: string;
+  group: string;
+  visible: boolean;
+  icon: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  parent: SimpleMenu;
+  seq: number;
 }
 
 export interface SimpleUser {

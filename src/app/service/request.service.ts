@@ -25,7 +25,7 @@ export class RequestService {
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.log("## REQUEST ERROR => ", error);
     let res: BaseResponse = error.error;
-    if (error.status === 0) {
+    if (!error.error || error.status === 0) {
       this.notificationService.addNotification(
         new AppNotification("danger", "Connection Error", "Can't connect to server. Check your connection or try again later.")
       );

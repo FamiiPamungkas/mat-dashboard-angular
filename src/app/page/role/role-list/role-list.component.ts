@@ -45,6 +45,4 @@ export class RoleListComponent extends BasePage implements OnInit {
     })
   }
 
-
-  protected readonly faMagnifyingGlass = faMagnifyingGlass;
 }

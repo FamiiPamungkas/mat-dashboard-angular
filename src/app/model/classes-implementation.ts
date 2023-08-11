@@ -12,7 +12,8 @@ export class Menu implements MenuDTO {
   visible: boolean = true;
   seq: number = 0;
   authorities: string[] = [];
-  children: MenuDTO[] = [];
+  parent?: Menu;
+  children: Menu[] = [];
   active: boolean = false;
   createdAt: string = "";
   updatedAt: string = "";
@@ -40,7 +41,7 @@ export class User implements UserDTO {
   firstname: string = "";
   lastname: string = "";
   birthdate: string = "";
-  fmtBirthdate:string = "";
+  fmtBirthdate: string = "";
   email: string = "";
   username: string = "";
   password?: string = "";
