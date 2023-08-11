@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-08-10 20:03:13.
+
+// Generated using typescript-generator version 3.2.1263 on 2023-08-11 14:02:39.
 
 export interface MenuDTO {
   id: number;
@@ -9,7 +10,7 @@ export interface MenuDTO {
   description: string;
   link: string;
   group: string;
-  showOnNav: boolean;
+  visible: boolean;
   icon: string;
   active: boolean;
   createdAt: string;
@@ -28,6 +29,13 @@ export interface RoleDTO {
   createdAt: string;
   updatedAt: string;
   menus: MenuDTO[];
+}
+
+export interface SimpleUser {
+  id: number;
+  username: string;
+  fullname: string;
+  active: boolean;
 }
 
 export interface UserAuthDTO {
@@ -83,7 +91,7 @@ export interface Menu extends BaseEntity {
   link: string;
   group: string;
   seq: number;
-  showOnNav: boolean;
+  visible: boolean;
   icon: string;
   parent: Menu;
   children: Menu[];

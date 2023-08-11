@@ -1,6 +1,5 @@
 import {MenuDTO, RoleDTO, SimpleOption, UserDTO} from "./interfaces";
 import {notificationType} from "../layout/component/notification/notification.component";
-import {formatIsoDate} from "../utility/utility";
 
 export class Menu implements MenuDTO {
   id: number = 0;
@@ -10,7 +9,7 @@ export class Menu implements MenuDTO {
   group: string = "";
   icon: string = "";
   link: string = "";
-  showOnNav: boolean = true;
+  visible: boolean = true;
   seq: number = 0;
   authorities: string[] = [];
   children: MenuDTO[] = [];
