@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
 import {MenuComponent} from "./page/menu/menu.component";
-import {RoleComponent} from "./page/role/role.component";
 import {LoginComponent} from "./page/auth/login/login.component";
 import {authGuard} from "./guard/auth.guard";
 import {mainGuard} from "./guard/main.guard";
@@ -13,12 +12,14 @@ import {accessGuard} from "./guard/access.guard";
 import {NotFoundComponent} from "./page/not-found/not-found.component";
 import {UserListComponent} from "./page/user/user-list/user-list.component";
 import {UserDetailComponent} from "./page/user/user-detail/user-detail.component";
+import {RoleListComponent} from "./page/role/role-list/role-list.component";
+import {RoleDetailComponent} from "./page/role/role-detail/role-detail.component";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo:'dashboard',
-    pathMatch:'full'
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
   },
   {
     path: 'dashboard',
@@ -51,13 +52,18 @@ const routes: Routes = [
     canActivate: [mainGuard, accessGuard]
   },
   {
-    path: 'menus',
-    component: MenuComponent,
-    canActivate: [mainGuard,  accessGuard]
+    path: 'roles',
+    component: RoleListComponent,
+    canActivate: [mainGuard, accessGuard]
   },
   {
-    path: 'roles',
-    component: RoleComponent,
+    path: 'roles/detail/:id',
+    component: RoleDetailComponent,
+    canActivate: [mainGuard, accessGuard]
+  },
+  {
+    path: 'menus',
+    component: MenuComponent,
     canActivate: [mainGuard, accessGuard]
   },
   {
@@ -73,7 +79,7 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
-    canActivate:[mainGuard]
+    canActivate: [mainGuard]
   }
 ];
 

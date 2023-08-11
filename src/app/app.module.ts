@@ -16,7 +16,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {HomeComponent} from './page/home/home.component';
 import {MenuComponent} from './page/menu/menu.component';
-import {RoleComponent} from './page/role/role.component';
 import {LoginComponent} from './page/auth/login/login.component';
 import {LogoComponent} from './layout/component/logo/logo.component';
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -38,7 +37,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormFieldComponent} from './layout/component/form/form-field/form-field.component';
 import {AppInputDirective} from './directive/app-input.directive';
 import {
-    NotificationContainerComponent
+  NotificationContainerComponent
 } from './layout/component/notification-container/notification-container.component';
 import {NotificationComponent} from './layout/component/notification/notification.component';
 import {AlertDialogComponent} from './layout/component/alert-dialog/alert-dialog.component';
@@ -46,70 +45,73 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NotFoundComponent} from './page/not-found/not-found.component';
 import {UserListComponent} from './page/user/user-list/user-list.component';
-import { UserDetailComponent } from './page/user/user-detail/user-detail.component';
+import {UserDetailComponent} from './page/user/user-detail/user-detail.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {RoleListComponent} from './page/role/role-list/role-list.component';
+import { RoleDetailComponent } from './page/role/role-detail/role-detail.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        DashboardComponent,
-        MenuItemComponent,
-        SubMenuComponent,
-        HomeComponent,
-        MenuComponent,
-        RoleComponent,
-        LoginComponent,
-        LogoComponent,
-        ProductComponent,
-        ProductConsigComponent,
-        AlertComponent,
-        NavLinkComponent,
-        BreadcrumbsComponent,
-        PageTitleComponent,
-        UserFormComponent,
-        FormFieldComponent,
-        AppInputDirective,
-        NotificationContainerComponent,
-        NotificationComponent,
-        AlertDialogComponent,
-        NotFoundComponent,
-        UserListComponent,
-        UserDetailComponent,
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatButtonToggleModule,
-        MatIconModule,
-        MatListModule,
-        MatButtonModule,
-        HttpClientModule,
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatCheckboxModule,
-        MatDialogModule,
-        FontAwesomeModule,
-        NgOptimizedImage,
-        MatSlideToggleModule
-    ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: RequestInterceptor,
-            multi: true
-        }
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    MenuItemComponent,
+    SubMenuComponent,
+    HomeComponent,
+    MenuComponent,
+    LoginComponent,
+    LogoComponent,
+    ProductComponent,
+    ProductConsigComponent,
+    AlertComponent,
+    NavLinkComponent,
+    BreadcrumbsComponent,
+    PageTitleComponent,
+    UserFormComponent,
+    FormFieldComponent,
+    AppInputDirective,
+    NotificationContainerComponent,
+    NotificationComponent,
+    AlertDialogComponent,
+    NotFoundComponent,
+    UserListComponent,
+    UserDetailComponent,
+    RoleListComponent,
+    RoleDetailComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    HttpClientModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    FontAwesomeModule,
+    NgOptimizedImage,
+    MatSlideToggleModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

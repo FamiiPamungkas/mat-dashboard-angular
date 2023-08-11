@@ -1,0 +1,87 @@
+<page-title title="{{title}}" [breadcrumbs]="breadcrumbs"/>
+<div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <table class="detail">
+    <tr>
+      <td>Role Name</td>
+      <td>:</td>
+      <td>{{role.name}}</td>
+    </tr>
+    <tr>
+      <td>Authority</td>
+      <td>:</td>
+      <td>{{role.authority}}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>:</td>
+      <td>{{role.description}}</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>:</td>
+      <td>
+        <div
+          class="w-fit px-2 py-[2px] text-white rounded-lg font-medium {{role.active ? 'bg-lime-600':'bg-red-600'}}">
+          {{role.active ? "Active" : "Inactive"}}
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="align-top">Menus</td>
+      <td class="align-top">:</td>
+      <td>
+        <ul class="list-disc pl-4">
+          <li *ngFor="let menu of role.menus">
+            <span>{{menu.name}} <sup *ngIf="menu.showOnNav" class="text-lime-600">(visible)</sup> </span>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Role Users</td>
+      <td>:</td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <table mat-table class="bordered" [dataSource]="roleUsers">
+          <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell class="h-[25px]" *matCellDef="let i = index">{{(i + 1)}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>Username</th>
+            <td mat-cell  class="text-left" *matCellDef="let row">{{row.username}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="fullname">
+            <th mat-header-cell *matHeaderCellDef>Fullname</th>
+            <td mat-cell *matCellDef="let row">{{row.fullname}}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let row">
+              <span class="{{row.active ? '':'text-neutral-500'}}">
+              {{row.active ? 'Active' :'Inactive'}}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row class="!h-[30px]" *matHeaderRowDef="['no','username','fullname','status']"></tr>
+          <tr mat-row class="!h-fit border-[1px]" *matRowDef="let row; columns :['no','username','fullname','status']"></tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+  <mat-divider></mat-divider>
+  <section class="flex gap-2 mt-2">
+    <button mat-raised-button color="accent" type="button" (click)="back()">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+  </section>
+</div>

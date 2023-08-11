@@ -52,5 +52,6 @@ export const BASE_API: string = environment.baseAPI;
 export const USERS_ENDPOINT: string = "/v1/users";
 export const ROLES_ENDPOINT: string = "/v1/roles";
 export const ROLE_OPTIONS_ENDPOINT: string = ROLES_ENDPOINT + "/options";
+export const ROLE_USERS_ENDPOINT: string = ROLES_ENDPOINT + "/users";
 export const AUTHENTICATE_ENDPOINT: string = "/v1/auth/authenticate";
 export const REFRESH_TOKEN_ENDPOINT: string = "/v1/auth/refresh-token";

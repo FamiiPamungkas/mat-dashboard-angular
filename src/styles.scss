@@ -89,3 +89,66 @@ $my-theme: mat.define-light-theme((
 .icon-button.light {
   @apply bg-white hover:bg-neutral-300 text-black
 }
+
+table.detail{
+  @apply mb-2;
+}
+
+table.detail > tr > td:nth-child(2){
+  @apply text-center w-[20px]
+}
+
+.chips {
+  @apply px-2 py-1 text-white font-medium w-fit
+}
+
+.chips.md {
+  @apply rounded-md
+}
+
+.chips.sm {
+  @apply rounded-sm
+}
+
+.chips.lg {
+  @apply rounded-lg
+}
+
+.chips.primary {
+  @apply bg-sky-600 hover:bg-sky-500
+}
+
+.chips.secondary {
+  @apply bg-pink-600 hover:bg-pink-500
+}
+
+.chips.success {
+  @apply bg-lime-600 hover:bg-lime-500
+}
+
+.chips.warning {
+  @apply bg-yellow-600 hover:bg-yellow-500
+}
+
+.chips.danger {
+  @apply bg-red-600 hover:bg-red-500
+}
+
+.chips.info {
+  @apply bg-blue-600 hover:bg-blue-500
+}
+
+.chips.dark {
+  @apply bg-neutral-600 hover:bg-neutral-800
+}
+
+.chips.light {
+  @apply bg-white hover:bg-neutral-300 text-black
+}
+
+table.bordered > thead > tr > th,
+table.bordered > tbody > tr > td,
+table.bordered {
+  @apply border-[1px]
+}
+

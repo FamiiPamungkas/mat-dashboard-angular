@@ -73,5 +73,4 @@ export class UserDetailComponent extends BasePage implements OnInit {
       })
   }
 
-  protected readonly formatIsoDate = formatIsoDate;
 }
