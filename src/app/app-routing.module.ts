@@ -16,6 +16,7 @@ import {RoleListComponent} from "./page/role/role-list/role-list.component";
 import {RoleDetailComponent} from "./page/role/role-detail/role-detail.component";
 import {RoleFormComponent} from "./page/role/role-form/role-form.component";
 import {MenuListComponent} from "./page/menu/menu-list/menu-list.component";
+import {MenuDetailComponent} from "./page/menu/menu-detail/menu-detail.component";
 
 const routes: Routes = [
   {
@@ -76,6 +77,11 @@ const routes: Routes = [
   {
     path: 'menus',
     component: MenuListComponent,
+    canActivate: [mainGuard, accessGuard]
+  },
+  {
+    path: 'menus/detail/:id',
+    component: MenuDetailComponent,
     canActivate: [mainGuard, accessGuard]
   },
   {
