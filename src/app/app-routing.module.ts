@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./page/home/home.component";
-import {MenuComponent} from "./page/menu/menu.component";
 import {LoginComponent} from "./page/auth/login/login.component";
 import {authGuard} from "./guard/auth.guard";
 import {mainGuard} from "./guard/main.guard";
@@ -17,6 +16,7 @@ import {RoleDetailComponent} from "./page/role/role-detail/role-detail.component
 import {RoleFormComponent} from "./page/role/role-form/role-form.component";
 import {MenuListComponent} from "./page/menu/menu-list/menu-list.component";
 import {MenuDetailComponent} from "./page/menu/menu-detail/menu-detail.component";
+import {MenuFormComponent} from "./page/menu/menu-form/menu-form.component";
 
 const routes: Routes = [
   {
@@ -82,6 +82,16 @@ const routes: Routes = [
   {
     path: 'menus/detail/:id',
     component: MenuDetailComponent,
+    canActivate: [mainGuard, accessGuard]
+  },
+  {
+    path: 'menus/add',
+    component: MenuFormComponent,
+    canActivate: [mainGuard, accessGuard]
+  },
+  {
+    path: 'menus/edit/:id',
+    component: MenuFormComponent,
     canActivate: [mainGuard, accessGuard]
   },
   {

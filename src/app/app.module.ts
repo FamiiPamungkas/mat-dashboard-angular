@@ -52,6 +52,7 @@ import { RoleDetailComponent } from './page/role/role-detail/role-detail.compone
 import { RoleFormComponent } from './page/role/role-form/role-form.component';
 import {MenuListComponent} from "./page/menu/menu-list/menu-list.component";
 import { MenuDetailComponent } from './page/menu/menu-detail/menu-detail.component';
+import { MenuFormComponent } from './page/menu/menu-form/menu-form.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { MenuDetailComponent } from './page/menu/menu-detail/menu-detail.compone
     RoleFormComponent,
     MenuListComponent,
     MenuDetailComponent,
+    MenuFormComponent,
   ],
   imports: [
     BrowserModule,

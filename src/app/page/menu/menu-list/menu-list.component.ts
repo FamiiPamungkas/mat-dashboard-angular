@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
-import {faMagnifyingGlass, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faMagnifyingGlass, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {NavigationService} from "../../../service/navigation.service";
 import {RequestService} from "../../../service/request.service";
 import {MENUS_ENDPOINT} from "../../../utility/constant";
@@ -22,6 +22,7 @@ export class MenuListComponent extends BasePage implements OnInit {
   ];
 
   detailIcon: IconDefinition = faMagnifyingGlass;
+  editIcon: IconDefinition = faEdit;
 
   menus: Menu[] = []
 

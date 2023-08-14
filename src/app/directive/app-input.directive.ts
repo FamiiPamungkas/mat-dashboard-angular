@@ -1,7 +1,7 @@
 import {Directive, ElementRef} from '@angular/core';
 
 @Directive({
-  selector: 'input[appInput]',
+  selector: '[appInput]',
   exportAs: 'appInput'
 })
 export class AppInputDirective extends ElementRef<HTMLInputElement> {
