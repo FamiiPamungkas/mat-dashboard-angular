@@ -23,6 +23,7 @@ import {AppInputDirective} from "../../../../directive/app-input.directive";
 export class FormFieldComponent implements DoCheck, AfterContentInit {
   @Input() label: string = "";
   @Input() showPasswordToggle: boolean = true;
+  @Input() suggestions: string[] = [];
 
   @ContentChild(AppInputDirective) inputElement?: ElementRef;
   @ContentChild(MatError) matErrors?: QueryList<MatError>;
@@ -41,25 +42,28 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
   }
 
   ngDoCheck() {
+    const input = this.inputElement?.nativeElement;
     if (this._formControl && this._formGroup) {
       this._error = !!(this.matErrors && (this._formControl.touched || this._formGroup.submitted));
     }
-    if (this._isPassword) {
-      const input = this.inputElement?.nativeElement;
-      input.setAttribute('type', this.showPassword ? 'text' : 'password');
+
+    if (input) {
+      if (this._isPassword) {
+        input.setAttribute('type', this.showPassword ? 'text' : 'password');
+      }
     }
+    console.log(this.label, this.onFocus)
   }
 
   ngAfterContentInit(): void {
     const input = this.inputElement?.nativeElement;
     if (!input) return;
-
-    this.renderer.listen(input, 'focus', () => {
-      this.onFocus = true;
+    input.addEventListener('input', this.onInputChanges.bind(this));
+    input.addEventListener('focus', () => {
+      this.onFocus = true
     });
-
-    this.renderer.listen(input, 'blur', () => {
-      this.onFocus = false;
+    input.addEventListener('blur', () => {
+      this.onFocus = false
     });
 
     const formControlName = input.getAttribute("formControlName");
@@ -94,5 +98,30 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  get showSuggestion(): boolean {
+    return (this.alikeSuggestion.length > 0) && (!this.suggestionSelected);
+  }
+
+  private suggestionSelected = false;
+  alikeSuggestion: string[] = [];
+
+  selectSuggestion(value: string) {
+    const input = this.inputElement?.nativeElement;
+    if (input) {
+      this.suggestionSelected = true;
+      input.value = value
+    }
+  }
+
+  onInputChanges(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    this.suggestionSelected = false;
+    if (inputValue.length >= 2) {
+      this.alikeSuggestion = this.suggestions.filter(s => s.toLowerCase().startsWith(inputValue.toLowerCase()))
+    } else {
+      this.alikeSuggestion = [];
+    }
   }
 }
