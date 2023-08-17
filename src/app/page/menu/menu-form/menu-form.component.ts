@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {BasePage} from "../../base-page";
 import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
 import {NavigationService} from "../../../service/navigation.service";
-import {RequestService} from "../../../service/request.service";
+import {method, RequestService} from "../../../service/request.service";
 import {AlertDialogService} from "../../../service/alert-dialog.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Menu, SimplyOption} from "../../../model/classes-implementation";
-import {MENUS_ENDPOINT, MENUS_FOR_PARENT_ENDPOINT, MENU_GROUPS} from "../../../utility/constant";
+import {MENU_GROUPS, MENUS_ENDPOINT, MENUS_FOR_PARENT_ENDPOINT} from "../../../utility/constant";
 import {isValidNumber} from "../../../utility/utility";
 import {MatDialogRef} from "@angular/material/dialog";
 import {BaseResponse} from "../../../model/interfaces";
@@ -18,7 +18,7 @@ import {BaseResponse} from "../../../model/interfaces";
   styleUrls: ['./menu-form.component.css']
 })
 export class MenuFormComponent extends BasePage implements OnInit {
-  static AUTHORITY: string = "menu-list";
+  static AUTHORITY: string = "user-menu";
   static PAGE_TITLE: string = "Add Menu";
 
   breadcrumbs: Breadcrumb[] = [
@@ -41,6 +41,7 @@ export class MenuFormComponent extends BasePage implements OnInit {
     icon: new FormControl(this.menu.icon),
     visible: new FormControl(this.menu.visible),
     parent: new FormControl(this.menu?.parent?.id || ""),
+    description: new FormControl(this.menu.description),
   })
 
 
@@ -71,10 +72,10 @@ export class MenuFormComponent extends BasePage implements OnInit {
     this.reqService.get(MENUS_FOR_PARENT_ENDPOINT).subscribe((res: Menu[]) => {
       this.parentMenus.push(new SimplyOption("", "-- Select None --", true))
       for (let opt of res) {
+        if (opt.id === parseInt(this.menuId)) continue;
         this.parentMenus.push(new SimplyOption(opt.id.toString(), opt.name, false));
       }
 
-      console.log("MENUS = ", this.parentMenus)
       if (this.isEdit) {
         this.fetchMenuDetail(this.menuId);
       }
@@ -94,7 +95,6 @@ export class MenuFormComponent extends BasePage implements OnInit {
     this.reqService.get(`${MENUS_ENDPOINT}/${id}`)
       .subscribe({
         next(res: Menu) {
-          console.log("RESPONSE ", res);
           self.menu = res;
 
           self.menuForm.get('name')?.setValue(self.menu.name);
@@ -122,19 +122,50 @@ export class MenuFormComponent extends BasePage implements OnInit {
 
   submit() {
 
+    if (this.menuForm.valid) {
+      this.menu.name = this.menuForm.get('name')?.value;
+      this.menu.group = this.menuForm.get('group')?.value;
+      this.menu.link = this.menuForm.get('link')?.value;
+      this.menu.authority = this.menuForm.get('authority')?.value;
+      this.menu.parent = new Menu(this.menuForm.get('parent')?.value);
+      this.menu.icon = this.menuForm.get('icon')?.value;
+      this.menu.description = this.menuForm.get('description')?.value;
+      this.menu.visible = this.menuForm.get('visible')?.value;
+
+      let method: method = "post";
+      if (this.isEdit) method = "put";
+
+      let self = this;
+      this.reqService.post(MENUS_ENDPOINT, this.menu, {method}).subscribe({
+        next() {
+          let title = self.isEdit ? "Menu updated successfully" : "Menu added successfully";
+          let message = self.isEdit ? "Menu has been updated successfully.<br>You will be redirected to menu list page." : "Menu has been added successfully.<br>You will be redirected to menu list page.";
+          const successDialog: MatDialogRef<any> = self.alertService.showSuccess(title, message);
+          successDialog.afterClosed().subscribe(() => {
+            self.router.navigateByUrl("/menus").finally();
+          });
+        },
+        error(err) {
+          let res: BaseResponse = err.error;
+          self.alertService.showError("Menu Addition Failed", res.message);
+        }
+      });
+
+    }
+
   }
 
-  fetchGroupSuggestions(){
+  get showIconInput(): boolean {
+    return !this.menuForm.get('parent')?.value;
+  }
+
+  fetchGroupSuggestions() {
     let self = this;
     this.reqService.get(`${MENU_GROUPS}`).subscribe({
-      next(res: Menu[]) {
-        self.groupSuggestions = res.map(m => m.group);
-        console.log("RESPONSE ", res, self.groupSuggestions);
+      next(res: string[]) {
+        self.groupSuggestions = res;
       }
     })
   }
 
-  checkGroup(search: string) {
-    console.log(search)
-  }
 }

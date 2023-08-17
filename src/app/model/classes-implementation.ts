@@ -2,6 +2,11 @@ import {MenuDTO, RoleDTO, SimpleOption, UserDTO} from "./interfaces";
 import {notificationType} from "../layout/component/notification/notification.component";
 
 export class Menu implements MenuDTO {
+
+  constructor(id?: number) {
+    this.id = id || 0;
+  }
+
   id: number = 0;
   authority: string = "";
   name: string = "";

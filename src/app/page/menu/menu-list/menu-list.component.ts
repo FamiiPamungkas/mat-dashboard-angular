@@ -41,7 +41,6 @@ export class MenuListComponent extends BasePage implements OnInit {
     let self = this;
     this.reqService.get(MENUS_ENDPOINT, undefined, {showAlert: true}).subscribe({
       next(res) {
-        console.log("MENU LIST =", res)
         self.menus = res;
         self.menus.sort((a, b) => a.seq - b.seq);
       }

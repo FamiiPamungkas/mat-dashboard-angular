@@ -1,5 +1,12 @@
 <page-title title="{{title}}" [breadcrumbs]="breadcrumbs"/>
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <div class="flex w-full mb-4">
+    <button type="button" mat-raised-button color="primary" routerLink="/menus/add">
+      <mat-icon fontIcon="add"></mat-icon>
+      Add Menu
+    </button>
+  </div>
+  <hr>
   <table mat-table [dataSource]="menus">
 
     <ng-container matColumnDef="id">

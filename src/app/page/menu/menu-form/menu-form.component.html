@@ -11,28 +11,34 @@
         <mat-error *ngIf="menuForm.get('authority')?.hasError('required')">Authority is required</mat-error>
       </app-form-field>
       <app-form-field label="Group" class="max-w-[300px]" [suggestions]="groupSuggestions">
-        <input #groupInput appInput input2 type="text" placeholder="Group" formControlName="group" (input)="checkGroup(groupInput.value)"/>
+        <input appInput type="text" placeholder="Group" formControlName="group"/>
         <mat-error *ngIf="menuForm.get('group')?.hasError('required')">Group is required</mat-error>
       </app-form-field>
       <app-form-field label="Link" class="max-w-[300px]">
         <input appInput type="text" placeholder="Link" formControlName="link"/>
-        <mat-error *ngIf="menuForm.get('link')?.hasError('required')">Link is required</mat-error>
       </app-form-field>
       <app-form-field label="Parent" class="max-w-[300px]">
         <select appInput name="parent" id="parent" formControlName="parent">
           <option *ngFor="let opt of parentMenus" value="{{opt.key}}" [selected]="opt.selected">{{opt.value}}</option>
         </select>
       </app-form-field>
-
+      <app-form-field *ngIf="showIconInput" label="Icon (Material Icon)" class="max-w-[300px]">
+        <input appInput type="text" placeholder="Icon Name" formControlName="icon"/>
+      </app-form-field>
+      <app-form-field label="Description" class="max-w-[300px]">
+        <textarea appInput type="text" placeholder="Descriptions ..." formControlName="description"></textarea>
+      </app-form-field>
       <div class="flex gap-1 my-2">
         <span class="font-medium">Visible : </span>
-        <mat-slide-toggle color="primary" formControlName="visible" (click)="toggleVisible()"><span class="select-none">{{menu.visible ? 'Yes':'No'}}</span></mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="visible" (click)="toggleVisible()">
+          <span class="select-none">{{menu.visible ? 'Yes' : 'No'}}</span>
+        </mat-slide-toggle>
       </div>
       <mat-divider inset="false" class="!my-2"></mat-divider>
 
       <section class="flex gap-2">
         <button mat-raised-button color="accent" type="button" (click)="back()">
-          <mat-icon>arrow_back</mat-icon>Back
+          <mat-icon>arrow_back</mat-icon> Back
         </button>
         <button mat-raised-button color="primary" type="submit">Submit</button>
       </section>
