@@ -6,3 +6,7 @@ app-form-field input {
 app-form-field mat-error {
   @apply text-xs;
 }
+
+.suggestion {
+  @apply w-full px-1 focus:bg-neutral-200 focus:outline-0 hover:bg-neutral-200;
+}

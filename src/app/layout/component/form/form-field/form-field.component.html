@@ -12,7 +12,9 @@
       </ng-container>
     </div>
     <ul *ngIf="showSuggestion" class="absolute z-10 w-full bg-white top-[100%] border-neutral-200 border-[1px]">
-      <li *ngFor="let suggestion of alikeSuggestion" class="hover:bg-neutral-200 px-1" (click)="selectSuggestion(suggestion)">{{suggestion}}</li>
+      <li *ngFor="let suggestion of alikeSuggestion; index as i" class="flex flex-col">
+        <a href="javascript:void(0)" class="suggestion" (focus)="suggestionFocus(i)" (blur)="suggestionBlur()" (click)="selectSuggestion(suggestion)">{{suggestion}}</a>
+      </li>
     </ul>
   </div>
   <div *ngIf="error" class="flex flex-col text-sm">

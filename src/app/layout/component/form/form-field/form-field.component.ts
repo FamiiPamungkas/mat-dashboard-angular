@@ -33,7 +33,10 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
   private _formControl?: AbstractControl;
   private _formGroup?: FormGroupDirective;
   private _isPassword: boolean = false;
+
   showPassword: boolean = false;
+  alikeSuggestion: string[] = [];
+  suggestionFocusList: number[] = []
 
   constructor(
     private renderer: Renderer2,
@@ -52,7 +55,6 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
         input.setAttribute('type', this.showPassword ? 'text' : 'password');
       }
     }
-    console.log(this.label, this.onFocus)
   }
 
   ngAfterContentInit(): void {
@@ -63,7 +65,9 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
       this.onFocus = true
     });
     input.addEventListener('blur', () => {
-      this.onFocus = false
+      setTimeout(() => {
+        this.onFocus = false
+      }, 150)
     });
 
     const formControlName = input.getAttribute("formControlName");
@@ -101,27 +105,37 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
   }
 
   get showSuggestion(): boolean {
-    return (this.alikeSuggestion.length > 0) && (!this.suggestionSelected);
+    return (this.alikeSuggestion.length > 0) && (this.suggestionOnFocus || this.onFocus);
   }
 
-  private suggestionSelected = false;
-  alikeSuggestion: string[] = [];
+  get suggestionOnFocus(): boolean {
+    return this.suggestionFocusList.length > 0;
+  }
 
   selectSuggestion(value: string) {
     const input = this.inputElement?.nativeElement;
     if (input) {
-      this.suggestionSelected = true;
+      this.suggestionFocusList = [];
       input.value = value
     }
   }
 
   onInputChanges(event: Event) {
     const inputValue = (event.target as HTMLInputElement).value;
-    this.suggestionSelected = false;
     if (inputValue.length >= 2) {
       this.alikeSuggestion = this.suggestions.filter(s => s.toLowerCase().startsWith(inputValue.toLowerCase()))
     } else {
       this.alikeSuggestion = [];
     }
+  }
+
+  suggestionFocus(num: number) {
+    this.suggestionFocusList.push(num);
+  }
+
+  suggestionBlur() {
+    setTimeout(() => {
+      this.suggestionFocusList.pop();
+    }, 150)
   }
 }
