@@ -10,8 +10,8 @@
         <input appInput type="text" placeholder="Authority" formControlName="authority"/>
         <mat-error *ngIf="menuForm.get('authority')?.hasError('required')">Authority is required</mat-error>
       </app-form-field>
-      <app-form-field label="Group" class="max-w-[300px]">
-        <input appInput type="text" placeholder="Group" formControlName="group"/>
+      <app-form-field label="Group" class="max-w-[300px]" [suggestions]="groupSuggestions">
+        <input #groupInput appInput input2 type="text" placeholder="Group" formControlName="group" (input)="checkGroup(groupInput.value)"/>
         <mat-error *ngIf="menuForm.get('group')?.hasError('required')">Group is required</mat-error>
       </app-form-field>
       <app-form-field label="Link" class="max-w-[300px]">

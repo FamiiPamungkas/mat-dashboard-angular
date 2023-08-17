@@ -23,6 +23,7 @@ import {AppInputDirective} from "../../../../directive/app-input.directive";
 export class FormFieldComponent implements DoCheck, AfterContentInit {
   @Input() label: string = "";
   @Input() showPasswordToggle: boolean = true;
+  @Input() suggestions: string[] = [];
 
   @ContentChild(AppInputDirective) inputElement?: ElementRef;
   @ContentChild(MatError) matErrors?: QueryList<MatError>;
@@ -32,7 +33,10 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
   private _formControl?: AbstractControl;
   private _formGroup?: FormGroupDirective;
   private _isPassword: boolean = false;
+
   showPassword: boolean = false;
+  alikeSuggestion: string[] = [];
+  suggestionFocusList: number[] = []
 
   constructor(
     private renderer: Renderer2,
@@ -41,25 +45,29 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
   }
 
   ngDoCheck() {
+    const input = this.inputElement?.nativeElement;
     if (this._formControl && this._formGroup) {
       this._error = !!(this.matErrors && (this._formControl.touched || this._formGroup.submitted));
     }
-    if (this._isPassword) {
-      const input = this.inputElement?.nativeElement;
-      input.setAttribute('type', this.showPassword ? 'text' : 'password');
+
+    if (input) {
+      if (this._isPassword) {
+        input.setAttribute('type', this.showPassword ? 'text' : 'password');
+      }
     }
   }
 
   ngAfterContentInit(): void {
     const input = this.inputElement?.nativeElement;
     if (!input) return;
-
-    this.renderer.listen(input, 'focus', () => {
-      this.onFocus = true;
+    input.addEventListener('input', this.onInputChanges.bind(this));
+    input.addEventListener('focus', () => {
+      this.onFocus = true
     });
-
-    this.renderer.listen(input, 'blur', () => {
-      this.onFocus = false;
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        this.onFocus = false
+      }, 150)
     });
 
     const formControlName = input.getAttribute("formControlName");
@@ -94,5 +102,40 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  get showSuggestion(): boolean {
+    return (this.alikeSuggestion.length > 0) && (this.suggestionOnFocus || this.onFocus);
+  }
+
+  get suggestionOnFocus(): boolean {
+    return this.suggestionFocusList.length > 0;
+  }
+
+  selectSuggestion(value: string) {
+    const input = this.inputElement?.nativeElement;
+    if (input) {
+      this.suggestionFocusList = [];
+      input.value = value
+    }
+  }
+
+  onInputChanges(event: Event) {
+    const inputValue = (event.target as HTMLInputElement).value;
+    if (inputValue.length >= 2) {
+      this.alikeSuggestion = this.suggestions.filter(s => s.toLowerCase().startsWith(inputValue.toLowerCase()))
+    } else {
+      this.alikeSuggestion = [];
+    }
+  }
+
+  suggestionFocus(num: number) {
+    this.suggestionFocusList.push(num);
+  }
+
+  suggestionBlur() {
+    setTimeout(() => {
+      this.suggestionFocusList.pop();
+    }, 150)
   }
 }

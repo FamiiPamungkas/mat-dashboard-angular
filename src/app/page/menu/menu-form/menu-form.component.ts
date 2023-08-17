@@ -7,7 +7,7 @@ import {AlertDialogService} from "../../../service/alert-dialog.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Menu, SimplyOption} from "../../../model/classes-implementation";
-import {MENUS_ENDPOINT, MENUS_FOR_PARENT_ENDPOINT} from "../../../utility/constant";
+import {MENUS_ENDPOINT, MENUS_FOR_PARENT_ENDPOINT, MENU_GROUPS} from "../../../utility/constant";
 import {isValidNumber} from "../../../utility/utility";
 import {MatDialogRef} from "@angular/material/dialog";
 import {BaseResponse} from "../../../model/interfaces";
@@ -28,7 +28,7 @@ export class MenuFormComponent extends BasePage implements OnInit {
 
   menuId: string = "0";
   parentMenus: SimplyOption[] = [];
-  // selectedRoles: string[] = [];
+  groupSuggestions: string[] = [];
   isEdit: boolean = false;
 
   menu: Menu = new Menu();
@@ -67,6 +67,7 @@ export class MenuFormComponent extends BasePage implements OnInit {
       this.breadcrumbs.push(new Breadcrumb("Add Menu"))
     });
 
+    this.fetchGroupSuggestions();
     this.reqService.get(MENUS_FOR_PARENT_ENDPOINT).subscribe((res: Menu[]) => {
       this.parentMenus.push(new SimplyOption("", "-- Select None --", true))
       for (let opt of res) {
@@ -75,12 +76,12 @@ export class MenuFormComponent extends BasePage implements OnInit {
 
       console.log("MENUS = ", this.parentMenus)
       if (this.isEdit) {
-        this.fetchUserData(this.menuId);
+        this.fetchMenuDetail(this.menuId);
       }
     });
   }
 
-  private fetchUserData(id: string) {
+  private fetchMenuDetail(id: string) {
     if (!isValidNumber(id)) {
       const dialog: MatDialogRef<any> = this.alertService.showError("Invalid Menu ID", `The provided user ID [${id}] is not valid.`);
       dialog.afterClosed().subscribe(() => {
@@ -123,4 +124,17 @@ export class MenuFormComponent extends BasePage implements OnInit {
 
   }
 
+  fetchGroupSuggestions(){
+    let self = this;
+    this.reqService.get(`${MENU_GROUPS}`).subscribe({
+      next(res: Menu[]) {
+        self.groupSuggestions = res.map(m => m.group);
+        console.log("RESPONSE ", res, self.groupSuggestions);
+      }
+    })
+  }
+
+  checkGroup(search: string) {
+    console.log(search)
+  }
 }
