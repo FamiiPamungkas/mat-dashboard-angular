@@ -5,7 +5,6 @@ import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.comp
 import {faMagnifyingGlass, faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {NavigationService} from "../../../service/navigation.service";
 import {RequestService} from "../../../service/request.service";
-import {Router} from "@angular/router";
 import {USERS_ENDPOINT} from "../../../utility/constant";
 
 @Component({
@@ -29,7 +28,6 @@ export class UserListComponent extends BasePage implements AfterViewInit{
   constructor(
     navService: NavigationService,
     private reqService: RequestService,
-    private router: Router,
   ) {
     super(navService, UserListComponent.AUTHORITY, UserListComponent.PAGE_TITLE);
   }
@@ -45,10 +43,6 @@ export class UserListComponent extends BasePage implements AfterViewInit{
         self.users = res;
       }
     })
-  }
-
-  addUser() {
-    this.router.navigateByUrl("/users/add").then(() => false);
   }
 
 }
