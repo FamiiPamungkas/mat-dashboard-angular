@@ -113,11 +113,8 @@ export class FormFieldComponent implements DoCheck, AfterContentInit {
   }
 
   selectSuggestion(value: string) {
-    const input = this.inputElement?.nativeElement;
-    if (input) {
-      this.suggestionFocusList = [];
-      input.value = value
-    }
+    this.suggestionFocusList = [];
+    this._formControl?.setValue(value)
   }
 
   onInputChanges(event: Event) {
