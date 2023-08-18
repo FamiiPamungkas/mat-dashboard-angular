@@ -5,7 +5,7 @@ import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.comp
 import {ROLES_ENDPOINT} from "../../../utility/constant";
 import {RequestService} from "../../../service/request.service";
 import {RoleDTO} from "../../../model/interfaces";
-import {faMagnifyingGlass, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faMagnifyingGlass, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-role-list',
@@ -22,6 +22,7 @@ export class RoleListComponent extends BasePage implements OnInit {
   ];
 
   detailIcon: IconDefinition = faMagnifyingGlass;
+  editIcon: IconDefinition = faEdit;
 
   roles: RoleDTO[] = []
 

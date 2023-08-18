@@ -7,7 +7,7 @@ import {NavigationService} from "../../../service/navigation.service";
 import {method, RequestService} from "../../../service/request.service";
 import {AlertDialogService} from "../../../service/alert-dialog.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MENUS_ENDPOINT, ROLES_ENDPOINT} from "../../../utility/constant";
+import {MENU_TREE_ENDPOINT, ROLES_ENDPOINT} from "../../../utility/constant";
 import {isValidNumber} from "../../../utility/utility";
 import {MatDialogRef} from "@angular/material/dialog";
 import {BaseResponse} from "../../../model/interfaces";
@@ -36,8 +36,8 @@ export class RoleFormComponent extends BasePage implements OnInit {
     name: new FormControl(this.role.name, [Validators.required]),
     authority: new FormControl(this.role.authority, [Validators.required]),
     description: new FormControl(this.role.description),
+    menus: new FormControl(this.role.menus)
   })
-
 
   constructor(
     navService: NavigationService,
@@ -105,8 +105,12 @@ export class RoleFormComponent extends BasePage implements OnInit {
       this.role.authority = this.form.get('authority')?.value;
       this.role.description = this.form.get('description')?.value;
 
+      this.role.menus = this.compileSelectedMenus();
+
       let method: method = "post";
       if (this.isEdit) method = "put";
+
+      console.log("ROLE", this.role)
 
       let self = this;
       this.reqService.post(ROLES_ENDPOINT, this.role, {method}).subscribe({
@@ -126,12 +130,96 @@ export class RoleFormComponent extends BasePage implements OnInit {
     }
   }
 
+  private compileSelectedMenus():Menu [] {
+    let selectedMenus: Menu[] = [];
+    for (let menu of this.menus) {
+      if (menu.children.length === 0) {
+        if (menu.selected) selectedMenus.push(new Menu(menu.id, menu.authority))
+        continue;
+      }
+
+      let someChildSelected = false;
+      for (let child of menu.children) {
+        if (child.children.length === 0) {
+          if (child.selected) {
+            someChildSelected = true;
+            selectedMenus.push(new Menu(child.id, child.authority));
+          }
+          continue;
+        }
+
+        let someGChildSelected = false;
+        for (let gchild of child.children) {
+          if (gchild.selected) {
+            someGChildSelected = true;
+            selectedMenus.push(new Menu(gchild.id, gchild.authority));
+          }
+        }
+        if (someGChildSelected) {
+          someChildSelected = true;
+          selectedMenus.push(new Menu(child.id, child.authority));
+        }
+      }
+      if (someChildSelected) {
+        selectedMenus.push(new Menu(menu.id, menu.authority));
+      }
+    }
+
+    return selectedMenus;
+  }
+
   fetchMenus() {
     let self = this;
-    this.reqService.get(MENUS_ENDPOINT).subscribe({
+    this.reqService.get(MENU_TREE_ENDPOINT).subscribe({
       next(res: Menu[]) {
         self.menus = res;
       }
     })
   }
+
+  checkParent(menu: Menu, checked: boolean) {
+    menu.selected = checked;
+    if (menu.children.length === 0) return;
+
+    for (let child of menu.children) {
+      child.selected = checked;
+
+      if (child.children.length === 0) continue;
+      child.children.forEach(gc => gc.selected = checked);
+    }
+
+  }
+
+  checkChild(parent: Menu, child: Menu, checked: boolean) {
+    child.selected = checked;
+
+    parent.selected = parent.children.every(c => c.selected);
+    if (child.children.length === 0) return;
+
+    child.children.forEach(gc => gc.selected = checked);
+  }
+
+  checkGChild(parent: Menu, child: Menu, gchild: Menu, checked: boolean) {
+    gchild.selected = checked;
+
+    child.selected = child.children.every(gc => gc.selected);
+    parent.selected = parent.children.every(c => c.selected);
+  }
+
+  parentIndeterminate(menu: Menu): boolean {
+    if (menu.children.length === 0) return false;
+
+    let someChildSelected: boolean = false;
+    for (let child of menu.children) {
+      if (child.selected || (child.children.filter(c => c.selected).length > 0)) someChildSelected = true;
+    }
+
+    return someChildSelected && !menu.selected;
+  }
+
+  childIndeterminate(child: Menu): boolean {
+    if (child.children.length === 0) return false;
+    return (child.children.filter(c => c.selected).length > 0) && !child.selected;
+  }
+
 }

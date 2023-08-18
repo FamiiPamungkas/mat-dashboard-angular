@@ -3,8 +3,9 @@ import {notificationType} from "../layout/component/notification/notification.co
 
 export class Menu implements MenuDTO {
 
-  constructor(id?: number) {
+  constructor(id?: number, authority?:string) {
     this.id = id || 0;
+    this.authority = authority || "";
   }
 
   id: number = 0;
@@ -22,6 +23,8 @@ export class Menu implements MenuDTO {
   active: boolean = false;
   createdAt: string = "";
   updatedAt: string = "";
+
+  selected: boolean = false;
 }
 
 export class Role implements RoleDTO {
@@ -54,7 +57,7 @@ export class User implements UserDTO {
   createdAt: string = "";
   updatedAt: string = "";
   roles: RoleDTO[] = [];
-  treeMenus: MenuDTO[] = [];
+  treeMenus: Menu[] = [];
 
 }
 

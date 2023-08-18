@@ -62,3 +62,4 @@ export const MENUS_ENDPOINT: string = "/v1/menus";
 export const MENUS_FOR_PARENT_ENDPOINT: string = MENUS_ENDPOINT + "/for-parent";
 export const MENU_GROUPS: string = MENUS_ENDPOINT + "/groups";
 export const MENU_ROLES_ENDPOINT: string = MENUS_ENDPOINT + "/roles";
+export const MENU_TREE_ENDPOINT: string = MENUS_ENDPOINT + "/tree";
