@@ -62,10 +62,13 @@ export class RoleFormComponent extends BasePage implements OnInit {
       this.breadcrumbs.push(new Breadcrumb("Add Role"))
     });
 
-    this.fetchMenus();
-    if (this.isEdit) {
-      this.fetchRoleDetail(this.id);
-    }
+    const promise = this.reqService.get(MENU_TREE_ENDPOINT);
+    promise.subscribe((res) => {
+      this.menus = res;
+      if (this.isEdit) {
+        this.fetchRoleDetail(this.id);
+      }
+    })
   }
 
   private fetchRoleDetail(id: string) {
@@ -87,6 +90,7 @@ export class RoleFormComponent extends BasePage implements OnInit {
           self.form.get('authority')?.setValue(self.role.authority);
           self.form.get('description')?.setValue(self.role.description);
 
+          self.checkRoles();
         },
         error(error) {
           const res: BaseResponse = error.error;
@@ -96,6 +100,24 @@ export class RoleFormComponent extends BasePage implements OnInit {
           })
         }
       });
+  }
+
+  checkRoles() {
+    for (let menu of this.menus) {
+      if (this.role.menus.find(m => m.id === menu.id)) {
+        menu.selected = true;
+      }
+      for (let child of menu.children) {
+        if (this.role.menus.find(m => m.id === child.id)) {
+          child.selected = true;
+        }
+        for (let gchild of child.children) {
+          if (this.role.menus.find(m => m.id === gchild.id)) {
+            gchild.selected = true;
+          }
+        }
+      }
+    }
   }
 
   submit() {
@@ -130,7 +152,7 @@ export class RoleFormComponent extends BasePage implements OnInit {
     }
   }
 
-  private compileSelectedMenus():Menu [] {
+  private compileSelectedMenus(): Menu [] {
     let selectedMenus: Menu[] = [];
     for (let menu of this.menus) {
       if (menu.children.length === 0) {
@@ -166,15 +188,6 @@ export class RoleFormComponent extends BasePage implements OnInit {
     }
 
     return selectedMenus;
-  }
-
-  fetchMenus() {
-    let self = this;
-    this.reqService.get(MENU_TREE_ENDPOINT).subscribe({
-      next(res: Menu[]) {
-        self.menus = res;
-      }
-    })
   }
 
   checkParent(menu: Menu, checked: boolean) {
