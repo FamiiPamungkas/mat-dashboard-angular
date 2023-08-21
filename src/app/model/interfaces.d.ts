@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2023-08-11 16:48:45.
+// Generated using typescript-generator version 3.2.1263 on 2023-08-21 13:57:11.
 
 export interface MenuDTO {
   id: number;
@@ -177,6 +177,11 @@ export interface ValidationResponseBuilder<C, B> extends BaseResponseBuilder<C, 
 export interface ValidationResponseBuilderImpl extends ValidationResponseBuilder<ValidationResponse, ValidationResponseBuilderImpl> {
 }
 
+export interface Page<T> extends Slice<T> {
+  totalPages: number;
+  totalElements: number;
+}
+
 export interface Serializable {
 }
 
@@ -193,3 +198,61 @@ export interface UserDetails extends Serializable {
   accountNonExpired: boolean;
   credentialsNonExpired: boolean;
 }
+
+export interface Sort extends Streamable<Order>, Serializable {
+  sorted: boolean;
+  unsorted: boolean;
+}
+
+export interface Pageable {
+  offset: number;
+  sort: Sort;
+  paged: boolean;
+  pageSize: number;
+  unpaged: boolean;
+  pageNumber: number;
+}
+
+export interface Slice<T> extends Streamable<T> {
+  size: number;
+  content: T[];
+  number: number;
+  sort: Sort;
+  numberOfElements: number;
+  first: boolean;
+  pageable: Pageable;
+  last: boolean;
+}
+
+export interface Streamable<T> extends Iterable<T>, Supplier<Stream<T>> {
+  empty: boolean;
+}
+
+export interface Order extends Serializable {
+  direction: Direction;
+  property: string;
+  ignoreCase: boolean;
+  nullHandling: NullHandling;
+  ascending: boolean;
+  descending: boolean;
+}
+
+export interface Iterable<T> {
+}
+
+export interface Supplier<T> {
+}
+
+export interface Stream<T> extends BaseStream<T, Stream<T>> {
+}
+
+export interface BaseStream<T, S> extends AutoCloseable {
+  parallel: boolean;
+}
+
+export interface AutoCloseable {
+}
+
+export type Direction = "ASC" | "DESC";
+
+export type NullHandling = "NATIVE" | "NULLS_FIRST" | "NULLS_LAST";
