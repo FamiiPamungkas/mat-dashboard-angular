@@ -1,6 +1,5 @@
 import {AfterContentInit, Component, ContentChildren, Input, OnChanges, QueryList, SimpleChanges} from '@angular/core';
-import {rotateArrowAnimation, dropdownAnimation} from "../../../utility/constant";
-import {Router} from "@angular/router";
+import {dropdownAnimation, rotateArrowAnimation} from "../../../utility/constant";
 
 @Component({
   selector: 'sub-menu',
@@ -18,11 +17,6 @@ export class SubMenuComponent implements OnChanges, AfterContentInit {
   hasSubmenu: boolean = false;
   submenuState: string = 'closed';
 
-  constructor(
-    private router: Router
-  ) {
-  }
-
   ngAfterContentInit() {
     if (this.submenus && this.submenus?.length > 0) {
       this.hasSubmenu = true;
@@ -39,7 +33,6 @@ export class SubMenuComponent implements OnChanges, AfterContentInit {
 
   toggleSubmenu() {
     if (!this.hasSubmenu) {
-      this.router.navigateByUrl(this.link).then(r => false);
       return;
     }
 
