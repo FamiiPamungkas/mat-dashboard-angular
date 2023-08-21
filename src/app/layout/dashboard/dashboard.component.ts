@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {MenuDTO} from "../../model/interfaces";
 import {Menu} from "../../model/classes-implementation";
 import {NavigationService} from "../../service/navigation.service";
 import {RequestService} from "../../service/request.service";
@@ -14,7 +13,7 @@ import {Breadcrumb} from "../component/breadcrumbs/breadcrumbs.component";
   animations: [dropdownAnimation()]
 })
 export class DashboardComponent implements OnInit {
-  menus: MenuDTO[] = [];
+  menus: Menu[] = [];
   activeNav: string = "";
   userMenuState: string = "closed";
   breadcrumbs: Breadcrumb[] = [];
@@ -25,8 +24,8 @@ export class DashboardComponent implements OnInit {
     private authService: AuthService,
   ) {
     this.breadcrumbs = [
-      new Breadcrumb("Home","/dashboard"),
-      new Breadcrumb("User","/users"),
+      new Breadcrumb("Home", "/dashboard"),
+      new Breadcrumb("User", "/users"),
     ]
   }
 
@@ -51,7 +50,7 @@ export class DashboardComponent implements OnInit {
       }
 
       if (lastGroup != menu.group) {
-        let lastGroup: MenuDTO = new Menu();
+        let lastGroup: Menu = new Menu();
         lastGroup.group = menu.group
         this.menus.push(lastGroup);
       }

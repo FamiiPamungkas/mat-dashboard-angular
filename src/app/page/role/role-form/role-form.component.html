@@ -1,1 +1,68 @@
-<p>role-form works!</p>
+<page-title [title]="title" [breadcrumbs]="breadcrumbs"/>
+<div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="flex gap-6">
+      <div class="flex flex-col gap-2 w-[300px]">
+        <app-form-field label="Name" class="max-w-[300px]">
+          <input appInput type="text" placeholder="Name" formControlName="name"/>
+          <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+        </app-form-field>
+        <app-form-field label="Authority" class="max-w-[300px]">
+          <input appInput type="text" placeholder="Authority" formControlName="authority"/>
+          <mat-error *ngIf="form.get('authority')?.hasError('required')">Authority is required</mat-error>
+        </app-form-field>
+        <app-form-field label="Description" class="max-w-[300px]">
+          <textarea appInput type="text" placeholder="Descriptions ..." formControlName="description"></textarea>
+        </app-form-field>
+        <mat-divider inset="false" class="!my-2 col-span-3"></mat-divider>
+        <section class="flex gap-2">
+          <button mat-raised-button color="primary" type="submit">Submit</button>
+        </section>
+      </div>
+      <div class="flex-grow">
+        <p class="m-0 font-medium">Menu Access</p>
+        <div class="border-[1px] border-neutral-200 rounded-md bg-neutral-50 h-[50vh] overflow-auto">
+          <ul>
+            <ng-container *ngFor="let menu of menus">
+              <li class="item-parent">
+                <mat-checkbox
+                  [checked]="menu.selected"
+                  (change)="checkParent(menu, $event.checked)"
+                  [indeterminate]="parentIndeterminate(menu)"
+                >
+                  {{menu.name}}
+                </mat-checkbox>
+              </li>
+              <ng-container *ngFor="let child of menu.children">
+                <li class="item-child">
+                  <mat-checkbox
+                    [checked]="child.selected"
+                    (change)="checkChild(menu, child, $event.checked)"
+                    [indeterminate]="childIndeterminate(child)"
+                  >
+                    {{child.name}}
+                  </mat-checkbox>
+                </li>
+                <ng-container *ngFor="let gchild of child.children">
+                  <li class="item-grandchild">
+                    <mat-checkbox
+                      [checked]="gchild.selected"
+                      (change)="checkGChild(menu, child, gchild, $event.checked)"
+                    >
+                      {{gchild.name}}
+                    </mat-checkbox>
+                  </li>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </form>
+  <mat-divider inset="false" class="!my-2"></mat-divider>
+  <button mat-raised-button color="accent" type="button" (click)="back()">
+    <mat-icon>arrow_back</mat-icon>
+    Back
+  </button>
+</div>

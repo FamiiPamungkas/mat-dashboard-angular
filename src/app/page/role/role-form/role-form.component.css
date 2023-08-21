@@ -1,0 +1,11 @@
+.item-child {
+  @apply pl-6
+}
+
+.item-grandchild {
+  @apply pl-12
+}
+
+ul > li {
+  @apply border-b-[1px] border-neutral-300 select-none
+}

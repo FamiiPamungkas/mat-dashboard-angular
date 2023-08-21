@@ -1,7 +1,13 @@
 <page-title title="{{title}}" [breadcrumbs]="breadcrumbs"/>
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
+  <div class="flex w-full mb-4">
+    <button type="button" mat-raised-button color="primary" routerLink="/roles/add">
+      <mat-icon fontIcon="add"></mat-icon>
+      Add Role
+    </button>
+  </div>
+  <hr>
   <table mat-table [dataSource]="roles">
-
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>#</th>
       <td mat-cell *matCellDef="let i = index">{{(i + 1)}}</td>
@@ -29,6 +35,9 @@
       <td mat-cell *matCellDef="let row">
         <a class="icon-button info rounded-md" title="Detail" routerLink="/roles/detail/{{row.id}}">
           <fa-icon [icon]="detailIcon"></fa-icon>
+        </a>
+        <a class="icon-button primary rounded-md" title="Detail" routerLink="/roles/edit/{{row.id}}">
+          <fa-icon [icon]="editIcon"></fa-icon>
         </a>
       </td>
     </ng-container>
