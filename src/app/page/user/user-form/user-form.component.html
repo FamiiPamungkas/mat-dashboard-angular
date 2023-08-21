@@ -1,63 +1,80 @@
 <page-title [title]="title" [breadcrumbs]="breadcrumbs"/>
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
   <form [formGroup]="userForm" (ngSubmit)="submit()">
-    <div class="flex flex-col gap-2">
-      <app-form-field label="Firstname" class="max-w-[300px]">
-        <input appInput type="text" placeholder="Firstname" formControlName="firstname"/>
-        <mat-error *ngIf="userForm.get('firstname')?.hasError('required')">Firstname is required</mat-error>
-      </app-form-field>
-      <app-form-field label="Lastname" class="max-w-[300px]">
-        <input appInput type="text" placeholder="Lastname" formControlName="lastname"/>
-        <mat-error *ngIf="userForm.get('lastname')?.hasError('required')">Lastname is required</mat-error>
-      </app-form-field>
-      <app-form-field label="Birthdate" class="max-w-[300px]">
-        <input appInput type="date" formControlName="birthdate"/>
-        <mat-error *ngIf="userForm.get('birthdate')?.hasError('required')">Birthdate is required</mat-error>
-      </app-form-field>
-      <app-form-field label="Email" class="max-w-[300px]">
-        <input appInput type="email" placeholder="Email" formControlName="email"/>
-        <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is required</mat-error>
-        <mat-error *ngIf="userForm.get('email')?.hasError('email')">Email is invalid</mat-error>
-      </app-form-field>
-      <app-form-field label="Username" class="max-w-[300px]">
-        <input appInput type="text" placeholder="Username" formControlName="username"/>
-        <mat-error *ngIf="userForm.get('username')?.hasError('required')">Username is required</mat-error>
-      </app-form-field>
-      <app-form-field label="Password" class="max-w-[300px]">
-        <input appInput type="password" placeholder="Password" formControlName="password"/>
-        <mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
-        <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">Password min length is 6</mat-error>
-      </app-form-field>
-      <app-form-field label="Confirm Password" class="max-w-[300px]">
-        <input appInput type="password" placeholder="Confirm Password" formControlName="confirmPassword"/>
-        <mat-error *ngIf="userForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</mat-error>
-        <mat-error
-          *ngIf="!userForm.get('confirmPassword')?.hasError('required') && userForm.errors?.['passwordMismatch'] && (userForm.touched || userForm.dirty)">
-          Confirm Password is mismatch
-        </mat-error>
-      </app-form-field>
-      <div class="flex gap-1 my-2">
-        <span class="font-medium">Status : </span>
-        <mat-slide-toggle color="primary" formControlName="active" (click)="toggleActive()"><span class="select-none">{{user.active ? 'Active':'Inactive'}}</span></mat-slide-toggle>
-      </div>
-      <mat-divider inset="false" class="!my-2"></mat-divider>
-      <h3 class="!m-0">Roles</h3>
-      <div>
-        <section class="bg-neutral-100 rounded-md {{ isRoleInvalid ? 'border-[1px] border-red-600' : '' }}">
-          <mat-checkbox *ngFor="let role of roleOptions" (change)="checkRole($event)" [value]="role.key" checked="{{role.selected}}">
-            {{role.value}}
-          </mat-checkbox>
+    <div class="grid grid-cols-2">
+      <div class="flex flex-col gap-2">
+        <app-form-field label="Firstname" class="max-w-[300px]">
+          <input appInput type="text" placeholder="Firstname" formControlName="firstname"/>
+          <mat-error *ngIf="userForm.get('firstname')?.hasError('required')">Firstname is required</mat-error>
+        </app-form-field>
+        <app-form-field label="Lastname" class="max-w-[300px]">
+          <input appInput type="text" placeholder="Lastname" formControlName="lastname"/>
+          <mat-error *ngIf="userForm.get('lastname')?.hasError('required')">Lastname is required</mat-error>
+        </app-form-field>
+        <app-form-field label="Birthdate" class="max-w-[300px]">
+          <input appInput type="date" formControlName="birthdate"/>
+          <mat-error *ngIf="userForm.get('birthdate')?.hasError('required')">Birthdate is required</mat-error>
+        </app-form-field>
+        <app-form-field label="Email" class="max-w-[300px]">
+          <input appInput type="email" placeholder="Email" formControlName="email"/>
+          <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="userForm.get('email')?.hasError('email')">Email is invalid</mat-error>
+        </app-form-field>
+        <app-form-field label="Username" class="max-w-[300px]">
+          <input appInput type="text" placeholder="Username" formControlName="username"/>
+          <mat-error *ngIf="userForm.get('username')?.hasError('required')">Username is required</mat-error>
+        </app-form-field>
+        <app-form-field label="Password" class="max-w-[300px]">
+          <input appInput type="password" placeholder="Password" formControlName="password"/>
+          <mat-error *ngIf="userForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">Password min length is 6</mat-error>
+        </app-form-field>
+        <app-form-field label="Confirm Password" class="max-w-[300px]">
+          <input appInput type="password" placeholder="Confirm Password" formControlName="confirmPassword"/>
+          <mat-error *ngIf="userForm.get('confirmPassword')?.hasError('required')">Confirm Password is required
+          </mat-error>
+          <mat-error
+            *ngIf="!userForm.get('confirmPassword')?.hasError('required') && userForm.errors?.['passwordMismatch'] && (userForm.touched || userForm.dirty)">
+            Confirm Password is mismatch
+          </mat-error>
+        </app-form-field>
+        <div class="flex gap-1 my-2">
+          <span class="font-medium">Status : </span>
+          <mat-slide-toggle color="primary" formControlName="active" (click)="toggleActive()"><span
+            class="select-none">{{user.active ? 'Active' : 'Inactive'}}</span></mat-slide-toggle>
+        </div>
+        <section>
+          <button mat-raised-button color="primary" type="submit">Submit</button>
         </section>
+      </div>
+      <div>
+        <p class="!m-0 font-medium">Roles</p>
+        <div
+          class="border-[1px] border-neutral-200 rounded-md bg-neutral-50 h-[50vh] overflow-auto {{ isRoleInvalid ? 'border-[1px] border-red-600' : '' }}">
+          <ul class="flex flex-col">
+            <ng-container *ngFor="let role of roleOptions">
+              <li class="border-b-[1px] border-neutral-300 select-none">
+                <mat-checkbox
+                  (change)="checkRole($event)"
+                  [value]="role.key"
+                  checked="{{role.selected}}"
+                >
+                  {{role.value}}
+                </mat-checkbox>
+              </li>
+            </ng-container>
+
+          </ul>
+        </div>
         <mat-error class="text-xs" *ngIf="isRoleInvalid">Roles is required</mat-error>
       </div>
-
-      <section class="flex gap-2">
-        <button mat-raised-button color="accent" type="button" (click)="back()">
-          <mat-icon>arrow_back</mat-icon>Back
-        </button>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-      </section>
     </div>
   </form>
-
+  <mat-divider inset="false" class="!mb-2 !mt-4"></mat-divider>
+  <section class="flex gap-2">
+    <button mat-raised-button color="accent" type="button" (click)="back()">
+      <mat-icon>arrow_back</mat-icon>
+      Back
+    </button>
+  </section>
 </div>
