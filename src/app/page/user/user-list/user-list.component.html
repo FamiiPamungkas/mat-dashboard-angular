@@ -1,11 +1,42 @@
 <page-title [title]="title" [breadcrumbs]="breadcrumbs"/>
 <div class="rounded-md p-4 m-4 bg-white shadow-md">
-  <div class="flex w-full mb-4">
-    <button type="button" mat-raised-button color="primary" routerLink="/users/add">
-      <mat-icon fontIcon="add"></mat-icon>
-      Add Users
-    </button>
-  </div>
+  <form (submit)="submitFilters()">
+    <div class="grid grid-cols-4 gap-4">
+      <div>
+        <app-form-field label="Search">
+          <input appInput name="search" [(ngModel)]="filters.search" placeholder="Search..."/>
+        </app-form-field>
+      </div>
+      <div>
+        <app-form-field label="Role">
+          <select appInput name="role" [(ngModel)]="filters.roleId">
+            <option value="">{{SELECT_ALL}}</option>
+            <option *ngFor="let opt of roleOptions" [value]="opt.key">{{opt.value}}</option>
+          </select>
+        </app-form-field>
+      </div>
+      <div>
+        <app-form-field label="Status">
+          <select appInput name="status" [(ngModel)]="filters.status">
+            <option value="">{{SELECT_ALL}}</option>
+            <option value="1">Active</option>
+            <option value="2">Inactive</option>
+          </select>
+        </app-form-field>
+      </div>
+    </div>
+    <br>
+    <div class="flex w-full mb-4 gap-4">
+      <button type="submit" mat-raised-button color="primary">
+        <mat-icon fontIcon="search"></mat-icon>
+        Search
+      </button>
+      <button type="button" mat-raised-button color="primary" routerLink="/users/add">
+        <mat-icon fontIcon="add"></mat-icon>
+        Add Users
+      </button>
+    </div>
+  </form>
   <hr>
   <table mat-table [dataSource]="users">
 
@@ -14,25 +45,21 @@
       <td mat-cell *matCellDef="let i = index">{{(i + 1)}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell *matHeaderCellDef>Fullname</th>
+      <td mat-cell *matCellDef="let row">{{row.firstname + " " + row.lastname}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef>Username</th>
       <td mat-cell *matCellDef="let row">{{row.username}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="firstname">
-      <th mat-header-cell *matHeaderCellDef>Firstname</th>
-      <td mat-cell *matCellDef="let row">{{row.firstname}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="lastname">
-      <th mat-header-cell *matHeaderCellDef>Lastname</th>
-      <td mat-cell *matCellDef="let row">{{row.lastname}}</td>
-    </ng-container>
-
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let row">
-        <div class="w-fit px-2 py-[2px] text-center text-white rounded-lg font-medium {{row.active ? 'bg-lime-600 ':'bg-red-600'}}">
+        <div
+          class="w-fit px-2 py-[2px] text-center text-white rounded-lg font-medium {{row.active ? 'bg-lime-600 ':'bg-red-600'}}">
           {{row.active ? "Active" : "Inactive"}}
         </div>
       </td>
@@ -55,8 +82,8 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id','username','firstname','lastname','status','email','action']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id','username','firstname','lastname','status','email','action'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id','fullname','username','email','status','action']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','fullname','username','email','status','action'];"></tr>
 
   </table>
 

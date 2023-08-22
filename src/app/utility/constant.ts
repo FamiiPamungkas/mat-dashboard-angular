@@ -53,6 +53,7 @@ export const AUTHENTICATE_ENDPOINT: string = "/v1/auth/authenticate";
 export const REFRESH_TOKEN_ENDPOINT: string = "/v1/auth/refresh-token";
 
 export const USERS_ENDPOINT: string = "/v1/users";
+export const USER_PAGES_ENDPOINT: string = USERS_ENDPOINT + "/pages";
 
 export const ROLES_ENDPOINT: string = "/v1/roles";
 export const ROLE_OPTIONS_ENDPOINT: string = ROLES_ENDPOINT + "/options";
