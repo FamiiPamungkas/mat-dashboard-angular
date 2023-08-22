@@ -1,91 +1,91 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BasePage} from "../../base-page";
 import {Page, UserDTO} from "../../../model/interfaces";
 import {Breadcrumb} from "../../../layout/component/breadcrumbs/breadcrumbs.component";
 import {faMagnifyingGlass, faUserEdit, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {NavigationService} from "../../../service/navigation.service";
 import {RequestService} from "../../../service/request.service";
-import {USER_PAGES_ENDPOINT} from "../../../utility/constant";
-import {User} from "../../../model/classes-implementation";
+import {ROLE_OPTIONS_ENDPOINT, USER_PAGES_ENDPOINT} from "../../../utility/constant";
+import {SimplyOption, User} from "../../../model/classes-implementation";
 import {SELECT_ALL} from "../../../utility/label";
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpParams} from "@angular/common/http";
 
 @Component({
-    selector: 'app-user-list',
-    templateUrl: './user-list.component.html',
-    styleUrls: ['./user-list.component.css']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent extends BasePage {
-    static PAGE_TITLE: string = "Users";
-    static AUTHORITY: string = "user-list";
-    users: UserDTO[] = [];
+export class UserListComponent extends BasePage implements OnInit {
+  static PAGE_TITLE: string = "Users";
+  static AUTHORITY: string = "user-list";
+  users: UserDTO[] = [];
+  roleOptions: SimplyOption[] = [];
 
-    breadcrumbs: Breadcrumb[] = [
-        new Breadcrumb("Home", "/dashboard"),
-        new Breadcrumb("Users"),
-    ];
+  breadcrumbs: Breadcrumb[] = [
+    new Breadcrumb("Home", "/dashboard"),
+    new Breadcrumb("Users"),
+  ];
 
-    filters = {
-        search: "",
-        roleId: "",
-        status: ""
-    }
+  filters = {
+    search: "",
+    roleId: "",
+    status: ""
+  }
 
-    editIcon: IconDefinition = faUserEdit;
-    detailIcon: IconDefinition = faMagnifyingGlass;
+  editIcon: IconDefinition = faUserEdit;
+  detailIcon: IconDefinition = faMagnifyingGlass;
 
-    constructor(
-        navService: NavigationService,
-        private reqService: RequestService,
-        private router: Router,
-        private route: ActivatedRoute
-    ) {
-        super(navService, UserListComponent.AUTHORITY, UserListComponent.PAGE_TITLE);
-        console.log("CONSTRUCTOR")
-        this.route.queryParams.subscribe((params) => {
-            this.filters.search = params['search'] || '';
-            this.filters.roleId = params['roleId'] || '';
-            this.filters.status = params['status'] || '';
-        });
+  constructor(
+    navService: NavigationService,
+    private reqService: RequestService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    super(navService, UserListComponent.AUTHORITY, UserListComponent.PAGE_TITLE);
+    this.route.queryParams.subscribe((params) => {
+      this.filters.search = params['search'] || '';
+      this.filters.roleId = params['roleId'] || '';
+      this.filters.status = params['status'] || '';
+    });
 
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                this.fetchUserData();
-            }
-        })
-    }
+  }
 
-    fetchUserData() {
-        console.log("FETCH USER DATA")
-        let self = this;
-        const queryParams = new HttpParams()
-            .set('search', this.filters.search)
-            .set('roleId', this.filters.roleId)
-            .set('status', this.filters.status);
+  ngOnInit(): void {
+    this.fetchRoleOptions();
+    this.fetchUserList();
+  }
 
-        this.reqService.get(`${USER_PAGES_ENDPOINT}?${queryParams.toString()}`, undefined, {showAlert: true}).subscribe({
-            next(res: Page<User>) {
-                console.log("RESPONSE ", res)
-                self.users = res.content;
-            },
-            error(err) {
-                console.log("ERROR ", err)
-            }
-        })
-    }
+  private fetchRoleOptions() {
+    this.reqService.get(ROLE_OPTIONS_ENDPOINT, undefined, {showAlert: true}).subscribe(res => {
+      this.roleOptions = res;
+    })
+  }
 
-    submitFilters() {
-        const queryParams = this.filters;
+  fetchUserList() {
+    let self = this;
+    const queryParams = new HttpParams()
+      .set('search', this.filters.search)
+      .set('roleId', this.filters.roleId)
+      .set('status', this.filters.status);
 
-        console.log("Query Params ", queryParams);
+    this.reqService.get(`${USER_PAGES_ENDPOINT}?${queryParams.toString()}`, undefined, {showAlert: true}).subscribe({
+      next(res: Page<User>) {
+        self.users = res.content;
+      }
+    })
+  }
 
-        this.router.navigate([], {
-            queryParams,
-            relativeTo: this.route,
-            queryParamsHandling: "merge"
-        }).finally();
-    }
+  submitFilters() {
+    const queryParams = this.filters;
 
-    protected readonly SELECT_ALL = SELECT_ALL;
+    this.router.navigate([], {
+      queryParams,
+      queryParamsHandling: "merge"
+    }).finally();
+
+    this.fetchUserList();
+  }
+
+  protected readonly SELECT_ALL = SELECT_ALL;
 }

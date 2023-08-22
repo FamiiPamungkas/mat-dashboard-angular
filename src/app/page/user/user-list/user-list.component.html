@@ -4,13 +4,14 @@
     <div class="grid grid-cols-4 gap-4">
       <div>
         <app-form-field label="Search">
-          <input appInput name="search" [(ngModel)]="filters.search"/>
+          <input appInput name="search" [(ngModel)]="filters.search" placeholder="Search..."/>
         </app-form-field>
       </div>
       <div>
         <app-form-field label="Role">
           <select appInput name="role" [(ngModel)]="filters.roleId">
             <option value="">{{SELECT_ALL}}</option>
+            <option *ngFor="let opt of roleOptions" [value]="opt.key">{{opt.value}}</option>
           </select>
         </app-form-field>
       </div>
@@ -27,7 +28,7 @@
     <br>
     <div class="flex w-full mb-4 gap-4">
       <button type="submit" mat-raised-button color="primary">
-        <mat-icon fontIcon="add"></mat-icon>
+        <mat-icon fontIcon="search"></mat-icon>
         Search
       </button>
       <button type="button" mat-raised-button color="primary" routerLink="/users/add">
